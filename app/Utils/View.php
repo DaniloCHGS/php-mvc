@@ -4,6 +4,16 @@ namespace App\Utils;
 class View {
 
     /**
+     * Variaveis padrões da View
+     */
+    private static $vars = [];
+    /**
+     * Define dados padrões iniciais da classe
+     */
+    public function init($vars = []){
+        self::vars = $vars;
+    }
+    /**
      * Método responsável por retornar conteudo de uma view
      * @param string $view
      * return string

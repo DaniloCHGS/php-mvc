@@ -4,18 +4,18 @@ namespace App\Controller\Pages;
 use \App\Utils\View;
 use \App\Model\Entity\Organization;
 
-class Home extends Page {
+class About extends Page {
     /**
-     * Método responsável pela home page
+     * Método responsável pela sobre page
      * return string
      */
-    public static function getHome(){
+    public static function getAbout(){
 
         $organization = new Organization();
         $content = View::render(
-            "pages/home",
+            "pages/about",
             ["name"=>$organization->name]
         );
-        return self::getPage('Home', $content);
+        return self::getPage('Sobre', $content);
     }
 }
