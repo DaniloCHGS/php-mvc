@@ -11,7 +11,7 @@ class View {
      * Define dados padrões iniciais da classe
      */
     public function init($vars = []){
-        self::vars = $vars;
+        self::$vars = $vars;
     }
     /**
      * Método responsável por retornar conteudo de uma view
@@ -31,6 +31,9 @@ class View {
     */
     public static function render($view, $vars = []){
         $contentView = self::getContentView($view);
+
+        //Merge de variaveis da view
+        $vars = array_merge(self::$vars, $vars);
 
         $keys = array_keys($vars);
         $keys = array_map(function($item){ return "{{".$item."}}"; }, $keys);

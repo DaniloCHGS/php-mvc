@@ -2,14 +2,25 @@
 
 use App\Http\Response;
 use \App\Controller\Pages;
+use App\Utils\Utils;
 
 $router->get('/', [
-    function(){
+    function () {
         return new Response(200, Pages\Home::getHome());
     }
 ]);
 $router->get('/sobre', [
-    function(){
+    function () {
         return new Response(200, Pages\About::getAbout());
+    }
+]);
+$router->get('/depoimentos', [
+    function () {
+        return new Response(200, Pages\Depoimentos::getDepoimentos());
+    }
+]);
+$router->post('/depoimentos', [
+    function () {
+        return new Response(200, Pages\Depoimentos::getDepoimentos());
     }
 ]);
