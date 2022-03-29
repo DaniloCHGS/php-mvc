@@ -20,7 +20,7 @@ $router->get('/depoimentos', [
     }
 ]);
 $router->post('/depoimentos', [
-    function () {
-        return new Response(200, Pages\Depoimentos::getDepoimentos());
+    function ($request) {
+        return new Response(200, Pages\Depoimentos::insert($request));
     }
 ]);
