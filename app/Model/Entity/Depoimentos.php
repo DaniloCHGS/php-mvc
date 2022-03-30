@@ -27,4 +27,12 @@ class Depoimentos
         ]);
         return true;
     }
+
+    /**
+     * Retorna Depoimentos
+     * @return PDOStatement
+     */
+    public static function getDepoimento($where = null, $order = null, $limit = null, $filds = "*"){
+        return (new Database('depoimentos'))->select($where,$order,$limit,$filds);
+    }
 }
