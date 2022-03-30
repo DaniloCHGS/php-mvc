@@ -15,8 +15,8 @@ $router->get('/sobre', [
     }
 ]);
 $router->get('/depoimentos', [
-    function () {
-        return new Response(200, Pages\Depoimentos::getDepoimentos());
+    function ($request) {
+        return new Response(200, Pages\Depoimentos::getDepoimentos($request));
     }
 ]);
 $router->post('/depoimentos', [
