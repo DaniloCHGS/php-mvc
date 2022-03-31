@@ -5,6 +5,10 @@ use \App\Controller\Pages;
 use App\Utils\Utils;
 
 $router->get('/', [
+    'middlewares'=> [
+        'maintenance'
+    ]
+], [
     function () {
         return new Response(200, Pages\Home::getHome());
     }

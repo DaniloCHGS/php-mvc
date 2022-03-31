@@ -58,6 +58,8 @@ class Router
             }
         }
 
+        $params['middlewares'] = $params['middlewares'] ?? [];
+
         //Variaveis da rota
         $params['variables'] = [];
 
