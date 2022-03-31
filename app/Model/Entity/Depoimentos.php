@@ -14,6 +14,13 @@ class Depoimentos
     public $data;
 
     /**
+     * Retorna Depoimentos
+     * @return PDOStatement
+     */
+    public static function getDepoimento($where = null, $order = null, $limit = null, $filds = "*"){
+        return (new Database('depoimentos'))->select($where,$order,$limit,$filds);
+    }
+    /**
      * Cadastra a instancia atual no banco
      */
     public function register()
@@ -26,13 +33,5 @@ class Depoimentos
             'data' => $this->data
         ]);
         return true;
-    }
-
-    /**
-     * Retorna Depoimentos
-     * @return PDOStatement
-     */
-    public static function getDepoimento($where = null, $order = null, $limit = null, $filds = "*"){
-        return (new Database('depoimentos'))->select($where,$order,$limit,$filds);
     }
 }

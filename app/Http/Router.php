@@ -179,4 +179,10 @@ class Router
             return new Response($e->getCode(), $e->getMessage());
         }
     }
+    /**
+     * Retorna URL atual
+     */
+    public function getCurrentUrl(){
+        return $this->url.$this->getUri();
+    }
 }

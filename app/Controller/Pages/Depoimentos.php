@@ -4,23 +4,11 @@ namespace App\Controller\Pages;
 
 use \App\Utils\View;
 use \App\Model\Entity\Depoimentos as DepoimentosModel;
-use App\Utils\Utils;
+use \App\Utils\Utils;
 use \WilliamCosta\DatabaseManager\Pagination;
 
 class Depoimentos extends Page
 {
-    /**
-     * Método responsável pela sobre page
-     * return string
-     */
-    public static function getDepoimentos($request)
-    {
-        $content = View::render(
-            "pages/depoimentos",
-            ["itens" => self::getDepoimentosItens($request, $pagination)]
-        );
-        return self::getPage('Sobre', $content);
-    }
     /**
      * Renderiza os itens de depoimento na página
      */
@@ -29,14 +17,14 @@ class Depoimentos extends Page
         $itens = "";
 
         //Quantidade total de registros
-        $total = DepoimentosModel::getDepoimento(null, null,null,"COUNT(*) as qtd")->fetchObject()->qtd;
+        $total = DepoimentosModel::getDepoimento(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
 
         //Pagina atual
-       $queryParams = $request->getQueryParams();
-       $paginaAtual = $queryParams['page'] ?? 1;
+        $queryParams = $request->getQueryParams();
+        $paginaAtual = $queryParams['page'] ?? 1;
 
-       //Instancia
-       $pagination = new Pagination($total, $paginaAtual,3);
+        //Instancia
+        $pagination = new Pagination($total, $paginaAtual, 3);
 
         //Resultados da página
         $results = DepoimentosModel::getDepoimento(null, 'id DESC', $pagination->getLimit());
@@ -56,7 +44,21 @@ class Depoimentos extends Page
     }
 
     /**
-     * @param Request
+     * Método responsável pela sobre page
+     * return string
+     */
+    public static function getDepoimentos($request)
+    {
+        $content = View::render(
+            "pages/depoimentos",[
+            "itens" => self::getDepoimentosItens($request, $pagination),
+            "pagination" => parent::getPagination($request, $pagination)
+        ]);
+        return self::getPage('Sobre', $content);
+    }
+
+    /**
+     * @param Request $request
      */
     public function insert($request)
     {
