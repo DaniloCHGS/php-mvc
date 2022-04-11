@@ -4,7 +4,6 @@ namespace App\Controller\Pages;
 
 use \App\Utils\View;
 use \App\Model\Entity\Depoimentos as DepoimentosModel;
-use \App\Utils\Utils;
 use \WilliamCosta\DatabaseManager\Pagination;
 
 class Depoimentos extends Page

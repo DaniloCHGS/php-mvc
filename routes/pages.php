@@ -2,7 +2,6 @@
 
 use App\Http\Response;
 use \App\Controller\Pages;
-use App\Utils\Utils;
 
 $router->get('/', [
     'middlewares' => [

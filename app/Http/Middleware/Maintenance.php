@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Middleware;
+namespace App\Http\Middleware;
 
-use App\Utils\Utils;
-
-class Maintenace {
+class Maintenance {
     /**
      * Executa o middleware
      */
@@ -12,6 +10,6 @@ class Maintenace {
         if(getenv('MAINTENANCE') == 'true'){
             throw new \Exception("Site em manutenção", 200);
         }
-        return next($request);
+        return $next($request);
     }
 }

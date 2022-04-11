@@ -2,7 +2,6 @@
 
 namespace App\Controller\Pages;
 
-use App\Utils\Utils;
 use \App\Utils\View;
 
 class Page

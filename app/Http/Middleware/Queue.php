@@ -2,8 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Utils\Utils;
-
 class Queue
 {
 
@@ -44,38 +42,43 @@ class Queue
     /**
      * Define mapeamento de middlewares
      */
-    public static function setMap($map){
+    public static function setMap($map)
+    {
         self::$map = $map;
     }
     /**
      * 
      */
-    public static function setDefault($default){
+    public static function setDefault($default)
+    {
         self::$default = $default;
     }
     /**
      * Executa o próximo nível da fila de middlewares
      */
-    public function next($request){
-        //Verfica se fila esta vazia
-        if(empty($this->middlewares)){
-            return call_user_func_array($this->controller, $this->controllerArgs);
+    public function next($request)
+    {
+        //Valida instancia de controller
+        if (!is_callable($this->controller)) {
+            throw new \Exception("Tipo esperado 'callable'. Mas veio  '...\Middleware\Closure'");
         }
+        //Verifica se a fila esta vazia
+        if (empty($this->middlewares)) return call_user_func_array($this->controller, $this->controllerArgs);
 
         //Middleware
         $middleware = array_shift($this->middlewares);
-        
+
         //verifica o mapeamento
-        if(isset(self::$map['middlewares'])){
+        if (!isset(self::$map[$middleware])) {
             throw new \Exception("Problemas ao processar o middleware da requisição", 500);
         }
 
         //Next
         $queue = $this;
-        $next = function($request) use($queue){
+        $next = function ($request) use ($queue) {
             return $queue->next($request);
         };
-
-        return (new self::$map['middleware'])->handle($request, $next);
+        
+        return (new self::$map[$middleware])->handle($request, $next);
     }
 }

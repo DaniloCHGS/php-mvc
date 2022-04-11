@@ -2,8 +2,6 @@
 
 namespace App\Http;
 
-use App\Utils\Utils;
-
 class Request
 {
 
