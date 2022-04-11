@@ -6,6 +6,8 @@ use App\Utils\Utils;
 use Closure;
 use Exception;
 use ReflectionFunction;
+use \App\Http\Request;
+use App\Http\Middleware\Queue as MiddlewareQueue;
 
 class Router
 {
@@ -58,6 +60,7 @@ class Router
             }
         }
 
+        //Middlewares da Rota
         $params['middlewares'] = $params['middlewares'] ?? [];
 
         //Variaveis da rota
@@ -169,6 +172,7 @@ class Router
             if (!isset($route['controller'])) {
                 throw new Exception("A URL não pode ser processada", 500);
             }
+            //Argumentos da função
             $args = [];
 
             $reflection = new ReflectionFunction($route['controller']);
@@ -176,7 +180,9 @@ class Router
                 $name = $parameter->getName();
                 $args[$name] = $route['variables'][$name] ?? "";
             }
-            return call_user_func_array($route['controller'], $args);
+            
+            //Retorna a execução da fila de middlewares
+            return (new MiddlewareQueue($route['middleware'], $route['controller'], $args))->next($this->request);
         } catch (Exception $e) {
             return new Response($e->getCode(), $e->getMessage());
         }

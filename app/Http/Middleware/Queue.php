@@ -2,16 +2,27 @@
 
 namespace App\Http\Middleware;
 
+use App\Utils\Utils;
+
 class Queue
 {
 
+    /**
+     * Mapeamento de middlewares
+     */
+    private static $map = [];
+
+    /**
+     * Mapeamento de middlewares que serão carregados em todas rotas
+     */
+    private static $default = [];
     /**
      * Fila de middlewares a serem executados
      */
     private $middlewares = [];
 
     /**
-     * Funcção de execução de controlador
+     * Função de execução de controlador
      * @var Closure
      */
     private $controller;
@@ -26,8 +37,45 @@ class Queue
      */
     public function __construct($middlewares, $controller, $controllerArgs)
     {
-        $this->middlewares = $middlewares;
-        $this->controller = $controller;
-        $this->controllerArgs = $controllerArgs;
+        $this->middlewares      = array_merge(self::$default, $middlewares);
+        $this->controller       = $controller;
+        $this->controllerArgs   = $controllerArgs;
+    }
+    /**
+     * Define mapeamento de middlewares
+     */
+    public static function setMap($map){
+        self::$map = $map;
+    }
+    /**
+     * 
+     */
+    public static function setDefault($default){
+        self::$default = $default;
+    }
+    /**
+     * Executa o próximo nível da fila de middlewares
+     */
+    public function next($request){
+        //Verfica se fila esta vazia
+        if(empty($this->middlewares)){
+            return call_user_func_array($this->controller, $this->controllerArgs);
+        }
+
+        //Middleware
+        $middleware = array_shift($this->middlewares);
+        
+        //verifica o mapeamento
+        if(isset(self::$map['middlewares'])){
+            throw new \Exception("Problemas ao processar o middleware da requisição", 500);
+        }
+
+        //Next
+        $queue = $this;
+        $next = function($request) use($queue){
+            return $queue->next($request);
+        };
+
+        return (new self::$map['middleware'])->handle($request, $next);
     }
 }
