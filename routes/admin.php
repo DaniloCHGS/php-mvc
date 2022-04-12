@@ -13,3 +13,8 @@ $router->get('/admin/login', [
         return new Response(200, Admin\Login::getLogin($request));
     }
 ]);
+$router->post('/admin/login', [
+    function ($request) {
+        return new Response(200, Admin\Login::setLogin($request));
+    }
+]);
