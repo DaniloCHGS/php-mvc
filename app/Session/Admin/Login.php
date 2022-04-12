@@ -26,4 +26,23 @@ class Login {
         //success
         return true;
     }
+    /**
+     * Verifica se o usário está logado
+     */
+    public static function isLogged(){
+        self::init();
+
+        return isset($_SESSION['admin']['user']['id']);
+    }
+    /**
+     * Loggout
+     */
+    public static function logout(){
+        self::init();
+
+        //Destroy usuário
+        unset($_SESSION['admin']['user']);
+
+        return true;
+    }
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Admin;
 
 use App\Utils\View;
@@ -54,5 +53,15 @@ class Login extends Page
 
         //Redireciona
         $request->getRouter()->redirect('/admin');
+    }
+    /**
+     * Desloga o usuário
+     */
+    public static function setLogout($request){
+        //Destroy sessão de login
+        SessionAdminLogin::logout();
+
+        //Redireciona
+        $request->getRouter()->redirect('/admin/login');
     }
 }

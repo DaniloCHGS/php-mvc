@@ -8,7 +8,11 @@ $router->get('/admin', [
         return new Response(200, 'Admin');
     }
 ]);
+//Login
 $router->get('/admin/login', [
+    'middlewares'=> [
+        'required-admin-logout'
+    ],
     function ($request) {
         return new Response(200, Admin\Login::getLogin($request));
     }
@@ -16,5 +20,11 @@ $router->get('/admin/login', [
 $router->post('/admin/login', [
     function ($request) {
         return new Response(200, Admin\Login::setLogin($request));
+    }
+]);
+//Logout
+$router->get('/admin/logout', [
+    function ($request) {
+        return new Response(200, Admin\Login::setLogout($request));
     }
 ]);
