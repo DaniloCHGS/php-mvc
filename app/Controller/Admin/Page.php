@@ -17,7 +17,7 @@ class Page
         ],
         'testimonies' => [
             'label' => 'Depoimentos',
-            'link' => URL . '/depoimentos',
+            'link' => URL . '/admin/depoimentos',
             'icon' => 'bx-message-rounded-dots'
         ],
         'users' => [
