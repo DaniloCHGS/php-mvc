@@ -17,11 +17,23 @@ class Page
         ]);
     }
     /**
+     * Renderiza o menu
+     */
+    private static function getMenu($currentModule){
+        //Retorna renderização do menu
+        return View::render("admin/menu/box", []);
+    }
+    /**
      * Retorna a estrutura do painel com conteudo dinamico
      */
     public static function getPanel($title, $content, $currentModule)
     {
+        //Renderiza a view do painel
+        $contentPanel = View::render('admin/panel', [
+            'menu'=> self::getMenu($currentModule),
+            'content' => $content
+        ]);
         //Retorna a página renderizada
-        return self::getPage($title,$content);
+        return self::getPage($title,$contentPanel);
     }
 }
