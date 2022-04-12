@@ -31,15 +31,20 @@ class Login extends Page
     {
         //Post vars
         $postVars   = $request->getPostVars();
-        $email      = $postVars['email'] ?? '';
-        $password   = $postVars['password'] ?? '';
+        $email      = filter_var($postVars['email'], FILTER_SANITIZE_STRING) ?? '';
+        $password   = filter_var($postVars['password'], FILTER_SANITIZE_STRING) ?? '';
+
+        //Validação de email
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            return self::getLogin($request, 'Email ou senha inválido');
+        }
 
         //Busca do usuário
         $user = User::getUserByEmail($email);
         
-        //Validação
-        if(!$user instanceof User){
-            return self::getLogin($request, 'Email ou senha iválido');
+        //Validação de busca
+        if(!$user instanceof User || !password_verify($password, $user->password)){
+            return self::getLogin($request, 'Email ou senha inválido');
         }
     }
 }
