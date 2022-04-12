@@ -7,6 +7,7 @@ use Exception;
 use ReflectionFunction;
 use \App\Http\Request;
 use \App\Http\Middleware\Queue as MiddlewareQueue;
+use App\Utils\Utils;
 
 class Router
 {
@@ -191,5 +192,16 @@ class Router
      */
     public function getCurrentUrl(){
         return $this->url.$this->getUri();
+    }
+    /**
+     * Faz redirecionamento
+     */
+    public function redirect($route){
+        //URL
+        $url = $this->url.$route;
+
+        //Executa o redirecionamento
+        header('location: '.$url);
+        exit;
     }
 }

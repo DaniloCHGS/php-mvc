@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Utils\View;
 use App\Model\Entity\User;
+use App\Session\Admin\Login as SessionAdminLogin;
+use App\Utils\Utils;
 
 class Login extends Page
 {
@@ -46,5 +48,11 @@ class Login extends Page
         if(!$user instanceof User || !password_verify($password, $user->password)){
             return self::getLogin($request, 'Email ou senha inválido');
         }
+
+        //Cria sessão de login
+        SessionAdminLogin::login($user);
+
+        //Redireciona
+        $request->getRouter()->redirect('/admin');
     }
 }
