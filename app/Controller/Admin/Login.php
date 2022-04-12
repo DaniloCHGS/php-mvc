@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller\Admin;
 
 use App\Utils\View;
@@ -14,9 +15,7 @@ class Login extends Page
     public static function getLogin($request, $erroMessage = null)
     {
         //Status
-        $status = !is_null($erroMessage) ? View::render('admin/login/status', [
-            'mensagem' => $erroMessage
-        ]) : '';
+        $status = !is_null($erroMessage) ? Alert::getError($erroMessage) : '';
 
         //Conteudo da página de login
         $content = View::render('admin/login', [
@@ -36,15 +35,15 @@ class Login extends Page
         $password   = filter_var($postVars['password'], FILTER_SANITIZE_STRING) ?? '';
 
         //Validação de email
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return self::getLogin($request, 'Email ou senha inválido');
         }
 
         //Busca do usuário
         $user = User::getUserByEmail($email);
-        
+
         //Validação de busca
-        if(!$user instanceof User || !password_verify($password, $user->password)){
+        if (!$user instanceof User || !password_verify($password, $user->password)) {
             return self::getLogin($request, 'Email ou senha inválido');
         }
 
@@ -57,7 +56,8 @@ class Login extends Page
     /**
      * Desloga o usuário
      */
-    public static function setLogout($request){
+    public static function setLogout($request)
+    {
         //Destroy sessão de login
         SessionAdminLogin::logout();
 
