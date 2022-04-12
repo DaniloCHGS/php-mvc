@@ -22,7 +22,7 @@ class Page
         ],
         'users' => [
             'label' => 'Usuários',
-            'link' => URL . '/usuarios',
+            'link' => URL . '/admin/usuarios',
             'icon' => 'bx-user'
         ],
     ];
