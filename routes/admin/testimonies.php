@@ -33,7 +33,7 @@ $router->post('/admin/depoimentos/new', [
     }
 ]);
 
-//Te de editar
+//Tela de editar
 $router->get('/admin/depoimentos/{id}/edit', [
     'middlewares' => [
         'required-admin-login'
@@ -50,5 +50,25 @@ $router->post('/admin/depoimentos/{id}/edit', [
     ],
     function ($request, $id) {
         return new Response(200, Admin\Testimony::setEditTestimonies($request, $id));
+    }
+]);
+
+//Tela de excluir
+$router->get('/admin/depoimentos/{id}/delete', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function ($request, $id) {
+        return new Response(200, Admin\Testimony::getDeleteTestimonies($request, $id));
+    }
+]);
+
+//Excluir
+$router->post('/admin/depoimentos/{id}/delete', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function ($request, $id) {
+        return new Response(200, Admin\Testimony::setDeleteTestimonies($request, $id));
     }
 ]);

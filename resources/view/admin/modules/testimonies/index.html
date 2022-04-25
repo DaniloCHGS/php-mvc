@@ -9,20 +9,23 @@
 
 <div class="card">
     <h5 class="card-header">Depoimentos</h5>
-    <div class="table-responsive text-nowrap">
-        <table class="table table-striped" id="table">
-            <thead>
-                <tr>
-                    <th>Autor</th>
-                    <th>Data</th>
-                    <th>Depoimento</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody class="table-border-bottom-0">
-                {{itens}}
-            </tbody>
-        </table>
-        {{pagination}}
+    <div class="card-body">
+        {{status}}
+        <div class="table-responsive text-nowrap mb-3">
+            <table class="table table-striped" id="table">
+                <thead>
+                    <tr>
+                        <th>Autor</th>
+                        <th>Data</th>
+                        <th>Depoimento</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    {{itens}}
+                </tbody>
+            </table>
+            {{pagination}}
+        </div>
     </div>
 </div>

@@ -21,6 +21,7 @@ class Depoimentos
     {
         return (new Database('depoimentos'))->select($where, $order, $limit, $filds);
     }
+
     /**
      * Cadastra a instancia atual no banco
      */
@@ -35,6 +36,7 @@ class Depoimentos
         ]);
         return true;
     }
+
     /**
      * Atualiza a instancia atual no banco
      */
@@ -47,6 +49,17 @@ class Depoimentos
         ]);
         return true;
     }
+
+    /**
+     * Deleta a instancia atual no banco
+     */
+    public function delete()
+    {
+
+        return (new Database('depoimentos'))->delete('id = ' . $this->id);
+        return true;
+    }
+
     /**
      * Busca por ID
      */
