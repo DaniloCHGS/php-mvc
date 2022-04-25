@@ -17,8 +17,9 @@ class Depoimentos
      * Retorna Depoimentos
      * @return PDOStatement
      */
-    public static function getDepoimento($where = null, $order = null, $limit = null, $filds = "*"){
-        return (new Database('depoimentos'))->select($where,$order,$limit,$filds);
+    public static function getDepoimento($where = null, $order = null, $limit = null, $filds = "*")
+    {
+        return (new Database('depoimentos'))->select($where, $order, $limit, $filds);
     }
     /**
      * Cadastra a instancia atual no banco
@@ -33,5 +34,24 @@ class Depoimentos
             'data' => $this->data
         ]);
         return true;
+    }
+    /**
+     * Atualiza a instancia atual no banco
+     */
+    public function update()
+    {
+
+        return (new Database('depoimentos'))->update('id = ' . $this->id, [
+            'autor' => $this->autor,
+            'depoimento' => $this->depoimento,
+        ]);
+        return true;
+    }
+    /**
+     * Busca por ID
+     */
+    public static function getDepoimentoById($id)
+    {
+        return self::getDepoimento('id = ' . $id)->fetchObject(self::class);
     }
 }

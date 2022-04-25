@@ -13,7 +13,7 @@ $router->get('/admin/depoimentos', [
     }
 ]);
 
-//Lista os depoimentos
+//Tela de cadastro
 $router->get('/admin/depoimentos/new', [
     'middlewares' => [
         'required-admin-login'
@@ -23,11 +23,32 @@ $router->get('/admin/depoimentos/new', [
     }
 ]);
 
+//Cadastro
 $router->post('/admin/depoimentos/new', [
     'middlewares' => [
         'required-admin-login'
     ],
     function ($request) {
         return new Response(200, Admin\Testimony::setNewTestimonies($request));
+    }
+]);
+
+//Te de editar
+$router->get('/admin/depoimentos/{id}/edit', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function ($request, $id) {
+        return new Response(200, Admin\Testimony::getEditTestimonies($request, $id));
+    }
+]);
+
+//Editar
+$router->post('/admin/depoimentos/{id}/edit', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function ($request, $id) {
+        return new Response(200, Admin\Testimony::setEditTestimonies($request, $id));
     }
 ]);

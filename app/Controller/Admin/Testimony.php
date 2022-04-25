@@ -26,11 +26,14 @@ class Testimony extends Page
     /**
      * Retorna formulário de cadastro
      */
-    public static function getNewTestimonies($request){
+    public static function getNewTestimonies($request)
+    {
 
         //Conteudo do formulário
         $content = View::render('admin/modules/testimonies/form', [
-            'title' => 'Cadastro de Depoimento'
+            'title' => 'Cadastro de Depoimento',
+            'autor' => '',
+            'depoimento' => ''
         ]);
 
         //Retorna página completa
@@ -39,16 +42,61 @@ class Testimony extends Page
     /**
      * Cadastra depoimento
      */
-    public static function setNewTestimonies($request){
+    public static function setNewTestimonies($request)
+    {
         //Dados
         $postVars   = $request->getPostVars();
-        
+
         $depoimento = new DepoimentosModel;
         $depoimento->autor = $postVars['autor'];
         $depoimento->depoimento = $postVars['depoimento'];
         $depoimento->register();
 
-        
+        $request->getRouter()->redirect('/admin/depoimentos?status=created');
+    }
+    /**
+     * Form para editar depoimento
+     */
+    public static function getEditTestimonies($request, $id)
+    {
+        $depoimento = DepoimentosModel::getDepoimentoById($id);
+
+        if (!$depoimento instanceof DepoimentosModel) {
+            $request->getRouter()->redirect('/admin/depoimentos');
+        }
+
+        //Conteudo do formulário
+        $content = View::render('admin/modules/testimonies/form', [
+            'title' => 'Editar Depoimento',
+            'autor' => $depoimento->autor,
+            'depoimento' => $depoimento->depoimento
+        ]);
+
+        //Retorna página completa
+        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
+    }
+    /**
+     * Editar depoimento
+     */
+    public static function setEditTestimonies($request, $id)
+    {
+        $depoimento = DepoimentosModel::getDepoimentoById($id);
+
+        if (!$depoimento instanceof DepoimentosModel) {
+            $request->getRouter()->redirect('/admin/depoimentos');
+        }
+
+        $postVars   = $request->getPostVars();
+
+        $depoimento->autor = $postVars['autor'] ?? $depoimento->autor;
+        $depoimento->depoimento = $postVars['depoimento'] ?? $depoimento->depoimento;
+
+        $depoimento->update();
+
+        $request->getRouter()->redirect('/admin/depoimentos?status=updated');
+
+        //Retorna página completa
+        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
     }
     /**
      * Renderiza os itens de depoimento na página
@@ -59,7 +107,7 @@ class Testimony extends Page
 
         //Quantidade total de registros
         $total = DepoimentosModel::getDepoimento(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
-        
+
         //Pagina atual
         $queryParams = $request->getQueryParams();
         $paginaAtual = $queryParams['page'] ?? 1;
