@@ -23,7 +23,33 @@ class Testimony extends Page
         //Retorna página completa
         return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
     }
+    /**
+     * Retorna formulário de cadastro
+     */
+    public static function getNewTestimonies($request){
 
+        //Conteudo do formulário
+        $content = View::render('admin/modules/testimonies/form', [
+            'title' => 'Cadastro de Depoimento'
+        ]);
+
+        //Retorna página completa
+        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
+    }
+    /**
+     * Cadastra depoimento
+     */
+    public static function setNewTestimonies($request){
+        //Dados
+        $postVars   = $request->getPostVars();
+        
+        $depoimento = new DepoimentosModel;
+        $depoimento->autor = $postVars['autor'];
+        $depoimento->depoimento = $postVars['depoimento'];
+        $depoimento->register();
+
+        
+    }
     /**
      * Renderiza os itens de depoimento na página
      */
