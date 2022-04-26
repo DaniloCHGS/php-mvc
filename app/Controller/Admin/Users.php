@@ -35,11 +35,11 @@ class Users extends Page
     }
 
     /**
-     * Retorna os Depoimentos do Painel
+     * Retorna os Usuários do Painel
      */
     public static function getUsers($request)
     {
-        //Conteudo de Depoimentos
+        //Conteudo de Usuários
         $content = View::render('admin/modules/users/index', [
             'itens' => self::getUserItens($request, $pagination),
             'pagination' => parent::getPagination($request, $pagination),
@@ -85,7 +85,7 @@ class Users extends Page
 
         $user = new EntityUser;
         $user->email    = $email;
-        $user->password = password_hash($email, PASSWORD_DEFAULT);
+        $user->password = password_hash($password, PASSWORD_DEFAULT);
         $user->register();
 
         $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=created');
@@ -129,6 +129,12 @@ class Users extends Page
         $email = $postVars['email'] ?? '';
         $password = $postVars['password'] ?? '';
 
+        $hasUser = EntityUser::getUserByEmail($email);
+
+        if ($hasUser instanceof EntityUser) {
+            $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=duplicated');
+        }
+
         $user->email = $email;
         $user->password = $password ? password_hash($password, PASSWORD_DEFAULT) : $user->password;
 
@@ -155,7 +161,7 @@ class Users extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Painel Administrativo | Usuários', $content, 'testimonies');
     }
 
     /**
