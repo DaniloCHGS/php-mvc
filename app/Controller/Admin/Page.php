@@ -78,9 +78,11 @@ class Page
     {
         //Pagina
         $pages = $pagination->getPages();
-        
+
         //Verifica quantidade de páginas
-        if (count($pages) <= 1) {return "";}
+        if (count($pages) <= 1) {
+            return "";
+        }
 
         //links
         $links = "";
@@ -95,15 +97,15 @@ class Page
         foreach ($pages as $page) {
             //Altera página
             $queryParams['page'] = $page['page'];
-            
+
             //Link
             $link = $url . "?" . http_build_query($queryParams);
-            
+
             //View
             $links .= View::render("admin/pagination/link", [
                 "page" => $page['page'],
                 "link" => $link,
-                "active"=> $page['current'] ? 'active' : ''
+                "active" => $page['current'] ? 'active' : ''
             ]);
         }
         //Renderiza box

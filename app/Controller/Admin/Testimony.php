@@ -23,7 +23,7 @@ class Testimony extends Page
                 return Alert::getSuccess('Depoimento criado com sucesso');
                 break;
             case 'updated':
-                return Alert::getSuccess('Depoimeto atualizado com sucesso');
+                return Alert::getSuccess('Depoimento atualizado com sucesso');
                 break;
             case 'deleted':
                 return Alert::getSuccess('Depoimento excluido com sucesso');
