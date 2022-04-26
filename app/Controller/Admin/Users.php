@@ -126,11 +126,15 @@ class Users extends Page
 
         $postVars = $request->getPostVars();
 
-        $user->email = $postVars['email'] ?? $user->email;
+        $email = $postVars['email'] ?? '';
+        $password = $postVars['password'] ?? '';
+
+        $user->email = $email;
+        $user->password = $password ? password_hash($password, PASSWORD_DEFAULT) : $user->password;
 
         $user->update();
 
-        $request->getRouter()->redirect('/admin/depoimentos/' . $user->id . '/edit?status=updated');
+        $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=updated');
     }
 
     /**
@@ -178,7 +182,7 @@ class Users extends Page
         $itens = "";
 
         //Quantidade total de registros
-        $total = EntityUser::getUsers(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
+        $total = EntityUser::getUsers(null, 'id', null, "COUNT(*) as qtd")->fetchObject()->qtd;
 
         //Pagina atual
         $queryParams = $request->getQueryParams();
