@@ -43,6 +43,15 @@ class Testimony extends Api
     }
 
     /**
+     * Cadastra novo depoimento
+     */
+    public static function setNewTestimony($request){
+        return [
+            'success' => true
+        ];
+    }
+
+    /**
      * Renderiza os itens de depoimento na página
      */
     private function getTestimoniesItens($request, &$pagination)

@@ -21,3 +21,13 @@ $router->get('/api/v1/depoimento/{id}', [
         return new Response(200, Api\Testimony::getTestimony($request, $id), 'application/json');
     }
 ]);
+//Cadastro de depoimento
+$router->post('/api/v1/depoimento', [
+    'middlewares' => [
+        'api',
+        'user-basic-auth'
+    ],
+    function ($request) {
+        return new Response(201, Api\Testimony::setNewTestimony($request), 'application/json');
+    }
+]);
