@@ -24,11 +24,22 @@ class Testimony extends Api
      */
     public static function getTestimony($request, $id)
     {
+        if(!is_numeric($id)){
+            throw new \Exception("O id '" . $id . "' não é válido", 400);
+        }
+
         $testimony = EntityTestimony::getTestimonyById($id);
 
         if (!$testimony instanceof EntityTestimony) {
-            throw new \Exception("Depoimento " . $id . " não encontrado", 404);
+            throw new \Exception("Depoimento '" . $id . "' não encontrado", 404);
         }
+        //Retorna os detalhes do depoimento
+        return [
+            "id"            => (int) $testimony->id,
+            "autor"         => $testimony->autor,
+            "depoimento"    => $testimony->depoimento,
+            "data"          => $testimony->data
+        ];
     }
 
     /**

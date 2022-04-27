@@ -45,7 +45,8 @@ class Router
     /**
      * Responsável por alterar o valor do ContentType
      */
-    public function setContentType($contentType){
+    public function setContentType($contentType)
+    {
         $this->contentType = $contentType;
     }
 
@@ -139,7 +140,7 @@ class Router
         $xUri = strlen($this->prefix) ? explode($this->prefix, $uri) : [$uri];
 
         //Retorna a URI sem prefixo
-        return end($xUri);
+        return rtrim(end($xUri), '/');
     }
 
     /**
@@ -180,6 +181,21 @@ class Router
     }
 
     /**
+     * Retorna mensagem de erro conforme o ContentType
+     */
+    private function getErrorMessage($message)
+    {
+        switch ($this->contentType) {
+            case 'application/json':
+                return ['erro' => $message];
+                break;
+            default:
+                return $message;
+                break;
+        }
+    }
+
+    /**
      * Responsavel por executar a rota atual
      * return Response
      */
@@ -188,7 +204,7 @@ class Router
         try {
             //Obtem rota atual
             $route = $this->getRoute();
-            
+
             //Verifica o controlador
             if (!isset($route['controller'])) {
                 throw new Exception("A URL não pode ser processada", 500);
@@ -201,30 +217,32 @@ class Router
                 $name = $parameter->getName();
                 $args[$name] = $route['variables'][$name] ?? "";
             }
-            
+
             //Retorna a execução da fila de middlewares
             return (new MiddlewareQueue($route['middlewares'], $route['controller'], $args))->next($this->request);
         } catch (Exception $e) {
-            return new Response($e->getCode(), $e->getMessage(), $this->contentType);
+            return new Response($e->getCode(), $this->getErrorMessage($e->getMessage()), $this->contentType);
         }
     }
 
     /**
      * Retorna URL atual
      */
-    public function getCurrentUrl(){
-        return $this->url.$this->getUri();
+    public function getCurrentUrl()
+    {
+        return $this->url . $this->getUri();
     }
-    
+
     /**
      * Faz redirecionamento
      */
-    public function redirect($route){
+    public function redirect($route)
+    {
         //URL
-        $url = $this->url.$route;
+        $url = $this->url . $route;
 
         //Executa o redirecionamento
-        header('location: '.$url);
+        header('location: ' . $url);
         exit;
     }
 }
