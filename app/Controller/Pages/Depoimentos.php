@@ -11,12 +11,12 @@ class Depoimentos extends Page
     /**
      * Renderiza os itens de depoimento na página
      */
-    private function getDepoimentosItens($request, &$pagination)
+    private function getTestimoniessItens($request, &$pagination)
     {
         $itens = "";
 
         //Quantidade total de registros
-        $total = DepoimentosModel::getDepoimento(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
+        $total = DepoimentosModel::getTestimonies(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
 
         //Pagina atual
         $queryParams = $request->getQueryParams();
@@ -26,7 +26,7 @@ class Depoimentos extends Page
         $pagination = new Pagination($total, $paginaAtual, 3);
 
         //Resultados da página
-        $results = DepoimentosModel::getDepoimento(null, 'id DESC', $pagination->getLimit());
+        $results = DepoimentosModel::getTestimonies(null, 'id DESC', $pagination->getLimit());
 
         //Renderiza o item
         while ($obDepoimentos = $results->fetchObject(DepoimentosModel::class)) {
@@ -46,11 +46,11 @@ class Depoimentos extends Page
      * Método responsável pela sobre page
      * return string
      */
-    public static function getDepoimentos($request)
+    public static function getTestimoniess($request)
     {
         $content = View::render(
             "pages/depoimentos",[
-            "itens" => self::getDepoimentosItens($request, $pagination),
+            "itens" => self::getTestimoniessItens($request, $pagination),
             "pagination" => parent::getPagination($request, $pagination)
         ]);
         return self::getPage('Sobre', $content);
@@ -68,6 +68,6 @@ class Depoimentos extends Page
         $depoimento->autor = $postVars['autor'];
         $depoimento->depoimento = $postVars['depoimento'];
         $depoimento->register();
-        return self::getDepoimentos($request);
+        return self::getTestimoniess($request);
     }
 }

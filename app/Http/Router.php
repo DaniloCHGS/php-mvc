@@ -30,12 +30,25 @@ class Router
      */
     private $request;
 
+    /**
+     * Content Type padrão da Response
+     */
+    private $contentType = "text/html";
+
     public function __construct($url)
     {
         $this->request = new Request($this);
         $this->url = $url;
         $this->setPrefix();
     }
+
+    /**
+     * Responsável por alterar o valor do ContentType
+     */
+    public function setContentType($contentType){
+        $this->contentType = $contentType;
+    }
+
     /**
      * Define prefixo das rotas
      */
@@ -46,6 +59,7 @@ class Router
         //Define o prefixo
         $this->prefix = $parseUrl['path'] ?? "";
     }
+
     /**
      * Adiciona uma rota a Classe
      */
@@ -80,6 +94,7 @@ class Router
         //Adiciona a rota dentro da Classe
         $this->routes[$patternRoute][$method] = $params;
     }
+
     /**
      * Define uma rota GET
      */
@@ -87,6 +102,7 @@ class Router
     {
         return $this->addRoute('GET', $route, $params);
     }
+
     /**
      * Define uma rota POST
      */
@@ -94,6 +110,7 @@ class Router
     {
         return $this->addRoute('POST', $route, $params);
     }
+
     /**
      * Define uma rota PUT
      */
@@ -101,6 +118,7 @@ class Router
     {
         return $this->addRoute('PUT', $route, $params);
     }
+
     /**
      * Define uma rota DELETE
      */
@@ -108,6 +126,7 @@ class Router
     {
         return $this->addRoute('DELETE', $route, $params);
     }
+
     /**
      * Retornar a URI desconsiderando o prefixo
      */
@@ -122,6 +141,7 @@ class Router
         //Retorna a URI sem prefixo
         return end($xUri);
     }
+
     /**
      * Retorna os dados da rota atual
      * return array
@@ -158,6 +178,7 @@ class Router
         }
         throw new Exception("URL não encontrada", 404);
     }
+
     /**
      * Responsavel por executar a rota atual
      * return Response
@@ -184,15 +205,17 @@ class Router
             //Retorna a execução da fila de middlewares
             return (new MiddlewareQueue($route['middlewares'], $route['controller'], $args))->next($this->request);
         } catch (Exception $e) {
-            return new Response($e->getCode(), $e->getMessage());
+            return new Response($e->getCode(), $e->getMessage(), $this->contentType);
         }
     }
+
     /**
      * Retorna URL atual
      */
     public function getCurrentUrl(){
         return $this->url.$this->getUri();
     }
+    
     /**
      * Faz redirecionamento
      */

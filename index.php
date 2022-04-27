@@ -12,5 +12,8 @@ include __DIR__ . '/routes/pages.php';
 //Rotas de páginas do painel administrativo
 include __DIR__ . '/routes/admin.php';
 
+//Rotas da API
+include __DIR__ . '/routes/api.php';
+
 
 $router->run()->sendResponse();

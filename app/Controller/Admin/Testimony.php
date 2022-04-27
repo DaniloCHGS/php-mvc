@@ -86,7 +86,7 @@ class Testimony extends Page
      */
     public static function getEditTestimonies($request, $id)
     {
-        $depoimento = DepoimentosModel::getDepoimentoById($id);
+        $depoimento = DepoimentosModel::getTestimonyById($id);
 
         if (!$depoimento instanceof DepoimentosModel) {
             $request->getRouter()->redirect('/admin/depoimentos');
@@ -109,7 +109,7 @@ class Testimony extends Page
      */
     public static function setEditTestimonies($request, $id)
     {
-        $depoimento = DepoimentosModel::getDepoimentoById($id);
+        $depoimento = DepoimentosModel::getTestimonyById($id);
 
         if (!$depoimento instanceof DepoimentosModel) {
             $request->getRouter()->redirect('/admin/depoimentos');
@@ -130,7 +130,7 @@ class Testimony extends Page
      */
     public static function getDeleteTestimonies($request, $id)
     {
-        $depoimento = DepoimentosModel::getDepoimentoById($id);
+        $depoimento = DepoimentosModel::getTestimonyById($id);
 
         if (!$depoimento instanceof DepoimentosModel) {
             $request->getRouter()->redirect('/admin/depoimentos');
@@ -152,7 +152,7 @@ class Testimony extends Page
      */
     public static function setDeleteTestimonies($request, $id)
     {
-        $depoimento = DepoimentosModel::getDepoimentoById($id);
+        $depoimento = DepoimentosModel::getTestimonyById($id);
 
         if (!$depoimento instanceof DepoimentosModel) {
             $request->getRouter()->redirect('/admin/depoimentos');
@@ -171,7 +171,7 @@ class Testimony extends Page
         $itens = "";
 
         //Quantidade total de registros
-        $total = DepoimentosModel::getDepoimento(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
+        $total = DepoimentosModel::getTestimonies(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
 
         //Pagina atual
         $queryParams = $request->getQueryParams();
@@ -181,7 +181,7 @@ class Testimony extends Page
         $pagination = new Pagination($total, $paginaAtual, 3);
 
         //Resultados da página
-        $results = DepoimentosModel::getDepoimento(null, 'id DESC', $pagination->getLimit());
+        $results = DepoimentosModel::getTestimonies(null, 'id DESC', $pagination->getLimit());
 
         //Renderiza o item
         while ($obDepoimentos = $results->fetchObject(DepoimentosModel::class)) {

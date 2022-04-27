@@ -17,7 +17,7 @@ class Depoimentos
      * Retorna Depoimentos
      * @return PDOStatement
      */
-    public static function getDepoimento($where = null, $order = null, $limit = null, $filds = "*")
+    public static function getTestimonies($where = null, $order = null, $limit = null, $filds = "*")
     {
         return (new Database('depoimentos'))->select($where, $order, $limit, $filds);
     }
@@ -63,8 +63,8 @@ class Depoimentos
     /**
      * Busca por ID
      */
-    public static function getDepoimentoById($id)
+    public static function getTestimonyById($id)
     {
-        return self::getDepoimento('id = ' . $id)->fetchObject(self::class);
+        return self::getTestimonies('id = ' . $id)->fetchObject(self::class);
     }
 }
