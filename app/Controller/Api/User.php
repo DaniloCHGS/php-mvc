@@ -48,13 +48,22 @@ class User extends Api
         $postVars   = $request->getPostVars();
 
         //Valida os campos obrigatorios
-        if (!isset($postVars['autor']) or !isset($postVars['depoimento'])) {
-            throw new \Exception("Os campos nome e mensagem são obrigatorios", 400);
+        if (!isset($postVars['email']) or !isset($postVars['password'])) {
+            throw new \Exception("Os campos email e password são obrigatorios", 400);
+        }
+
+        $email      = $postVars['email'] ?? '';
+        $password   = $postVars['password'] ?? '';
+
+        $hasUser = EntityUser::getUserByEmail($email);
+
+        if ($hasUser instanceof EntityUser) {
+            throw new \Exception("Email já cadastrado", 400);
         }
 
         $user = new EntityUser;
-        $user->autor = $postVars['autor'];
-        $user->depoimento = $postVars['depoimento'];
+        $user->email    = $email;
+        $user->password = password_hash($password, PASSWORD_DEFAULT);
         $user->register();
 
         return [
