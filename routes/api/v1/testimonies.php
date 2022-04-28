@@ -31,3 +31,23 @@ $router->post('/api/v1/depoimento', [
         return new Response(201, Api\Testimony::setNewTestimony($request), 'application/json');
     }
 ]);
+//Edição de depoimento
+$router->put('/api/v1/depoimento/{id}', [
+    'middlewares' => [
+        'api',
+        'user-basic-auth'
+    ],
+    function ($request, $id) {
+        return new Response(200, Api\Testimony::setEditTestimony($request, $id), 'application/json');
+    }
+]);
+//Exclui de depoimento
+$router->delete('/api/v1/depoimento/{id}', [
+    'middlewares' => [
+        'api',
+        'user-basic-auth'
+    ],
+    function ($request, $id) {
+        return new Response(200, Api\Testimony::setDeleteTestimony($request, $id), 'application/json');
+    }
+]);

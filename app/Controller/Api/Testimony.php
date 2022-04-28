@@ -24,7 +24,7 @@ class Testimony extends Api
      */
     public static function getTestimony($request, $id)
     {
-        if(!is_numeric($id)){
+        if (!is_numeric($id)) {
             throw new \Exception("O id '" . $id . "' não é válido", 400);
         }
 
@@ -45,7 +45,67 @@ class Testimony extends Api
     /**
      * Cadastra novo depoimento
      */
-    public static function setNewTestimony($request){
+    public static function setNewTestimony($request)
+    {
+        $postVars   = $request->getPostVars();
+
+        //Valida os campos obrigatorios
+        if (!isset($postVars['autor']) or !isset($postVars['depoimento'])) {
+            throw new \Exception("Os campos nome e mensagem são obrigatorios", 400);
+        }
+
+        $testimony = new EntityTestimony;
+        $testimony->autor = $postVars['autor'];
+        $testimony->depoimento = $postVars['depoimento'];
+        $testimony->register();
+
+        return [
+            'success' => true
+        ];
+    }
+
+    /**
+     * Editar depoimento
+     */
+    public static function setEditTestimony($request, $id)
+    {
+        $postVars   = $request->getPostVars();
+
+        //Valida os campos obrigatorios
+        if (!isset($postVars['autor']) or !isset($postVars['depoimento'])) {
+            throw new \Exception("Os campos nome e mensagem são obrigatorios", 400);
+        }
+
+        $testimony = EntityTestimony::getTestimonyById($id);
+
+        if (!$testimony instanceof EntityTestimony) {
+            throw new \Exception("Depoimento '" . $id . "' não encontrado", 404);
+        }
+
+        $testimony->autor = $postVars['autor'] ?? $testimony->autor;
+        $testimony->depoimento = $postVars['depoimento'] ?? $testimony->depoimento;
+        $testimony->update();
+
+        return [
+            'id' => $testimony->id,
+            'autor' => $testimony->autor,
+            'depoimento' => $testimony->depoimento,
+        ];
+    }
+
+    /**
+     * Exclui depoimento
+     */
+    public static function setDeleteTestimony($request, $id)
+    {
+
+        $testimony = EntityTestimony::getTestimonyById($id);
+
+        if (!$testimony instanceof EntityTestimony) {
+            throw new \Exception("Depoimento '" . $id . "' não encontrado", 404);
+        }
+        $testimony->delete();
+
         return [
             'success' => true
         ];
