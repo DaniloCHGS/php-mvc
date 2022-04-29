@@ -89,6 +89,9 @@ class Router
             $params['variables'] = $matches[1];
         }
 
+        //Remove / no final da rota
+        $route = rtrim($route, '/');
+
         //Padrão de validação da URL
         $patternRoute = "/^" . str_replace('/', '\/', $route) . "$/";
 
