@@ -29,6 +29,7 @@ MiddlewareQueue::setMap([
     'maintenance'=> \App\Http\Middleware\Maintenance::class,
     'api'=> \App\Http\Middleware\Api::class,
     'jwt-auth'=> \App\Http\Middleware\JWTAuth::class,
+    'cache'=> \App\Http\Middleware\Cache::class,
     'required-admin-logout' => \App\Http\Middleware\RequireredAdminLogout::class,
     'required-admin-login' => \App\Http\Middleware\RequireredAdminLogin::class,
     'user-basic-auth' => \App\Http\Middleware\UserBasicAuth::class

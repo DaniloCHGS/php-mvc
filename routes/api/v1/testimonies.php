@@ -6,7 +6,8 @@ use \App\Controller\Api;
 //Todos depoimentos
 $router->get('/api/v1/depoimentos', [
     'middlewares' => [
-        'api'
+        'api',
+        'cache'
     ],
     function ($request) {
         return new Response(200, Api\Testimony::getTestimonies($request), 'application/json');

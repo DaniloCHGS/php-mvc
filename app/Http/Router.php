@@ -134,7 +134,7 @@ class Router
     /**
      * Retornar a URI desconsiderando o prefixo
      */
-    private function getUri()
+    public function getUri()
     {
         //URI da Request
         $uri = $this->request->getUri();
