@@ -134,7 +134,7 @@ class User extends Api
         $pagination = new Pagination($total, $paginaAtual, $total);
 
         //Resultados da página
-        $results = EntityUser::getUsers(null, 'id DESC', $pagination->getLimit());
+        $results = EntityUser::getUsers(null, 'id ASC', $pagination->getLimit());
 
         //Renderiza o item
         while ($obUser = $results->fetchObject(EntityUser::class)) {
