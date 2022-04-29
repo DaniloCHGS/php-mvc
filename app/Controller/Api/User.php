@@ -9,7 +9,7 @@ use \WilliamCosta\DatabaseManager\Pagination;
 class User extends Api
 {
     /**
-     * Retorna os depoimentos
+     * Retorna os usuários
      */
     public static function getUsers($request)
     {
@@ -20,7 +20,7 @@ class User extends Api
     }
 
     /**
-     * Retorna um depoimento
+     * Retorna um usuário
      */
     public static function getUser($request, $id)
     {
@@ -31,7 +31,7 @@ class User extends Api
         $user = EntityUser::getUserById($id);
 
         if (!$user instanceof EntityUser) {
-            throw new \Exception("Depoimento '" . $id . "' não encontrado", 404);
+            throw new \Exception("Usuário '" . $id . "' não encontrado", 404);
         }
         //Retorna os detalhes do usuario
         return [
@@ -41,7 +41,21 @@ class User extends Api
     }
 
     /**
-     * Cadastra novo depoimento
+     * Retorna o usuário atual
+     */
+    public static function getCurrentUser($request)
+    {
+        $user = $request->user;
+        
+        //Retorna os detalhes do usuario
+        return [
+            "id"    => (int) $user->id,
+            "email"  => $user->email,
+        ];
+    }
+
+    /**
+     * Cadastra novo usuário
      */
     public static function setNewUser($request)
     {
@@ -72,7 +86,7 @@ class User extends Api
     }
 
     /**
-     * Editar depoimento
+     * Editar usuário
      */
     public static function setEditUser($request, $id)
     {
@@ -99,7 +113,7 @@ class User extends Api
     }
 
     /**
-     * Exclui depoimento
+     * Exclui usuário
      */
     public static function setDeleteUser($request, $id)
     {
@@ -117,7 +131,7 @@ class User extends Api
     }
 
     /**
-     * Renderiza os itens de depoimento na página
+     * Renderiza os itens de usuário na página
      */
     private function getUsersItens($request, &$pagination)
     {
