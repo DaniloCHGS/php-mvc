@@ -16,7 +16,8 @@ $router->get('/api/v1/depoimentos', [
 //Todos um depoimento
 $router->get('/api/v1/depoimento/{id}', [
     'middlewares' => [
-        'api'
+        'api',
+        'cache'
     ],
     function ($request, $id) {
         return new Response(200, Api\Testimony::getTestimony($request, $id), 'application/json');

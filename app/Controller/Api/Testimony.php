@@ -126,7 +126,7 @@ class Testimony extends Api
         $paginaAtual = $queryParams['page'] ?? 1;
 
         //Instancia
-        $pagination = new Pagination($total, $paginaAtual, 1);
+        $pagination = new Pagination($total, $paginaAtual, $total);
 
         //Resultados da página
         $results = EntityTestimony::getTestimonies(null, 'id DESC', $pagination->getLimit());
