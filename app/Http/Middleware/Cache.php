@@ -16,7 +16,7 @@ class Cache
         if (!$this->isCacheable($request)) return $next($request);
 
         $hash = $this->getHash($request);
-
+        
         return CacheFile::getCache($hash, getenv('CACHE_TIME'), function() use($request,$next) {
             return $next($request);
         });
@@ -34,7 +34,7 @@ class Cache
         $uri.= !empty($queryParams) ? '?'.http_build_query($queryParams) : '';
 
         //Remove as / e retorna a hash
-        return preg_replace('/[^0-9a-zA-z]/', '-', ltrim($uri, '/'));
+        return rtrim('route-'.preg_replace('/[^0-9a-zA-z]/', '-', ltrim($uri, '/')), '-');
     }
 
     /**

@@ -13,7 +13,7 @@ class File
     public static function getCache($hash, $expiration, $function)
     {
         //Verifica conteudo gravado
-        if($content = self::getContentCach($hash,$expiration)){
+        if ($content = self::getContentCach($hash, $expiration)) {
             return $content;
         }
         //Execução da função
@@ -36,7 +36,7 @@ class File
         $cacheFile = self::getFilePath($hash);
 
         //Grava as informações no arquivo
-        return file_put_contents($cacheFile,$serialize);
+        return file_put_contents($cacheFile, $serialize);
     }
     /**
      * Retorna o caminho do arquivo de cache
@@ -55,24 +55,26 @@ class File
     /**
      * Responsável por retornar conteúdo gravado no cache
      */
-    private static function getContentCach($hash, $expiration){
+    private static function getContentCach($hash, $expiration)
+    {
         //Obtem caminho do arquivo
         $cacheFile = self::getFilePath($hash);
 
         //Verifica existencia do arquivo
-        if(!file_exists($cacheFile)){
+        if (!file_exists($cacheFile)) {
             return false;
         }
-        
+
         //Valida a expiração do cache
         $createTime = filectime($cacheFile);
         $difTime = time() - $createTime;
-        
-        if($difTime > $expiration){
+
+        if ($difTime > $expiration) {
             return false;
         }
 
         $serialize = file_get_contents($cacheFile);
+
         //Retorna o dado real
         return unserialize($serialize);
     }
