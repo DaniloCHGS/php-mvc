@@ -6,17 +6,19 @@
 
 <hr class="my-5">
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <div class="card">
         <h5 class="card-header">Textos</h5>
         <div class="card-body">
 
             <div class="row">
-
+                <div class="col-12">
+                    {{status}}
+                </div>
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
-                        <input type="text" name="title-site" class="form-control" placeholder="Digite aqui"
-                            aria-describedby="floatingInputHelp" value="{{title-site}}" />
+                        <input type="text" name="title_site" class="form-control" placeholder="Digite aqui"
+                            aria-describedby="floatingInputHelp" value="{{title_site}}" />
                         <label for="floatingInput">Título</label>
                     </div>
                 </div>
@@ -41,8 +43,8 @@
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
                         <div class="input-group">
-                            <label class="input-group-text" for="logoPrimaria"><strong>Primária:</strong> 300px : 200px</label>
-                            <input type="file" class="form-control" id="logoPrimaria" />
+                            <label class="input-group-text" for="logoPrimary">Primária: 300px : 200px</label>
+                            <input type="file" class="form-control" id="logoPrimary" name="logo_primary" />
                         </div>
                     </div>
                     <picture class="thumbnail">
@@ -53,8 +55,8 @@
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
                         <div class="input-group">
-                            <label class="input-group-text" for="logoPrimaria"><strong>Secundária:</strong> 300px : 200px</label>
-                            <input type="file" class="form-control" id="logoPrimaria" />
+                            <label class="input-group-text" for="logoSecondary">Secundária: 300px : 200px</label>
+                            <input type="file" class="form-control" id="logoSecondary" name="logo_secondary" />
                         </div>
                     </div>
                     <picture class="thumbnail">
@@ -65,13 +67,17 @@
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
                         <div class="input-group">
-                            <label class="input-group-text" for="logoPrimaria"><strong>Rodapé:</strong> 300px : 200px</label>
-                            <input type="file" class="form-control" id="logoPrimaria" />
+                            <label class="input-group-text" for="logoFooter">Rodapé: 300px : 200px</label>
+                            <input type="file" class="form-control" id="logoFooter" name="logo_footer" />
                         </div>
                     </div>
                     <picture class="thumbnail">
                         <img src="{{URL_CONTENT}}logo/13.jpg" class="w-100 mt-2">
                     </picture>
+                </div>
+
+                <div class="col-12 mt-2">
+                    <input type="submit" value="Confirmar" class="btn btn-success float-right">
                 </div>
 
             </div>
