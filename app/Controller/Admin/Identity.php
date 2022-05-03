@@ -55,7 +55,8 @@ class Identity extends Page
     public static function updateIdentity($request)
     {
         $postVars = $request->getPostVars();
-        
+        $fileVars = $request->getFileVars();
+
         $identity = EntityIdentity::getIdentityById(1);
 
         if ($identity instanceof EntityIdentity) {

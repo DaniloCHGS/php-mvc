@@ -31,6 +31,8 @@ class Request
      */
     private $postVars = [];
 
+    private $fileVars = [];
+
     /**
      * Cabeçalho da requisição
      */
@@ -44,6 +46,7 @@ class Request
         $this->httpMethod   = $_SERVER['REQUEST_METHOD'] ?? [];
         $this->setUri();
         $this->setPostVars();
+        $this->setFileVars();
     }
 
     /**
@@ -56,6 +59,15 @@ class Request
 
         $inputRaw = file_get_contents('php://input');
         $this->postVars = (strlen($inputRaw) && empty($_POST)) ? json_decode($inputRaw, true) : $this->postVars;
+    }
+
+    private function setFileVars(){
+        if($this->httpMethod == 'GET') return false;
+
+        $this->fileVars = $_FILES ?? [];
+
+        $inputRaw = file_get_contents('php://input');
+        $this->fileVars = (strlen($inputRaw) && empty($_FILES)) ? json_decode($inputRaw, true) : $this->fileVars;
     }
 
     /**
@@ -95,5 +107,9 @@ class Request
     public function getQueryParams()
     {
         return $this->queryParams;
+    }
+    public function getFileVars()
+    {
+        return $this->fileVars;
     }
 }
