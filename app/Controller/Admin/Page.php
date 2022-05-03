@@ -9,6 +9,7 @@ class Page
     /**
      * Módulos do painel
      */
+    // Site de ícones https://boxicons.com/
     private static $modules = [
         'home' => [
             'label' => 'Home',
@@ -19,6 +20,11 @@ class Page
             'label' => 'Depoimentos',
             'link' => URL . '/admin/depoimentos',
             'icon' => 'bx-message-rounded-dots'
+        ],
+        'identity' => [
+            'label' => 'Identidade do site',
+            'link' => URL . '/admin/identidade-site',
+            'icon' => 'bx-palette'
         ],
         'users' => [
             'label' => 'Usuários',

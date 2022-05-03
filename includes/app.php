@@ -7,7 +7,7 @@ use WilliamCosta\DatabaseManager\Database;
 use App\Http\Middleware\Queue as MiddlewareQueue;
 
 //Carrega variaveis de ambiente
-Environment::load(__DIR__."/../");
+Environment::load(__DIR__ . "/../");
 
 //Define as configs do BD
 Database::config(
@@ -20,16 +20,17 @@ Database::config(
 
 //Define constante de URL
 define("URL", getenv('URL'));
+define("URL_CONTENT", getenv('URL_CONTENT'));
 
 //Define valores padrões das variaveis
-View::init(['URL' => URL]);
+View::init(['URL' => URL, 'URL_CONTENT' => URL_CONTENT]);
 
 //Define o mapeamento de middlewares
 MiddlewareQueue::setMap([
-    'maintenance'=> \App\Http\Middleware\Maintenance::class,
-    'api'=> \App\Http\Middleware\Api::class,
-    'jwt-auth'=> \App\Http\Middleware\JWTAuth::class,
-    'cache'=> \App\Http\Middleware\Cache::class,
+    'maintenance' => \App\Http\Middleware\Maintenance::class,
+    'api' => \App\Http\Middleware\Api::class,
+    'jwt-auth' => \App\Http\Middleware\JWTAuth::class,
+    'cache' => \App\Http\Middleware\Cache::class,
     'required-admin-logout' => \App\Http\Middleware\RequireredAdminLogout::class,
     'required-admin-login' => \App\Http\Middleware\RequireredAdminLogin::class,
     'user-basic-auth' => \App\Http\Middleware\UserBasicAuth::class
