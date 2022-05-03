@@ -8,7 +8,7 @@
 
 <form action="" method="post">
     <div class="card">
-        <h5 class="card-header">{{title}}</h5>
+        <h5 class="card-header">Textos</h5>
         <div class="card-body">
 
             <div class="row">
@@ -30,21 +30,18 @@
 
             </div>
 
-        </div>
-    </div>
-
-    <hr class="my-5">
-
-    <div class="card">
-        <h5 class="card-header">Logos</h5>
-        <div class="card-body">
+            <hr class="my-3">
 
             <div class="row">
 
-                <div class="col-lg-5 col-md-5 col-sm-12">
+                <div class="col-12 mb-3">
+                    <p class="card-text">Logos</p>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
                         <div class="input-group">
-                            <label class="input-group-text" for="logoPrimaria">Primária: 300px : 200px</label>
+                            <label class="input-group-text" for="logoPrimaria"><strong>Primária:</strong> 300px : 200px</label>
                             <input type="file" class="form-control" id="logoPrimaria" />
                         </div>
                     </div>
@@ -53,10 +50,22 @@
                     </picture>
                 </div>
 
-                <div class="col-lg-5 col-md-5 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
                         <div class="input-group">
-                            <label class="input-group-text" for="logoPrimaria">Secundária: 300px : 200px</label>
+                            <label class="input-group-text" for="logoPrimaria"><strong>Secundária:</strong> 300px : 200px</label>
+                            <input type="file" class="form-control" id="logoPrimaria" />
+                        </div>
+                    </div>
+                    <picture class="thumbnail">
+                        <img src="{{URL_CONTENT}}logo/13.jpg" class="w-100 mt-2">
+                    </picture>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <label class="input-group-text" for="logoPrimaria"><strong>Rodapé:</strong> 300px : 200px</label>
                             <input type="file" class="form-control" id="logoPrimaria" />
                         </div>
                     </div>
