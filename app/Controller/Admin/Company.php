@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Utils\View;
 use App\Utils\Utils;
-use App\Utils\UpFile;
+use App\Model\Entity\Company as EntityCompany;
 
 class Company extends Page
 {
@@ -32,14 +32,16 @@ class Company extends Page
      */
     public static function index($request)
     {
+        $company = EntityCompany::getAddressById(1);
+
         //Conteudo da Identidade do site
         $content = View::render('admin/modules/company/index', [
             'title' => 'Dados da Empresa',
-            'MODULE_URL' => URL.'/dados-empresa',
+            'MODULE_URL' => URL.'/admin/dados-empresa',
             'status' => self::getStatus($request),
-            'address' => '',
-            'cep' => '',
-            'state' => '',
+            'address' => $company->address ?? '',
+            'cep' => $company->cep ?? '',
+            'state' => $company->state ?? '',
             'phone_one' => '',
             'phone_two' => '',
             'whatsapp' => '',
@@ -58,11 +60,19 @@ class Company extends Page
     /**
      * Atualiza
      */
-    public static function updateIdentity($request)
+    public static function updateAddressCompany($request)
     {
         $postVars = $request->getPostVars();
-        $fileVars = $request->getFileVars();
+        
+        $companyAddress = EntityCompany::getAddressById(1);
+        
+        if($companyAddress instanceof EntityCompany){
+            $companyAddress->address = $postVars['address'] ?? $companyAddress->address;
+            $companyAddress->cep = $postVars['cep'] ?? $companyAddress->cep;
+            $companyAddress->state = $postVars['state'] ?? $companyAddress->state;
+            $companyAddress->updateAddress();
+        }
 
-        $request->getRouter()->redirect('/admin/dados-empresa?status=created');
+        $request->getRouter()->redirect('/admin/dados-empresa?status=updated');
     }
 }
