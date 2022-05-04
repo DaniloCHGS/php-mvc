@@ -35,7 +35,11 @@ class Company extends Page
         //Conteudo da Identidade do site
         $content = View::render('admin/modules/company/index', [
             'title' => 'Dados da Empresa',
-            'MODULE_URL' => 'dados-empresa'
+            'MODULE_URL' => URL.'/dados-empresa',
+            'status' => self::getStatus($request),
+            'address' => '',
+            'cep' => '',
+            'state' => ''
         ]);
 
         //Retorna página completa
