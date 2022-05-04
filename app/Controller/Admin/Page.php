@@ -23,6 +23,11 @@ class Page
             'link' => URL . '/admin/depoimentos',
             'icon' => 'bx-message-rounded-dots'
         ],
+        'company' => [
+            'label' => 'Dados da Empresa',
+            'link' => URL . '/admin/dados-empresa',
+            'icon' => 'bx-buildings'
+        ],
         'identity' => [
             'label' => 'Identidade do site',
             'link' => URL . '/admin/identidade-site',

@@ -12,5 +12,8 @@ include __DIR__ . '/admin/testimonies.php';
 //Inlue as rotas identidade
 include __DIR__ . '/admin/identity.php';
 
+//Inlue as rotas dados da empresa
+include __DIR__ . '/admin/company.php';
+
 //Inlue as rotas usuários
 include __DIR__ . '/admin/users.php';
