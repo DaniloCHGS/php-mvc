@@ -19,10 +19,10 @@ class Company extends Page
 
         switch ($queryParams['status']) {
             case 'created':
-                return Alert::getSuccess('Identidade do site criada com sucesso');
+                return Alert::getSuccess('Dados da empresa criado com sucesso');
                 break;
             case 'updated':
-                return Alert::getSuccess('Identidade do site atualizada com sucesso');
+                return Alert::getSuccess('Dados da empresa atualizado com sucesso');
                 break;
         }
     }
@@ -39,7 +39,16 @@ class Company extends Page
             'status' => self::getStatus($request),
             'address' => '',
             'cep' => '',
-            'state' => ''
+            'state' => '',
+            'phone_one' => '',
+            'phone_two' => '',
+            'whatsapp' => '',
+            'api_wpp' => '',
+            'email' => '',
+            'facebook' => '',
+            'instagram' => '',
+            'linkedin' => '',
+            'youtube' => '',
         ]);
 
         //Retorna página completa
