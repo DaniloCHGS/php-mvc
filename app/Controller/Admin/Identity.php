@@ -79,29 +79,5 @@ class Identity extends Page
 
             $request->getRouter()->redirect('/admin/identidade-site?status=updated');
         }
-
-        $identity->title_site = $postVars['title_site'];
-        $identity->description = $postVars['description'];
-        $identity->logo_primary = $postVars['logo_primary'];
-        $identity->logo_secondary = $postVars['logo_secondary'];
-        $identity->logo_footer = $postVars['logo-footer'];
-
-        $identity->logo_primary = $logoPrimary->new_name;
-        $identity->logo_secondary = $logoSecondary->new_name;
-        $identity->logo_footer = $logoFooter->new_name;
-        $identity->register();
-
-        $request->getRouter()->redirect('/admin/identidade-site?status=created');
-    }
-    /**
-     * Executa upload da logo
-     */
-    private static function uploadLogo($file)
-    {
-        if ($file['error'] != 4) {
-            $logo = new UpFile($file, 'logo/');
-            return $logo;
-        }
-        return false;
     }
 }
