@@ -15,6 +15,16 @@ class Company
     public $cep;
     //Estado
     public $state;
+    //Email
+    public $email;
+    //Contato 1
+    public $phone_one;
+    //Contat 2;
+    public $phone_two;
+    //Whatsapp
+    public $whatsapp;
+    //Mensagem da API do whatsapp
+    public $api_wpp;
 
     /**
      * Busca de dados
@@ -35,19 +45,6 @@ class Company
     }
 
     /**
-     * Cadastro de dados
-     */
-    public function registerAddress()
-    {
-        $this->id = (new Database('address'))->insert([
-            'address' => $this->address,
-            'cep' => $this->cep,
-            'state' => $this->state
-        ]);
-        return true;
-    }
-
-    /**
      * Atualização de dados
      */
     public function updateAddress()
@@ -56,6 +53,21 @@ class Company
             'address' => $this->address,
             'cep' => $this->cep,
             'state' => $this->state
+        ]);
+        
+        return true;
+    }
+    /**
+     * Atualização de dados
+     */
+    public function updateContact()
+    {
+        return (new Database('contact'))->update('id = ' . $this->id, [
+            'phone_one' => $this->phone_one,
+            'phone_two' => $this->phone_two,
+            'whatsapp' => $this->whatsapp,
+            'api_wpp' => $this->api_wpp,
+            'email' => $this->email
         ]);
         return true;
     }

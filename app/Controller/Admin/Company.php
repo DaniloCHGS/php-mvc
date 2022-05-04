@@ -65,13 +65,34 @@ class Company extends Page
     {
         $postVars = $request->getPostVars();
         
-        $companyAddress = EntityCompany::getAddressById(1);
+        $company = EntityCompany::getAddressById(1);
         
-        if($companyAddress instanceof EntityCompany){
-            $companyAddress->address = $postVars['address'] ?? $companyAddress->address;
-            $companyAddress->cep = $postVars['cep'] ?? $companyAddress->cep;
-            $companyAddress->state = $postVars['state'] ?? $companyAddress->state;
-            $companyAddress->updateAddress();
+        if($company instanceof EntityCompany){
+            $company->address = $postVars['address'] ?? $company->address;
+            $company->cep = $postVars['cep'] ?? $company->cep;
+            $company->state = $postVars['state'] ?? $company->state;
+            $company->updateAddress();
+        }
+
+        $request->getRouter()->redirect('/admin/dados-empresa?status=updated');
+    }
+
+    /**
+     * Atualiza
+     */
+    public static function updateContactCompany($request)
+    {
+        $postVars = $request->getPostVars();
+        
+        $company = EntityCompany::getContactById(1);
+        
+        if($company instanceof EntityCompany){
+            $company->email = $postVars['email'] ?? $company->email;
+            $company->phone_one = $postVars['phone_one'] ?? $company->phone_one;
+            $company->phone_two = $postVars['phone_two'] ?? $company->phone_two;
+            $company->whatsapp = $postVars['whatsapp'] ?? $company->whatsapp;
+            $company->api_wpp = $postVars['api_wpp'] ?? $company->api_wpp;
+            $company->updateContact();
         }
 
         $request->getRouter()->redirect('/admin/dados-empresa?status=updated');

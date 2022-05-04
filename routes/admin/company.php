@@ -14,12 +14,22 @@ $router->get('/admin/dados-empresa', [
     }
 ]);
 
-//Tela da identidade do site
+//Atualização de endereço
 $router->post('/admin/dados-empresa/address', [
     'middlewares' => [
         'required-admin-login'
     ],
     function ($request) {
         return new Response(200, Admin\Company::updateAddressCompany($request));
+    }
+]);
+
+//Atualização de contato
+$router->post('/admin/dados-empresa/contact', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function ($request) {
+        return new Response(200, Admin\Company::updateContactCompany($request));
     }
 ]);
