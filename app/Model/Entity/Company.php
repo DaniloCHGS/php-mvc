@@ -26,6 +26,15 @@ class Company
     }
 
     /**
+     * Busca de dados
+     * @return PDOStatement
+     */
+    public static function getContact($where = null, $order = null, $limit = null, $filds = "*")
+    {
+        return (new Database('contact'))->select($where, $order, $limit, $filds);
+    }
+
+    /**
      * Cadastro de dados
      */
     public function registerAddress()
@@ -50,11 +59,17 @@ class Company
         ]);
         return true;
     }
-    
+
     /**
      * Busca por id
      */
     public static function getAddressById($id){
         return self::getAddress('id = ' . $id)->fetchObject(self::class);
+    }
+    /**
+     * Busca por id
+     */
+    public static function getContactById($id){
+        return self::getContact('id = ' . $id)->fetchObject(self::class);
     }
 }

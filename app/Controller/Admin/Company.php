@@ -32,21 +32,22 @@ class Company extends Page
      */
     public static function index($request)
     {
-        $company = EntityCompany::getAddressById(1);
+        $companyAddress = EntityCompany::getAddressById(1);
+        $companyContact = EntityCompany::getContactById(1);
 
         //Conteudo da Identidade do site
         $content = View::render('admin/modules/company/index', [
             'title' => 'Dados da Empresa',
             'MODULE_URL' => URL.'/admin/dados-empresa',
             'status' => self::getStatus($request),
-            'address' => $company->address ?? '',
-            'cep' => $company->cep ?? '',
-            'state' => $company->state ?? '',
-            'phone_one' => '',
-            'phone_two' => '',
-            'whatsapp' => '',
-            'api_wpp' => '',
-            'email' => '',
+            'address' => $companyAddress->address ?? '',
+            'cep' => $companyAddress->cep ?? '',
+            'state' => $companyAddress->state ?? '',
+            'phone_one' => $companyContact->phone_one ?? '',
+            'phone_two' => $companyContact->phone_two ?? '',
+            'whatsapp' => $companyContact->whatsapp ?? '',
+            'api_wpp' => $companyContact->api_wpp ?? '',
+            'email' => $companyContact->email ?? '',
             'facebook' => '',
             'instagram' => '',
             'linkedin' => '',
