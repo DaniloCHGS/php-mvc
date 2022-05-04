@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Utils\View;
+use App\Utils\UpFile;
+
 
 class Page
 {
@@ -118,5 +120,12 @@ class Page
         return View::render("admin/pagination/box", [
             "links" => $links
         ]);
+    }
+    public static function uploadFile($file, $path, $config = []){
+        if($file['error'] != 4 and !empty($path)){
+            $fileUploaded = new UpFile($file, $path, $config);
+            return $fileUploaded;
+        }
+        return false;
     }
 }

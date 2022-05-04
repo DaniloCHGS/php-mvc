@@ -6,7 +6,7 @@ use App\Utils\View;
 use App\Utils\Utils;
 use App\Model\Entity\Identity as EntityIdentity;
 use App\Utils\UpFile;
-
+use Phinx\Util\Util;
 
 class Identity extends Page
 {
@@ -41,8 +41,11 @@ class Identity extends Page
             'title' => 'Identidade do site',
             'MODULE_URL' => 'identidade-site',
             'status' => self::getStatus($request),
-            'title_site' => $identity->title_site ?? '' ,
-            'description' => $identity->description ?? '' 
+            'title_site' => $identity->title_site ?? '',
+            'description' => $identity->description ?? '',
+            'logo_primary' => $identity->logo_primary ?? '',
+            'logo_secondary' => $identity->logo_secondary ?? '',
+            'logo_footer' => $identity->logo_footer ?? ''
         ]);
 
         //Retorna página completa
@@ -57,6 +60,10 @@ class Identity extends Page
         $postVars = $request->getPostVars();
         $fileVars = $request->getFileVars();
 
+        $logoPrimary = parent::uploadFile($fileVars['logo_primary'], 'logo/');
+        $logoSecondary = parent::uploadFile($fileVars['logo_secondary'], 'logo/');
+        $logoFooter = parent::uploadFile($fileVars['logo_footer'], 'logo/');
+
         $identity = EntityIdentity::getIdentityById(1);
 
         if ($identity instanceof EntityIdentity) {
@@ -64,9 +71,10 @@ class Identity extends Page
             $identity->id = 1;
             $identity->title_site = $postVars['title_site'];
             $identity->description = $postVars['description'];
-            $identity->logo_primary = $postVars['logo_primary'];
-            $identity->logo_secondary = $postVars['logo_secondary'];
-            $identity->logo_footer = $postVars['logo-footer'];
+
+            $identity->logo_primary = $logoPrimary->new_name ?? $identity->logo_primary;
+            $identity->logo_secondary = $logoSecondary->new_name ?? $identity->logo_secondary;
+            $identity->logo_footer = $logoFooter->new_name ?? $identity->logo_footer;
             $identity->update();
 
             $request->getRouter()->redirect('/admin/identidade-site?status=updated');
@@ -77,8 +85,23 @@ class Identity extends Page
         $identity->logo_primary = $postVars['logo_primary'];
         $identity->logo_secondary = $postVars['logo_secondary'];
         $identity->logo_footer = $postVars['logo-footer'];
+
+        $identity->logo_primary = $logoPrimary->new_name;
+        $identity->logo_secondary = $logoSecondary->new_name;
+        $identity->logo_footer = $logoFooter->new_name;
         $identity->register();
 
         $request->getRouter()->redirect('/admin/identidade-site?status=created');
+    }
+    /**
+     * Executa upload da logo
+     */
+    private static function uploadLogo($file)
+    {
+        if ($file['error'] != 4) {
+            $logo = new UpFile($file, 'logo/');
+            return $logo;
+        }
+        return false;
     }
 }

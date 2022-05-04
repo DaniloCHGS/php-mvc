@@ -9,7 +9,7 @@ class UpFile
      * Caminho padrão do boss para salvar arquivos.
      * @var string
      */
-    const DEFAULT_PATH = "../../resources/content/";
+    const DEFAULT_PATH = "/php-mvc/resources/content/";
 
     /**
      * Caminho da pasta para a qual será feito o upload do arquivo.
@@ -138,7 +138,7 @@ class UpFile
      */
     function upload()
     {
-        $this->uploaded = move_uploaded_file($this->tmp_name, $this->get_all_path());
+        $this->uploaded = move_uploaded_file($this->tmp_name, $_SERVER["DOCUMENT_ROOT"]. $this->get_all_path());
 
         return $this->uploaded;
     }
