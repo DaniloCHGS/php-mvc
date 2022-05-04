@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use App\Utils\Utils;
@@ -25,6 +26,14 @@ class Company
     public $whatsapp;
     //Mensagem da API do whatsapp
     public $api_wpp;
+    //Facebook
+    public $facebook;
+    //Youtube
+    public $youtube;
+    //Instagram
+    public $instagram;
+    //Linkedin
+    public $linkedin;
 
     /**
      * Busca de dados
@@ -45,6 +54,15 @@ class Company
     }
 
     /**
+     * Busca de dados
+     * @return PDOStatement
+     */
+    public static function getSocial($where = null, $order = null, $limit = null, $filds = "*")
+    {
+        return (new Database('social'))->select($where, $order, $limit, $filds);
+    }
+
+    /**
      * Atualização de dados
      */
     public function updateAddress()
@@ -54,7 +72,7 @@ class Company
             'cep' => $this->cep,
             'state' => $this->state
         ]);
-        
+
         return true;
     }
     /**
@@ -71,17 +89,39 @@ class Company
         ]);
         return true;
     }
+    /**
+     * Atualização de dados
+     */
+    public function updateSocial()
+    {
+        return (new Database('social'))->update('id = ' . $this->id, [
+            'facebook' => $this->facebook,
+            'instagram' => $this->instagram,
+            'linkedin' => $this->linkedin,
+            'youtube' => $this->youtube
+        ]);
+        return true;
+    }
 
     /**
      * Busca por id
      */
-    public static function getAddressById($id){
+    public static function getAddressById($id)
+    {
         return self::getAddress('id = ' . $id)->fetchObject(self::class);
     }
     /**
      * Busca por id
      */
-    public static function getContactById($id){
+    public static function getContactById($id)
+    {
         return self::getContact('id = ' . $id)->fetchObject(self::class);
+    }
+    /**
+     * Busca por id
+     */
+    public static function getSocialById($id)
+    {
+        return self::getSocial('id = ' . $id)->fetchObject(self::class);
     }
 }

@@ -34,6 +34,7 @@ class Company extends Page
     {
         $companyAddress = EntityCompany::getAddressById(1);
         $companyContact = EntityCompany::getContactById(1);
+        $companySocial = EntityCompany::getSocialById(1);
 
         //Conteudo da Identidade do site
         $content = View::render('admin/modules/company/index', [
@@ -48,10 +49,10 @@ class Company extends Page
             'whatsapp' => $companyContact->whatsapp ?? '',
             'api_wpp' => $companyContact->api_wpp ?? '',
             'email' => $companyContact->email ?? '',
-            'facebook' => '',
-            'instagram' => '',
-            'linkedin' => '',
-            'youtube' => '',
+            'facebook' => $companySocial->facebook ?? '',
+            'instagram' => $companySocial->instagram ?? '',
+            'linkedin' => $companySocial->linkedin ?? '',
+            'youtube' => $companySocial->youtube ?? '',
         ]);
 
         //Retorna página completa
@@ -93,6 +94,26 @@ class Company extends Page
             $company->whatsapp = $postVars['whatsapp'] ?? $company->whatsapp;
             $company->api_wpp = $postVars['api_wpp'] ?? $company->api_wpp;
             $company->updateContact();
+        }
+
+        $request->getRouter()->redirect('/admin/dados-empresa?status=updated');
+    }
+
+    /**
+     * Atualiza
+     */
+    public static function updateSocialCompany($request)
+    {
+        $postVars = $request->getPostVars();
+        
+        $company = EntityCompany::getSocialById(1);
+        
+        if($company instanceof EntityCompany){
+            $company->facebook = $postVars['facebook'] ?? $company->facebook;
+            $company->youtube = $postVars['youtube'] ?? $company->youtube;
+            $company->instagram = $postVars['instagram'] ?? $company->instagram;
+            $company->linkedin = $postVars['linkedin'] ?? $company->linkedin;
+            $company->updateSocial();
         }
 
         $request->getRouter()->redirect('/admin/dados-empresa?status=updated');

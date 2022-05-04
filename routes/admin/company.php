@@ -33,3 +33,13 @@ $router->post('/admin/dados-empresa/contact', [
         return new Response(200, Admin\Company::updateContactCompany($request));
     }
 ]);
+
+//Atualização de redes sociais
+$router->post('/admin/dados-empresa/social', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function ($request) {
+        return new Response(200, Admin\Company::updateSocialCompany($request));
+    }
+]);
