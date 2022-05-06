@@ -23,6 +23,20 @@ class User
      * @param string $email
      * @return User
      */
+    /**
+     * Permissão de usuário para inserir, editar e excluir
+     * 1:Inserir, 2:Editar, 3:Excluir
+     * 1-2-3
+     */
+    public $permission;
+    /**
+     * Quais módulos o usuário pode acessar
+     * 1-2-3-4-5
+     */
+    public $access_area;
+    /**
+     * Se o usuário é administrador, moderador ou desenvolvedor
+     */
     public static function getUserByEmail($email)
     {
         return (new Database('users'))->select('email = "' . $email . '"')->fetchObject(self::class);
@@ -30,7 +44,8 @@ class User
     /**
      * Retorna listagem de usuários
      */
-    public static function getUsers($where = null, $order = null, $limit = null, $filds = "*"){
+    public static function getUsers($where = null, $order = null, $limit = null, $filds = "*")
+    {
         return (new Database('users'))->select($where, $order, $limit, $filds);
     }
     /**
@@ -38,10 +53,13 @@ class User
      */
     public function register()
     {
-
         $this->id = (new Database('users'))->insert([
             'email' => $this->email,
             'password' => $this->password,
+            'username' => $this->username,
+            'permission' => $this->permission,
+            'access_area' => $this->access_area,
+            'admin' => $this->admin
         ]);
         return true;
     }
@@ -53,10 +71,13 @@ class User
         return (new Database('users'))->update('id = ' . $this->id, [
             'email'     => $this->email,
             'password'  => $this->password,
+            'username' => $this->username,
+            'permission' => $this->permission,
+            'access_area' => $this->access_area,
+            'admin' => $this->admin
         ]);
         return true;
     }
-
     /**
      * Deleta a instancia atual no banco
      */
@@ -65,7 +86,6 @@ class User
         return (new Database('users'))->delete('id = ' . $this->id);
         return true;
     }
-
     /**
      * Busca por ID
      */
