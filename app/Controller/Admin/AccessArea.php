@@ -51,12 +51,12 @@ class AccessArea extends Page
     /**
      * Retorna formulário de cadastro
      */
-    public static function getNewTestimonies($request)
+    public static function getNewAccessArea($request)
     {
 
         //Conteudo do formulário
-        $content = View::render('admin/modules/testimonies/form', [
-            'title' => 'Cadastro de Depoimento',
+        $content = View::render('admin/modules/access/form', [
+            'title' => 'Cadastro de Área de Acesso',
             'autor' => '',
             'depoimento' => '',
             'status' => ''

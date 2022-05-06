@@ -29,7 +29,7 @@ class Page
             'icon' => 'bx-buildings'
         ],
         'identity' => [
-            'label' => 'Identidade do site',
+            'label' => 'Identidade do Site',
             'link' => URL . '/admin/identidade-site',
             'icon' => 'bx-palette'
         ],

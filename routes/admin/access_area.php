@@ -15,11 +15,11 @@ $router->get('/admin/area-de-acesso', [
 ]);
 
 //Editar identidade
-$router->post('/admin/identidade-site', [
+$router->get('/admin/area-de-acesso/new', [
     'middlewares' => [
         'required-admin-login'
     ],
     function ($request) {
-        return new Response(200, Admin\Identity::updateIdentity($request));
+        return new Response(200, Admin\AccessArea::getNewAccessArea($request));
     }
 ]);
