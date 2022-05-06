@@ -33,6 +33,11 @@ class Page
             'link' => URL . '/admin/identidade-site',
             'icon' => 'bx-palette'
         ],
+        'access_area' => [
+            'label' => 'Área de Acesso',
+            'link' => URL . '/admin/area-de-acesso',
+            'icon' => 'bx-cog'
+        ],
         'users' => [
             'label' => 'Usuários',
             'link' => URL . '/admin/usuarios',

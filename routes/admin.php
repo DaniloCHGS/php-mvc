@@ -15,5 +15,8 @@ include __DIR__ . '/admin/identity.php';
 //Inlue as rotas dados da empresa
 include __DIR__ . '/admin/company.php';
 
+//Inlue as rotas area de acesso
+include __DIR__ . '/admin/access_area.php';
+
 //Inlue as rotas usuários
 include __DIR__ . '/admin/users.php';
