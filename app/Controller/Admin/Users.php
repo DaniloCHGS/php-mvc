@@ -58,8 +58,9 @@ class Users extends Page
         //Conteudo do formulário
         $content = View::render('admin/modules/users/form', [
             'title' => 'Cadastro de Usuário',
+            'status' => self::getStatus($request),
             'email' => '',
-            'status' => self::getStatus($request)
+            'username' => ''
         ]);
 
         //Retorna página completa
@@ -86,6 +87,9 @@ class Users extends Page
         $user = new EntityUser;
         $user->email    = $email;
         $user->password = password_hash($password, PASSWORD_DEFAULT);
+        $user->permission = $postVars['permission'];
+        $user->access_area = $postVars['access_area'];
+        $user->admin = $postVars['admin'];
         $user->register();
 
         $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=created');
@@ -206,10 +210,27 @@ class Users extends Page
                 "admin/modules/users/itens",
                 [
                     "id" => $user->id,
-                    "email" => $user->email
+                    "email" => $user->email,
+                    "permission" => $user->permission,
+                    "access_area" => $user->access_area,
+                    "admin" => self::typeUser($user->admin),
+                    "username" => $user->username
                 ]
             );
         }
         return $itens;
+    }
+    /**
+     * Responsável por identificar o tipo de usuário
+     */
+    private static function typeUser($type)
+    {
+        if ($type == 1) {
+            return "Administrador";
+        } else if ($type == 2) {
+            return "Moderador";
+        } else {
+            return "Programador";
+        }
     }
 }
