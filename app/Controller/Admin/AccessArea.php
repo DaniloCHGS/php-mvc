@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Utils\View;
 use App\Utils\Utils;
-use App\Model\Entity\Depoimentos as DepoimentosModel;
+use App\Model\Entity\AccessArea as EntityAccess;
 use \WilliamCosta\DatabaseManager\Pagination;
 
 class AccessArea extends Page
@@ -20,26 +20,26 @@ class AccessArea extends Page
 
         switch ($queryParams['status']) {
             case 'created':
-                return Alert::getSuccess('Depoimento criado com sucesso');
+                return Alert::getSuccess('Área de Acesso criada com sucesso');
                 break;
             case 'updated':
-                return Alert::getSuccess('Depoimento atualizado com sucesso');
+                return Alert::getSuccess('Área de Acesso atualizada com sucesso');
                 break;
             case 'deleted':
-                return Alert::getSuccess('Depoimento excluido com sucesso');
+                return Alert::getSuccess('Área de Acesso excluida com sucesso');
                 break;
         }
     }
 
     /**
-     * Retorna os Depoimentos do Painel
+     * Retorna os accesss do Painel
      */
     public static function index($request)
     {
-        //Conteudo de Depoimentos
+        //Conteudo de accesss
         $content = View::render('admin/modules/access/index', [
             'title' => 'Área de Acesso',
-            'itens' => self::getTestimoniesItens($request, $pagination),
+            'itens' => self::getAccessItens($request, $pagination),
             'pagination' => parent::getPagination($request, $pagination),
             'status' => self::getStatus($request)
         ]);
@@ -53,126 +53,121 @@ class AccessArea extends Page
      */
     public static function getNewAccessArea($request)
     {
-
         //Conteudo do formulário
         $content = View::render('admin/modules/access/form', [
             'title' => 'Cadastro de Área de Acesso',
-            'autor' => '',
-            'depoimento' => '',
+            'access' => '',
             'status' => ''
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Painel Administrativo | Área de Acesso', $content, 'access_area');
     }
 
     /**
-     * Cadastra depoimento
+     * Cadastra access
      */
-    public static function setNewTestimonies($request)
+    public static function setNewAccessArea($request)
     {
         //Dados
         $postVars   = $request->getPostVars();
+        
+        $access = new EntityAccess;
+        $access->access = $postVars['access'];
+        $access->register();
 
-        $depoimento = new DepoimentosModel;
-        $depoimento->autor = $postVars['autor'];
-        $depoimento->depoimento = $postVars['depoimento'];
-        $depoimento->register();
-
-        $request->getRouter()->redirect('/admin/depoimentos/' . $depoimento->id . '/edit?status=created');
+        $request->getRouter()->redirect('/admin/area-de-acesso/' . $access->id . '/edit?status=created');
     }
 
     /**
-     * Form para editar depoimento
+     * Form para editar access
      */
-    public static function getEditTestimonies($request, $id)
+    public static function getEditAccessArea($request, $id)
     {
-        $depoimento = DepoimentosModel::getTestimonyById($id);
+        $access = EntityAccess::getAccessAreaById($id);
 
-        if (!$depoimento instanceof DepoimentosModel) {
-            $request->getRouter()->redirect('/admin/depoimentos');
+        if (!$access instanceof EntityAccess) {
+            $request->getRouter()->redirect('/admin/area-de-acesso');
         }
 
         //Conteudo do formulário
-        $content = View::render('admin/modules/testimonies/form', [
-            'title' => 'Editar Depoimento',
-            'autor' => $depoimento->autor,
-            'depoimento' => $depoimento->depoimento,
-            'status' => self::getStatus($request)
+        $content = View::render('admin/modules/access/form', [
+            'title' => 'Editar Acesso',
+            'status' => self::getStatus($request),
+            'access' => $access->access,
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Painel Administrativo | Área de Acesso', $content, 'access_area');
     }
 
     /**
-     * Editar depoimento
+     * Editar access
      */
-    public static function setEditTestimonies($request, $id)
+    public static function setEditAccessArea($request, $id)
     {
-        $depoimento = DepoimentosModel::getTestimonyById($id);
+        $access = EntityAccess::getAccessAreaById($id);
 
-        if (!$depoimento instanceof DepoimentosModel) {
-            $request->getRouter()->redirect('/admin/depoimentos');
+        if (!$access instanceof EntityAccess) {
+            $request->getRouter()->redirect('/admin/area-de-acesso');
         }
 
         $postVars   = $request->getPostVars();
 
-        $depoimento->autor = $postVars['autor'] ?? $depoimento->autor;
-        $depoimento->depoimento = $postVars['depoimento'] ?? $depoimento->depoimento;
+        $access->autor = $postVars['autor'] ?? $access->autor;
+        $access->access = $postVars['access'] ?? $access->access;
 
-        $depoimento->update();
+        $access->update();
 
-        $request->getRouter()->redirect('/admin/depoimentos/' . $depoimento->id . '/edit?status=updated');
+        $request->getRouter()->redirect('/admin/area-de-acesso/' . $access->id . '/edit?status=updated');
     }
 
     /**
-     * Tela de deletar um depoimento 
+     * Tela de deletar um access 
      */
-    public static function getDeleteTestimonies($request, $id)
+    public static function getDeleteAccessArea($request, $id)
     {
-        $depoimento = DepoimentosModel::getTestimonyById($id);
+        $access = EntityAccess::getAccessAreaById($id);
 
-        if (!$depoimento instanceof DepoimentosModel) {
-            $request->getRouter()->redirect('/admin/depoimentos');
+        if (!$access instanceof EntityAccess) {
+            $request->getRouter()->redirect('/admin/area-de-acesso');
         }
 
         //Conteudo do formulário
-        $content = View::render('admin/modules/testimonies/delete', [
-            'title' => 'Excluir Depoimento',
-            'autor' => $depoimento->autor,
-            'depoimento' => $depoimento->depoimento,
+        $content = View::render('admin/modules/access/delete', [
+            'title' => 'Excluir access',
+            'access' => $access->access
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Painel Administrativo | Área de Acesso', $content, 'access_area');
     }
 
     /**
-     * Deletar depoimento
+     * Deletar access
      */
-    public static function setDeleteTestimonies($request, $id)
+    public static function setDeleteAccessArea($request, $id)
     {
-        $depoimento = DepoimentosModel::getTestimonyById($id);
+        $access = EntityAccess::getAccessAreaById($id);
 
-        if (!$depoimento instanceof DepoimentosModel) {
-            $request->getRouter()->redirect('/admin/depoimentos');
+        if (!$access instanceof EntityAccess) {
+            $request->getRouter()->redirect('/admin/area-de-acesso');
         }
 
-        $depoimento->delete();
+        $access->delete();
 
-        $request->getRouter()->redirect('/admin/depoimentos?status=deleted');
+        $request->getRouter()->redirect('/admin/area-de-acesso?status=deleted');
     }
 
     /**
-     * Renderiza os itens de depoimento na página
+     * Renderiza os itens de access na página
      */
-    private function getTestimoniesItens($request, &$pagination)
+    private function getAccessItens($request, &$pagination)
     {
         $itens = "";
 
         //Quantidade total de registros
-        $total = DepoimentosModel::getTestimonies(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
+        $total = EntityAccess::getAccess(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
 
         //Pagina atual
         $queryParams = $request->getQueryParams();
@@ -182,17 +177,15 @@ class AccessArea extends Page
         $pagination = new Pagination($total, $paginaAtual, 3);
 
         //Resultados da página
-        $results = DepoimentosModel::getTestimonies(null, 'id DESC', $pagination->getLimit());
+        $results = EntityAccess::getAccess(null, 'id DESC', $pagination->getLimit());
 
         //Renderiza o item
-        while ($obDepoimentos = $results->fetchObject(DepoimentosModel::class)) {
+        while ($access_area = $results->fetchObject(EntityAccess::class)) {
             $itens .= View::render(
                 "admin/modules/access/itens",
                 [
-                    "autor" => $obDepoimentos->autor,
-                    "depoimento" => $obDepoimentos->depoimento,
-                    "data" => date("d/m/Y H:i:s", strtotime($obDepoimentos->data)),
-                    "id" => $obDepoimentos->id,
+                    "id" => $access_area->id,
+                    "access" => $access_area->access
                 ]
             );
         }
