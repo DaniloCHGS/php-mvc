@@ -20,6 +20,9 @@ class UserSeed extends AbstractSeed
             'username'=> 'Danilo C.',
             'email' => 'danilo@taticaweb.com.br',
             'password' => password_hash('sucesso2022', PASSWORD_DEFAULT),
+            'permission' => '1-2-3',
+            'access_area' => '1-2-3-4-5',
+            'admin' => '1',
             'created' => date('Y-m-d H:i:s')
         ];
         $user = $this->table('users');
