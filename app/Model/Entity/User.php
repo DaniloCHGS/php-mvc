@@ -59,7 +59,8 @@ class User
             'username' => $this->username,
             'permission' => $this->permission,
             'access_area' => $this->access_area,
-            'admin' => $this->admin
+            'admin' => $this->admin,
+            'created' => date('Y-m-d H:i:s')
         ]);
         return true;
     }

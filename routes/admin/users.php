@@ -30,7 +30,6 @@ $router->post('/admin/usuarios/new', [
         'required-admin-login'
     ],
     function ($request) {
-        Utils::pre($request->getPostVars());
         return new Response(200, Admin\Users::setNewUser($request));
     }
 ]);

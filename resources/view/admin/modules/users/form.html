@@ -1,3 +1,8 @@
+<style>
+    .modules div label {
+        margin-left: 7px;
+    }
+</style>
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h1>{{title}}</h1>
@@ -32,7 +37,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="form-floating">
                         <input type="password" name="password" class="form-control" placeholder="Digite aqui"
-                            aria-describedby="floatingInputHelp" />
+                            aria-describedby="floatingInputHelp" value="{{password}}" autocomplete="off" />
                         <label for="floatingInput">Senha</label>
                     </div>
                 </div>
@@ -48,20 +53,24 @@
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-6 col-md-6 col-sm-12 modules">
                     <label class="mb-3">Módulos</label>
 
-                    <div class="d-flex flex-wrap align-items-center justify-content-between">
-                        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" name="access_area" />
+                    <div class="d-flex flex-wrap">
+                        <input type="checkbox" class="btn-check check-modules" id="btncheck3" autocomplete="off"
+                            name="access_area" />
                         <label class="btn btn-outline-info" for="btncheck3">Banner</label>
 
-                        <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" name="access_area" />
+                        <input type="checkbox" class="btn-check check-modules" id="btncheck4" autocomplete="off"
+                            name="access_area" />
                         <label class="btn btn-outline-info" for="btncheck4">Blog</label>
 
-                        <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off" name="access_area" />
+                        <input type="checkbox" class="btn-check check-modules" id="btncheck5" autocomplete="off"
+                            name="access_area" />
                         <label class="btn btn-outline-info" for="btncheck5">Contato</label>
 
-                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" name="access_area" />
+                        <input type="checkbox" class="btn-check check-modules" id="btncheck2" autocomplete="off"
+                            name="access_area" />
                         <label class="btn btn-outline-info" for="btncheck2">Depoimentos</label>
                     </div>
                 </div>
@@ -70,17 +79,22 @@
 
                     <div class="d-flex flex-wrap align-items-center">
                         <div class="btn-group" role="group">
-                            <input type="checkbox" class="btn-check" id="btnInsert" autocomplete="off" name="permission" value="insert" />
+                            <input type="checkbox" class="btn-check check-permission" id="btnInsert" autocomplete="off"
+                                value="insert" />
                             <label class="btn btn-outline-success" for="btnInsert">Inserir</label>
-        
-                            <input type="checkbox" class="btn-check" id="btnEdit" autocomplete="off" name="permission" value="edit" />
+
+                            <input type="checkbox" class="btn-check check-permission" id="btnEdit" autocomplete="off"
+                                value="edit" />
                             <label class="btn btn-outline-warning" for="btnEdit">Editar</label>
-        
-                            <input type="checkbox" class="btn-check" id="btnDelete" autocomplete="off" name="permission" value="delete" />
+
+                            <input type="checkbox" class="btn-check check-permission" id="btnDelete" autocomplete="off"
+                                value="delete" />
                             <label class="btn btn-outline-danger" for="btnDelete">Excluir</label>
+
+                            <input type="hidden" name="permission" value="{{permission}}">
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <hr class="my-4">
@@ -93,3 +107,54 @@
     </div>
 
 </div>
+
+<script>
+
+    const btnSubmit = document.querySelector('input[type="submit"]')
+    const form = document.querySelector('form')
+
+    btnSubmit.addEventListener('click', event => {
+        event.preventDefault()
+
+        const permissions = [...document.querySelectorAll('.check-permission:checked')]
+
+        var permissionSelecteds = ''
+
+        permissions.forEach(item => {
+            var permissionCurrent = parseValue(item.value)
+            permissionSelecteds = !permissionSelecteds ? `${permissionCurrent}` : `${permissionSelecteds}-${permissionCurrent}`
+        })
+
+        document.querySelector('input[name="permission"]').value = permissionSelecteds
+        form.submit()
+    })
+
+    function parseValue(permission) {
+        if (permission == 'insert') {
+            return 1
+        } else if (permission == 'edit') {
+            return 2
+        } else {
+            return 3
+        }
+    }
+
+    const permissionEl = document.querySelector('input[name="permission"')
+    const permissionsValues = permissionEl.value
+    const permissionsExact = permissionsValues.split('-')
+
+    permissionsExact.forEach(perm => {
+        var btn = ''
+
+        if (perm == '1') {
+            btn = document.getElementById('btnInsert')
+        } else if (perm == '2') {
+            btn = document.getElementById('btnEdit')
+        } else if (perm == '3') {
+            btn = document.getElementById('btnDelete')
+        }
+
+        if(btn) btn.checked = true
+    })
+
+</script>

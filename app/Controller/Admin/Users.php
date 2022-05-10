@@ -60,7 +60,8 @@ class Users extends Page
             'title' => 'Cadastro de Usuário',
             'status' => self::getStatus($request),
             'email' => '',
-            'username' => ''
+            'username' => '',
+            'password' => 'mudarsenha'
         ]);
 
         //Retorna página completa
@@ -83,12 +84,13 @@ class Users extends Page
         if ($hasUser instanceof EntityUser) {
             $request->getRouter()->redirect('/admin/usuarios/new?status=duplicated');
         }
-
+        
         $user = new EntityUser;
         $user->email    = $email;
         $user->password = password_hash($password, PASSWORD_DEFAULT);
+        $user->username = $postVars['username'];
         $user->permission = $postVars['permission'];
-        $user->access_area = $postVars['access_area'];
+        $user->access_area = $postVars['access_area'] ?? 1;
         $user->admin = $postVars['admin'];
         $user->register();
 
@@ -110,7 +112,9 @@ class Users extends Page
         $content = View::render('admin/modules/users/form', [
             'title' => 'Editar Usuário',
             'email' => $user->email,
-            'status' => self::getStatus($request)
+            'status' => self::getStatus($request),
+            'username' => $user->username ?? '',
+            'permission' => $user->permission ?? ''
         ]);
 
         //Retorna página completa
@@ -135,12 +139,15 @@ class Users extends Page
 
         $hasUser = EntityUser::getUserByEmail($email);
 
-        if ($hasUser instanceof EntityUser) {
+        if ($hasUser instanceof EntityUser && ($user->id != $hasUser->id)) {
             $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=duplicated');
         }
 
         $user->email = $email;
         $user->password = $password ? password_hash($password, PASSWORD_DEFAULT) : $user->password;
+        $user->permission = $postVars['permission'] ?? $user->permission;
+        $user->access_area = $postVars['access_area'] ?? $user->access_area;
+        $user->admin = $postVars['admin'] ?? $user->admin;
 
         $user->update();
 
@@ -232,5 +239,8 @@ class Users extends Page
         } else {
             return "Programador";
         }
+    }
+    private static function labelPermission($permission){
+        
     }
 }
