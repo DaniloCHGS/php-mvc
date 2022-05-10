@@ -15,30 +15,30 @@
                 <div class="col-lg-12">
                     {{status}}
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="form-floating">
                         <input type="text" name="username" class="form-control" placeholder="Digite aqui"
                             aria-describedby="floatingInputHelp" value="{{username}}" />
                         <label for="floatingInput">Nome de usuário</label>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="form-floating">
                         <input type="email" name="email" class="form-control" placeholder="Digite aqui"
                             aria-describedby="floatingInputHelp" value="{{email}}" />
                         <label for="floatingInput">Email</label>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="form-floating">
                         <input type="password" name="password" class="form-control" placeholder="Digite aqui"
                             aria-describedby="floatingInputHelp" />
                         <label for="floatingInput">Senha</label>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="form-floating mt-3">
-                        <select name="admin" id="" class="form-select">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="form-floating">
+                        <select name="admin" id="admin" class="form-select">
                             <option value="1">Administrador</option>
                             <option value="2">Moderador</option>
                             <option value="3">Programador</option>
@@ -46,30 +46,41 @@
                         <label for="floatingInput">Tipo de usuário</label>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="form-floating mt-3">
-                        <select name="access_area" id="" class="form-select">
-                            <option value="1">Área 1</option>
-                            <option value="2">Área 2</option>
-                            <option value="3">Área 3</option>
-                        </select>
-                        <label for="floatingInput">Módulos</label>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <label class="mb-3">Módulos</label>
+
+                    <div class="d-flex flex-wrap align-items-center justify-content-between">
+                        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" name="access_area" />
+                        <label class="btn btn-outline-info" for="btncheck3">Banner</label>
+
+                        <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" name="access_area" />
+                        <label class="btn btn-outline-info" for="btncheck4">Blog</label>
+
+                        <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off" name="access_area" />
+                        <label class="btn btn-outline-info" for="btncheck5">Contato</label>
+
+                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" name="access_area" />
+                        <label class="btn btn-outline-info" for="btncheck2">Depoimentos</label>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 d-flex flex-wrap align-items-center justify-content-between">
-                    <label for="">Permissão</label>
-                    <div class="form-check form-check-inline">
-                        <input type="checkbox" name="permission" id="insert" class="form-check-input">
-                        <label for="insert" class="form-check-label">Inserir</label>
+                <div class="col-lg-6 col-md-6 col-sm-12 ">
+                    <label class="mb-3">Permissão de utilização do sistema</label>
+
+                    <div class="d-flex flex-wrap align-items-center">
+                        <div class="btn-group" role="group">
+                            <input type="checkbox" class="btn-check" id="btnInsert" autocomplete="off" name="permission" value="insert" />
+                            <label class="btn btn-outline-success" for="btnInsert">Inserir</label>
+        
+                            <input type="checkbox" class="btn-check" id="btnEdit" autocomplete="off" name="permission" value="edit" />
+                            <label class="btn btn-outline-warning" for="btnEdit">Editar</label>
+        
+                            <input type="checkbox" class="btn-check" id="btnDelete" autocomplete="off" name="permission" value="delete" />
+                            <label class="btn btn-outline-danger" for="btnDelete">Excluir</label>
+                        </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input type="checkbox" name="permission" id="edit" class="form-check-input">
-                        <label for="edit" class="form-check-label">Editar</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="checkbox" name="permission" id="exclude" class="form-check-input">
-                        <label for="exclude" class="form-check-label">Excluir</label>
-                    </div>
+                    
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <hr class="my-4">
