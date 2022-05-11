@@ -63,7 +63,8 @@ class Users extends Page
             'username' => '',
             'password' => 'mudarsenha',
             'modules' => self::getModulesItens(),
-            'admin' => ''
+            'admin' => '',
+            'MODULE_URL' => 'usuarios'
         ]);
 
         //Retorna página completa

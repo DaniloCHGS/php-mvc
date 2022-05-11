@@ -96,13 +96,12 @@
 </div>
 
 <script>
-
     var adminEl = document.getElementById('admin')
     var idAmin = adminEl.getAttribute('data-id-admin')
-    
+
     var optionAdmin = document.getElementById(`opt-${idAmin}`)
     optionAdmin.selected = true
-    
+
     const btnSubmit = document.querySelector('input[type="submit"]')
     const form = document.querySelector('form')
 
@@ -176,5 +175,4 @@
         var btnModule = document.getElementById(`btncheck${mod}`)
         btnModule.checked = true
     })
-
 </script>
