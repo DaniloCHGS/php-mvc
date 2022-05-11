@@ -84,7 +84,7 @@ class Users extends Page
         if ($hasUser instanceof EntityUser) {
             $request->getRouter()->redirect('/admin/usuarios/new?status=duplicated');
         }
-        
+
         $user = new EntityUser;
         $user->email    = $email;
         $user->password = password_hash($password, PASSWORD_DEFAULT);
@@ -240,20 +240,25 @@ class Users extends Page
             return "Programador";
         }
     }
-    private static function labelPermission($permission){
+    private static function labelPermission($permission)
+    {
+        if($permission == 0) {
+            return 'Apenas visualização';
+        }
+
         $permissionExtract = explode('-', $permission);
         $labelPermission = '';
 
-        foreach($permissionExtract as $value){
-            
-            if($value == 1){
+        foreach ($permissionExtract as $value) {
+
+            if ($value == 1) {
                 $typePermission = 'Inserir';
-            } else if($value == 2){
+            } else if ($value == 2) {
                 $typePermission = 'Editar';
             } else {
                 $typePermission = 'Excluir';
             }
-            
+
             $labelPermission = empty($labelPermission) ? $typePermission : $labelPermission . " - " . $typePermission;
         }
         return $labelPermission;

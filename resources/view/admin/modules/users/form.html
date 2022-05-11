@@ -117,15 +117,17 @@
         event.preventDefault()
 
         const permissions = [...document.querySelectorAll('.check-permission:checked')]
-
         var permissionSelecteds = ''
 
-        permissions.forEach(item => {
-            var permissionCurrent = parseValue(item.value)
-            permissionSelecteds = !permissionSelecteds ? `${permissionCurrent}` : `${permissionSelecteds}-${permissionCurrent}`
-        })
+        if(permissions.length){
+            
+            permissions.forEach(item => {
+                var permissionCurrent = parseValue(item.value)
+                permissionSelecteds = !permissionSelecteds ? `${permissionCurrent}` : `${permissionSelecteds}-${permissionCurrent}`
+            })
+        }
 
-        document.querySelector('input[name="permission"]').value = permissionSelecteds
+        document.querySelector('input[name="permission"]').value = permissionSelecteds ? permissionSelecteds : 0
         form.submit()
     })
 
@@ -154,7 +156,7 @@
             btn = document.getElementById('btnDelete')
         }
 
-        if(btn) btn.checked = true
+        if (btn) btn.checked = true
     })
 
 </script>
