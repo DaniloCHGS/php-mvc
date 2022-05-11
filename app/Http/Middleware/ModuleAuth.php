@@ -16,7 +16,7 @@ class ModuleAuth
         $module = EntityAccessArea::getAccessAreaByURI($uri);
         $userLevel = $_SESSION['admin']['user']['admin'];
         
-        if($userLevel == $module->admin){
+        if($userLevel >= $module->admin){
             return $next($request);
         }
 

@@ -14,9 +14,9 @@ class Utils {
     public static function typeUser($type)
     {
         if ($type == 1) {
-            return "Administrador";
-        } else if ($type == 2) {
             return "Moderador";
+        } else if ($type == 2) {
+            return "Administrador";
         } else {
             return "Programador";
         }
