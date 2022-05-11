@@ -114,7 +114,6 @@ class AccessArea extends Page
 
         $postVars   = $request->getPostVars();
 
-        $access->autor = $postVars['autor'] ?? $access->autor;
         $access->access = $postVars['access'] ?? $access->access;
 
         $access->update();
