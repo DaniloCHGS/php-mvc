@@ -21,7 +21,9 @@ class Login {
         self::init();
         $_SESSION['admin']['user'] = [
             'id' => $user->id,
-            'email'=> $user->email
+            'email'=> $user->email,
+            'admin' => $user->admin,
+            'access_area' => $user->access_area
         ];
         //success
         return true;

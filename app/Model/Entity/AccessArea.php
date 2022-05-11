@@ -66,4 +66,11 @@ class AccessArea
     {
         return self::getAccess('id = ' . $id)->fetchObject(self::class);
     }
+    /**
+     * Busca por URI
+     */
+    public static function getAccessAreaByURI($uri)
+    {
+        return self::getAccess("uri =  '". $uri . "'")->fetchObject(self::class);
+    }
 }
