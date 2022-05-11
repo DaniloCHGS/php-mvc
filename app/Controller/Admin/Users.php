@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Utils\View;
 use App\Utils\Utils;
 use App\Model\Entity\User as EntityUser;
+use App\Model\Entity\AccessArea as EntityAccessArea;
 use \WilliamCosta\DatabaseManager\Pagination;
 
 class Users extends Page
@@ -45,7 +46,6 @@ class Users extends Page
             'pagination' => parent::getPagination($request, $pagination),
             'status' => self::getStatus($request)
         ]);
-
         //Retorna página completa
         return parent::getPanel('Painel Administrativo | Usuários', $content, 'users');
     }
@@ -61,7 +61,8 @@ class Users extends Page
             'status' => self::getStatus($request),
             'email' => '',
             'username' => '',
-            'password' => 'mudarsenha'
+            'password' => 'mudarsenha',
+            'modules' => self::getModulesItens()
         ]);
 
         //Retorna página completa
@@ -114,7 +115,9 @@ class Users extends Page
             'email' => $user->email,
             'status' => self::getStatus($request),
             'username' => $user->username ?? '',
-            'permission' => $user->permission ?? ''
+            'permission' => $user->permission ?? '',
+            'modules' => self::getModulesItens(),
+            'access_area' => $user->access_area
         ]);
 
         //Retorna página completa
@@ -221,11 +224,30 @@ class Users extends Page
                     "permission" => self::labelPermission($user->permission),
                     "access_area" => $user->access_area,
                     "admin" => self::typeUser($user->admin),
-                    "username" => $user->username
+                    "username" => $user->username,
                 ]
             );
         }
         return $itens;
+    }
+    /**
+     * Renderiza os itens dos módulos
+     */
+    private static function getModulesItens()
+    {
+        //Busca os módulos
+        $modules = '';
+        $entityModules = EntityAccessArea::getAccess(null, 'access ASC');
+        while ($module = $entityModules->fetchObject(EntityAccessArea::class)) {
+            $modules .= View::render(
+                "admin/modules/users/module",
+                [
+                    'id' => $module->id,
+                    'access' => $module->access
+                ]
+            );
+        }
+        return $modules;
     }
     /**
      * Responsável por identificar o tipo de usuário
@@ -242,7 +264,7 @@ class Users extends Page
     }
     private static function labelPermission($permission)
     {
-        if($permission == 0) {
+        if ($permission == 0) {
             return 'Apenas visualização';
         }
 

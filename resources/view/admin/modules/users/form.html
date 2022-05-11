@@ -57,21 +57,8 @@
                     <label class="mb-3">Módulos</label>
 
                     <div class="d-flex flex-wrap">
-                        <input type="checkbox" class="btn-check check-modules" id="btncheck3" autocomplete="off"
-                            name="access_area" />
-                        <label class="btn btn-outline-info" for="btncheck3">Banner</label>
-
-                        <input type="checkbox" class="btn-check check-modules" id="btncheck4" autocomplete="off"
-                            name="access_area" />
-                        <label class="btn btn-outline-info" for="btncheck4">Blog</label>
-
-                        <input type="checkbox" class="btn-check check-modules" id="btncheck5" autocomplete="off"
-                            name="access_area" />
-                        <label class="btn btn-outline-info" for="btncheck5">Contato</label>
-
-                        <input type="checkbox" class="btn-check check-modules" id="btncheck2" autocomplete="off"
-                            name="access_area" />
-                        <label class="btn btn-outline-info" for="btncheck2">Depoimentos</label>
+                        {{modules}}
+                        <input type="hidden" name="access_area" value="{{access_area}}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 ">
@@ -116,18 +103,32 @@
     btnSubmit.addEventListener('click', event => {
         event.preventDefault()
 
+        //Permissão
         const permissions = [...document.querySelectorAll('.check-permission:checked')]
         var permissionSelecteds = ''
 
-        if(permissions.length){
-            
+        if (permissions.length) {
+
             permissions.forEach(item => {
                 var permissionCurrent = parseValue(item.value)
                 permissionSelecteds = !permissionSelecteds ? `${permissionCurrent}` : `${permissionSelecteds}-${permissionCurrent}`
             })
         }
 
+        //Modulos
+        const modules = [...document.querySelectorAll('.check-modules:checked')]
+        var modulesSelecteds = ''
+
+        if (modules.length) {
+
+            modules.forEach(item => {
+                var idModule = item.value
+                modulesSelecteds = !modulesSelecteds ? `${idModule}` : `${modulesSelecteds}-${idModule}`
+            })
+        }
+
         document.querySelector('input[name="permission"]').value = permissionSelecteds ? permissionSelecteds : 0
+        document.querySelector('input[name="access_area"]').value = modulesSelecteds ? modulesSelecteds : 0
         form.submit()
     })
 
@@ -141,6 +142,7 @@
         }
     }
 
+    //Permissão
     const permissionEl = document.querySelector('input[name="permission"')
     const permissionsValues = permissionEl.value
     const permissionsExact = permissionsValues.split('-')
@@ -157,6 +159,16 @@
         }
 
         if (btn) btn.checked = true
+    })
+
+    //Módulos
+    const moduleEl = document.querySelector('input[name="access_area"')
+    const modulesValues = moduleEl.value
+    const modulesExact = modulesValues.split('-')
+
+    modulesExact.forEach(mod => {
+        var btnModule = document.getElementById(`btncheck${mod}`)
+        btnModule.checked = true
     })
 
 </script>
