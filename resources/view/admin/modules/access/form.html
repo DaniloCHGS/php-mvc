@@ -48,5 +48,11 @@
             </div>
         </form>
     </div>
-
 </div>
+<script>
+    var adminEl = document.getElementById('admin')
+    var idAmin = adminEl.getAttribute('data-id-admin')
+
+    var optionAdmin = document.getElementById(`opt-${idAmin}`)
+    optionAdmin.selected = true
+</script>

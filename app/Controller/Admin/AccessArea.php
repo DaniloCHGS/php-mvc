@@ -76,6 +76,8 @@ class AccessArea extends Page
         
         $access = new EntityAccess;
         $access->access = $postVars['access'];
+        $access->uri = $postVars['uri'];
+        $access->admin = $postVars['admin'];
         $access->register();
 
         $request->getRouter()->redirect('/admin/area-de-acesso/' . $access->id . '/edit?status=created');
@@ -97,6 +99,8 @@ class AccessArea extends Page
             'title' => 'Editar Acesso',
             'status' => self::getStatus($request),
             'access' => $access->access,
+            'uri' => $access->uri,
+            'admin' => $access->admin
         ]);
 
         //Retorna página completa
@@ -117,6 +121,8 @@ class AccessArea extends Page
         $postVars   = $request->getPostVars();
 
         $access->access = $postVars['access'] ?? $access->access;
+        $access->uri = $postVars['uri'] ?? $access->uri;
+        $access->admin = $postVars['admin'] ?? $access->admin;
 
         $access->update();
 
@@ -186,7 +192,9 @@ class AccessArea extends Page
                 "admin/modules/access/itens",
                 [
                     "id" => $access_area->id,
-                    "access" => $access_area->access
+                    "access" => $access_area->access,
+                    "uri" => $access_area->uri,
+                    "admin" => Utils::typeUser($access_area->admin)
                 ]
             );
         }

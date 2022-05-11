@@ -226,7 +226,7 @@ class Users extends Page
                     "email" => $user->email,
                     "permission" => self::labelPermission($user->permission),
                     "access_area" => $user->access_area,
-                    "admin" => self::typeUser($user->admin),
+                    "admin" => Utils::typeUser($user->admin),
                     "username" => $user->username,
                 ]
             );
@@ -251,19 +251,6 @@ class Users extends Page
             );
         }
         return $modules;
-    }
-    /**
-     * Responsável por identificar o tipo de usuário
-     */
-    private static function typeUser($type)
-    {
-        if ($type == 1) {
-            return "Administrador";
-        } else if ($type == 2) {
-            return "Moderador";
-        } else {
-            return "Programador";
-        }
     }
     private static function labelPermission($permission)
     {

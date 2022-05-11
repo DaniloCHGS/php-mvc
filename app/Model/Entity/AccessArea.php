@@ -10,6 +10,8 @@ class AccessArea
 
     public $id;
     public $access;
+    public $uri;
+    public $admin;
 
     /**
      * Retorna Depoimentos
@@ -26,7 +28,9 @@ class AccessArea
     public function register()
     {
         $this->id = (new Database('access_area'))->insert([
-            'access' => $this->access
+            'access' => $this->access,
+            'uri' => $this->uri,
+            'admin' => $this->admin
         ]);
         return true;
     }
@@ -39,6 +43,8 @@ class AccessArea
 
         return (new Database('access_area'))->update('id = ' . $this->id, [
             'access' => $this->access,
+            'uri' => $this->uri,
+            'admin' => $this->admin
         ]);
         return true;
     }
