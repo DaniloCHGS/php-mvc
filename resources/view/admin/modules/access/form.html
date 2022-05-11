@@ -15,11 +15,28 @@
                 <div class="col-lg-12">
                     {{status}}
                 </div>
-                <div class="col-lg-12 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
                         <input type="text" name="access" class="form-control" placeholder="Digite aqui"
                             aria-describedby="floatingInputHelp" value="{{access}}" required />
                         <label for="floatingInput">Título da Área de Acesso</label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-floating">
+                        <input type="text" name="uri" class="form-control" placeholder="Digite aqui"
+                            aria-describedby="floatingInputHelp" value="{{uri}}" required />
+                        <label for="floatingInput">URI</label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-floating">
+                        <select name="admin" id="admin" class="form-select" data-id-admin="{{admin}}">
+                            <option value="1" id="opt-1">Administrador</option>
+                            <option value="2" id="opt-2">Moderador</option>
+                            <option value="3" id="opt-3">Programador</option>
+                        </select>
+                        <label for="floatingInput">Nível de usuário</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">

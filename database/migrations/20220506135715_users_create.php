@@ -19,4 +19,8 @@ final class UsersCreate extends AbstractMigration
               ->addIndex(['username', 'email'],     ['unique' => true])
               ->create();
     }
+    public function down(): void
+    {
+        $this->table('users')->drop()->save();
+    }
 }

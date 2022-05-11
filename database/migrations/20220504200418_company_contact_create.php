@@ -18,4 +18,8 @@ final class CompanyContactCreate extends AbstractMigration
             ->addColumn('updated', 'datetime',  ['null' => true, 'default' => 'CURRENT_TIMESTAMP'])
             ->create();
     }
+    public function down(): void
+    {
+        $this->table('contact')->drop()->save();
+    }
 }

@@ -16,4 +16,8 @@ final class CompanyAddressCreate extends AbstractMigration
             ->addColumn('updated', 'datetime',      ['null' => true, 'default' => 'CURRENT_TIMESTAMP'])
             ->create();
     }
+    public function down(): void
+    {
+        $this->table('address')->drop()->save();
+    }
 }

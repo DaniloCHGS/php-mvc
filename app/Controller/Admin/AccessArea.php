@@ -57,7 +57,9 @@ class AccessArea extends Page
         $content = View::render('admin/modules/access/form', [
             'title' => 'Cadastro de Área de Acesso',
             'access' => '',
-            'status' => ''
+            'status' => '',
+            'uri' => '',
+            'admin' => ''
         ]);
 
         //Retorna página completa
