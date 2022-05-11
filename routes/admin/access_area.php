@@ -7,7 +7,8 @@ use App\Utils\Utils;
 //Tela da identidade do site
 $router->get('/admin/area-de-acesso', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request) {
         return new Response(200, Admin\AccessArea::index($request));
