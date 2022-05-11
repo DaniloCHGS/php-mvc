@@ -62,7 +62,8 @@ class Users extends Page
             'email' => '',
             'username' => '',
             'password' => 'mudarsenha',
-            'modules' => self::getModulesItens()
+            'modules' => self::getModulesItens(),
+            'admin' => ''
         ]);
 
         //Retorna página completa
@@ -117,7 +118,8 @@ class Users extends Page
             'username' => $user->username ?? '',
             'permission' => $user->permission ?? '',
             'modules' => self::getModulesItens(),
-            'access_area' => $user->access_area
+            'access_area' => $user->access_area,
+            'admin' => $user->admin ?? ''
         ]);
 
         //Retorna página completa
