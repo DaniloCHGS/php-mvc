@@ -218,7 +218,7 @@ class Users extends Page
                 [
                     "id" => $user->id,
                     "email" => $user->email,
-                    "permission" => $user->permission,
+                    "permission" => self::labelPermission($user->permission),
                     "access_area" => $user->access_area,
                     "admin" => self::typeUser($user->admin),
                     "username" => $user->username
@@ -241,6 +241,21 @@ class Users extends Page
         }
     }
     private static function labelPermission($permission){
-        
+        $permissionExtract = explode('-', $permission);
+        $labelPermission = '';
+
+        foreach($permissionExtract as $value){
+            
+            if($value == 1){
+                $typePermission = 'Inserir';
+            } else if($value == 2){
+                $typePermission = 'Editar';
+            } else {
+                $typePermission = 'Excluir';
+            }
+            
+            $labelPermission = empty($labelPermission) ? $typePermission : $labelPermission . " - " . $typePermission;
+        }
+        return $labelPermission;
     }
 }
