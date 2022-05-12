@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use App\Utils\Utils;
 use App\Model\Entity\AccessArea as EntityAccessArea;
-use App\Model\Entity\User as EntityUser;
 
 class ModuleAuth
 {

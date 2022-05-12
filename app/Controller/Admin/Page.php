@@ -16,32 +16,44 @@ class Page
         'home' => [
             'label' => 'Home',
             'link' => URL . '/admin',
-            'icon' => 'bx-home-circle'
+            'icon' => 'bx-home-circle',
+            'access_area' => 1,
+            'uri' => 'admin'
         ],
         'testimonies' => [
             'label' => 'Depoimentos',
             'link' => URL . '/admin/depoimentos',
-            'icon' => 'bx-message-rounded-dots'
+            'icon' => 'bx-message-rounded-dots',
+            'access_area' => 1,
+            'uri' => 'depoimentos'
         ],
         'company' => [
             'label' => 'Dados da Empresa',
             'link' => URL . '/admin/dados-empresa',
-            'icon' => 'bx-buildings'
+            'icon' => 'bx-buildings',
+            'access_area' => 1,
+            'uri' => 'dados_empresa'
         ],
         'identity' => [
             'label' => 'Identidade do Site',
             'link' => URL . '/admin/identidade-site',
-            'icon' => 'bx-palette'
+            'icon' => 'bx-palette',
+            'access_area' => 1,
+            'uri' => 'identidade_site'
         ],
         'access_area' => [
             'label' => 'Área de Acesso',
             'link' => URL . '/admin/area-de-acesso',
-            'icon' => 'bx-cog'
+            'icon' => 'bx-cog',
+            'access_area' => 3,
+            'uri' => 'area_de_acesso'
         ],
         'users' => [
             'label' => 'Usuários',
             'link' => URL . '/admin/usuarios',
-            'icon' => 'bx-user'
+            'icon' => 'bx-user',
+            'access_area' => 2,
+            'uri' => 'usuarios'
         ],
     ];
     /**
