@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Utils\Utils;
 use App\Model\Entity\AccessArea as EntityAccessArea;
+use App\Model\Entity\User as EntityUser;
 
 class ModuleAuth
 {
@@ -14,13 +15,27 @@ class ModuleAuth
     {
         $uri = $this->getUri($request);
         $module = EntityAccessArea::getAccessAreaByURI($uri);
+
         $userLevel = $_SESSION['admin']['user']['admin'];
+        $user_access_area = $_SESSION['admin']['user']['access_area'];
         
+        if($userLevel == 1 and $module->admin == 1){
+
+            $modules = explode('-', $user_access_area);
+
+            $hasModule = in_array($module->id , $modules);
+
+            if($hasModule == 1) {
+                return $next($request);
+            }
+            $request->getRouter()->redirect('/admin?status=denied');
+        }
+
         if($userLevel >= $module->admin){
             return $next($request);
         }
 
-        throw new \Exception("Você não tem acesso a este módulo", 403);
+        $request->getRouter()->redirect('/admin?status=denied');
     }
     private function getUri($request){
 

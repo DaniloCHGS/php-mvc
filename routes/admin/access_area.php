@@ -18,7 +18,8 @@ $router->get('/admin/area-de-acesso', [
 //Cadastro tela
 $router->get('/admin/area-de-acesso/new', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request) {
         return new Response(200, Admin\AccessArea::getNewAccessArea($request));
@@ -28,7 +29,8 @@ $router->get('/admin/area-de-acesso/new', [
 //Cadastro
 $router->post('/admin/area-de-acesso/new', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request) {
         return new Response(200, Admin\AccessArea::setNewAccessArea($request));
@@ -38,7 +40,8 @@ $router->post('/admin/area-de-acesso/new', [
 //Editar tela
 $router->get('/admin/area-de-acesso/{id}/edit', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request, $id) {
         return new Response(200, Admin\AccessArea::getEditAccessArea($request, $id));
@@ -48,7 +51,8 @@ $router->get('/admin/area-de-acesso/{id}/edit', [
 //Editar
 $router->post('/admin/area-de-acesso/{id}/edit', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request, $id) {
         return new Response(200, Admin\AccessArea::setEditAccessArea($request, $id));
@@ -58,7 +62,8 @@ $router->post('/admin/area-de-acesso/{id}/edit', [
 //Deletar tela
 $router->get('/admin/area-de-acesso/{id}/delete', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request, $id) {
         return new Response(200, Admin\AccessArea::getDeleteAccessArea($request, $id));
@@ -68,7 +73,8 @@ $router->get('/admin/area-de-acesso/{id}/delete', [
 //Deletar
 $router->post('/admin/area-de-acesso/{id}/delete', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request, $id) {
         return new Response(200, Admin\AccessArea::setDeleteAccessArea($request, $id));
