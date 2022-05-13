@@ -7,7 +7,8 @@ use App\Utils\Utils;
 //Tela da identidade do site
 $router->get('/admin/identidade-site', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request) {
         return new Response(200, Admin\Identity::getIdentity($request));
@@ -17,7 +18,8 @@ $router->get('/admin/identidade-site', [
 //Editar identidade
 $router->post('/admin/identidade-site', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request) {
         return new Response(200, Admin\Identity::updateIdentity($request));

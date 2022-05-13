@@ -6,7 +6,8 @@ use \App\Controller\Admin;
 //Lista os depoimentos
 $router->get('/admin/depoimentos', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request) {
         return new Response(200, Admin\Testimony::getTestimonies($request));
@@ -16,7 +17,8 @@ $router->get('/admin/depoimentos', [
 //Tela de cadastro
 $router->get('/admin/depoimentos/new', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request) {
         return new Response(200, Admin\Testimony::getNewTestimonies($request));
@@ -26,7 +28,8 @@ $router->get('/admin/depoimentos/new', [
 //Cadastro
 $router->post('/admin/depoimentos/new', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request) {
         return new Response(200, Admin\Testimony::setNewTestimonies($request));
@@ -36,7 +39,8 @@ $router->post('/admin/depoimentos/new', [
 //Tela de editar
 $router->get('/admin/depoimentos/{id}/edit', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request, $id) {
         return new Response(200, Admin\Testimony::getEditTestimonies($request, $id));
@@ -46,7 +50,8 @@ $router->get('/admin/depoimentos/{id}/edit', [
 //Editar
 $router->post('/admin/depoimentos/{id}/edit', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request, $id) {
         return new Response(200, Admin\Testimony::setEditTestimonies($request, $id));
@@ -56,7 +61,8 @@ $router->post('/admin/depoimentos/{id}/edit', [
 //Tela de excluir
 $router->get('/admin/depoimentos/{id}/delete', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request, $id) {
         return new Response(200, Admin\Testimony::getDeleteTestimonies($request, $id));
@@ -66,7 +72,8 @@ $router->get('/admin/depoimentos/{id}/delete', [
 //Excluir
 $router->post('/admin/depoimentos/{id}/delete', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'module-auth'
     ],
     function ($request, $id) {
         return new Response(200, Admin\Testimony::setDeleteTestimonies($request, $id));
