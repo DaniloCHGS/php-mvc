@@ -34,4 +34,14 @@ class Home extends Page
         //Retorna página completa
         return parent::getPanel('Painel Administrativo | Home', $content, 'home');
     }
+    /**
+     * Retorna a Home do Painel
+     */
+    public static function get404($request){
+        //Conteudo da Home
+        $content = View::render('admin/modules/home/404');
+
+        //Retorna página completa
+        return parent::getPanel('Painel Administrativo | Home', $content, '');
+    }
 }

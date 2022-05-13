@@ -32,6 +32,9 @@ class Users extends Page
             case 'duplicated':
                 return Alert::getError('Email sendo utilizado');
                 break;
+            case 'denied':
+                return Alert::getError('Ação impossível');
+                break;
         }
     }
 
@@ -87,7 +90,7 @@ class Users extends Page
         if ($hasUser instanceof EntityUser) {
             $request->getRouter()->redirect('/admin/usuarios/new?status=duplicated');
         }
-
+        Utils::pre($postVars['permission']);
         $user = new EntityUser;
         $user->email    = $email;
         $user->password = password_hash($password, PASSWORD_DEFAULT);
@@ -187,14 +190,19 @@ class Users extends Page
     public static function setDeleteUsers($request, $id)
     {
         $user = EntityUser::getUserById($id);
+        $sessionUser = $_SESSION['admin']['user'];
+        // Utils::pre($user);
 
-        if (!$user instanceof EntityUser) {
-            $request->getRouter()->redirect('/admin/usuarios');
+        if($sessionUser['id'] != $user->id){
+            if (!$user instanceof EntityUser) {
+                $request->getRouter()->redirect('/admin/usuarios');
+            }
+    
+            $user->delete();
+    
+            $request->getRouter()->redirect('/admin/usuarios?status=deleted');
         }
-
-        $user->delete();
-
-        $request->getRouter()->redirect('/admin/usuarios?status=deleted');
+        $request->getRouter()->redirect('/admin/usuarios?status=denied');
     }
 
     /**

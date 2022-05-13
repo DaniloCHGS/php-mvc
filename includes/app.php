@@ -21,9 +21,10 @@ Database::config(
 //Define constante de URL
 define("URL", getenv('URL'));
 define("URL_CONTENT", getenv('URL_CONTENT'));
+define("ADMIN_ASSETS", getenv('ADMIN_ASSETS'));
 
 //Define valores padrões das variaveis
-View::init(['URL' => URL, 'URL_CONTENT' => URL_CONTENT]);
+View::init(['URL' => URL, 'URL_CONTENT' => URL_CONTENT, 'ADMIN_ASSETS'=> ADMIN_ASSETS]);
 
 //Define o mapeamento de middlewares
 MiddlewareQueue::setMap([

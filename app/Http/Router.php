@@ -180,6 +180,10 @@ class Router
                 throw new Exception("Método não é permitido", 405);
             }
         }
+        if($this->contentType == 'text/html') {
+            
+            self::redirect('/admin/404');
+        }
         throw new Exception("URL não encontrada", 404);
     }
 
