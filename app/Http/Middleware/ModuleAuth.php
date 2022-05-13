@@ -17,26 +17,30 @@ class ModuleAuth
 
         $userLevel = $_SESSION['admin']['user']['admin'];
         $user_access_area = $_SESSION['admin']['user']['access_area'];
-        
-        if($userLevel == 1 and $module->admin == 1){
+
+        if ($userLevel == 1 and $module->admin == 1) {
 
             $modules = explode('-', $user_access_area);
 
-            $hasModule = in_array($module->id , $modules);
+            $hasModule = in_array($module->id, $modules);
 
-            if($hasModule == 1) {
+            if ($hasModule == 1) {
                 return $next($request);
             }
             $request->getRouter()->redirect('/admin?status=denied');
         }
 
-        if($userLevel >= $module->admin){
+        if ($userLevel >= $module->admin) {
             return $next($request);
         }
 
         $request->getRouter()->redirect('/admin?status=denied');
     }
-    private function getUri($request){
+    /**
+     * Limpa a url e separa a URI
+     */
+    private function getUri($request)
+    {
 
         //URI
         $uri = $request->getUri();
@@ -49,6 +53,4 @@ class ModuleAuth
 
         return $uri_str;
     }
-
-    
 }
