@@ -47,10 +47,7 @@ class ModuleAuth
         //URI limpa
         $uri_str = $uri_parts[3];
 
-        //Ajusta uri para formato do banco
-        $alter_uri_str = preg_replace('/-/', '_', $uri_str);
-
-        return $alter_uri_str;
+        return $uri_str;
     }
 
     

@@ -62,7 +62,7 @@ class Page
     {
         $entityModules = self::getModules();
 
-        Utils::pre($entityModules);
+        // Utils::pre($entityModules);
         //Links do menu
         $links = "";
 
