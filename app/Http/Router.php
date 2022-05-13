@@ -214,6 +214,10 @@ class Router
 
             //Verifica o controlador
             if (!isset($route['controller'])) {
+                if($this->contentType = 'text/html'){
+
+                    self::redirect('/admin/500');
+                }
                 throw new Exception("A URL não pode ser processada", 500);
             }
             //Argumentos da função

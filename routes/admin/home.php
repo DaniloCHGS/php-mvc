@@ -19,3 +19,11 @@ $router->get('/admin/404', [
         return new Response(200, Admin\Home::get404($request));
     }
 ]);
+$router->get('/admin/500', [
+    'middlewares'=> [
+        'required-admin-login'
+    ],
+    function ($request) {
+        return new Response(200, Admin\Home::get500($request));
+    }
+]);
