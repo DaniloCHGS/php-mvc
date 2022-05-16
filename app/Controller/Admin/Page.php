@@ -14,35 +14,40 @@ class Page
      */
     // Site de ícones https://boxicons.com/
     private static $modules = [
-        'home' => [
-            'label' => 'Home',
-            'link' => URL . '/admin',
-            'icon' => 'bx-home-circle'
-        ],
         'testimonies' => [
             'label' => 'Depoimentos',
             'link' => URL . '/admin/depoimentos',
-            'icon' => 'bx-message-rounded-dots'
+            'icon' => 'bx-message-rounded-dots',
+            'id' => '',
+            'admin' => 1
         ],
         'company' => [
             'label' => 'Dados da Empresa',
             'link' => URL . '/admin/dados-empresa',
-            'icon' => 'bx-buildings'
+            'icon' => 'bx-buildings',
+            'id' => 1,
+            'admin' => 1
         ],
         'identity' => [
             'label' => 'Identidade do Site',
             'link' => URL . '/admin/identidade-site',
-            'icon' => 'bx-palette'
+            'icon' => 'bx-palette',
+            'id' => 2,
+            'admin' => 1
         ],
         'access_area' => [
             'label' => 'Área de Acesso',
             'link' => URL . '/admin/area-de-acesso',
-            'icon' => 'bx-cog'
+            'icon' => 'bx-cog',
+            'id' => 3,
+            'admin' => 3
         ],
         'users' => [
             'label' => 'Usuários',
             'link' => URL . '/admin/usuarios',
-            'icon' => 'bx-user'
+            'icon' => 'bx-user',
+            'id' => 4,
+            'admin' => 2
         ],
     ];
     /**
@@ -60,18 +65,36 @@ class Page
      */
     private static function getMenu($currentModule)
     {
-        $entityModules = self::getModules();
-
         //Links do menu
         $links = "";
 
+        // $entityModules = self::getModules();
+        $userLevel = $_SESSION['admin']['user']['admin'];
+        $user_access_area = $_SESSION['admin']['user']['access_area'];
+
         foreach (self::$modules as $hash => $module) {
-            $links .= View::render('admin/menu/link', [
-                'label' => $module['label'],
-                'link'  => $module['link'],
-                'icon'  => $module['icon'],
-                'current'  => $hash == $currentModule ? 'active' : ''
-            ]);
+
+            if ($userLevel == 1 and $module['admin'] == 1) {
+
+                $modulesUser = explode('-', $user_access_area);
+                $hasModule = in_array($module['id'], $modulesUser);
+
+                if ($hasModule == 1) {
+                    $links .= View::render('admin/menu/link', [
+                        'label' => $module['label'],
+                        'link'  => $module['link'],
+                        'icon'  => $module['icon'],
+                        'current'  => $hash == $currentModule ? 'active' : ''
+                    ]);
+                }
+            } else if($userLevel >= $module['admin']){
+                $links .= View::render('admin/menu/link', [
+                    'label' => $module['label'],
+                    'link'  => $module['link'],
+                    'icon'  => $module['icon'],
+                    'current'  => $hash == $currentModule ? 'active' : ''
+                ]);
+            }
         }
 
         //Retorna renderização do menu
