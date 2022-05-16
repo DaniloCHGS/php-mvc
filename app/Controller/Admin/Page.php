@@ -18,7 +18,7 @@ class Page
             'label' => 'Depoimentos',
             'link' => URL . '/admin/depoimentos',
             'icon' => 'bx-message-rounded-dots',
-            'id' => '',
+            'id' => 6,
             'admin' => 1
         ],
         'company' => [
