@@ -9,7 +9,6 @@ class Historic
 {
     public $id;
     public $user_id;
-    public $access_id;
     public $action;
     public $created;
 
@@ -29,7 +28,6 @@ class Historic
     {
         $this->id = (new Database('historic'))->insert([
             'user_id' => $this->user_id,
-            'access_id' => $this->access_id,
             'action' => $this->action,
             'created' => date('Y-m-d H:i:s')
         ]);

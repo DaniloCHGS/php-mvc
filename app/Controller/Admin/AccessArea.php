@@ -6,6 +6,7 @@ use App\Utils\View;
 use App\Utils\Utils;
 use App\Model\Entity\AccessArea as EntityAccess;
 use \WilliamCosta\DatabaseManager\Pagination;
+use App\Utils\Historic;
 
 class AccessArea extends Page
 {
@@ -73,12 +74,17 @@ class AccessArea extends Page
     {
         //Dados
         $postVars   = $request->getPostVars();
-        
+
         $access = new EntityAccess;
         $access->access = $postVars['access'];
         $access->uri = $postVars['uri'];
         $access->admin = $postVars['admin'];
         $access->register();
+
+        $historic = new Historic;
+        $historic->user_id = $_SESSION['admin']['user']['id'];
+        $historic->action = "Inseriu uma nova Área de Acesso: " . $access->access;
+        $historic->createHistoric();
 
         $request->getRouter()->redirect('/admin/area-de-acesso/' . $access->id . '/edit?status=created');
     }
@@ -126,6 +132,11 @@ class AccessArea extends Page
 
         $access->update();
 
+        $historic = new Historic;
+        $historic->user_id = $_SESSION['admin']['user']['id'];
+        $historic->action = "Atualizou uma Área de Acesso: " . $access->access;
+        $historic->createHistoric();
+
         $request->getRouter()->redirect('/admin/area-de-acesso/' . $access->id . '/edit?status=updated');
     }
 
@@ -162,6 +173,11 @@ class AccessArea extends Page
         }
 
         $access->delete();
+
+        $historic = new Historic;
+        $historic->user_id = $_SESSION['admin']['user']['id'];
+        $historic->action = "Excluiu uma Área de Acesso: " . $access->access;
+        $historic->createHistoric();
 
         $request->getRouter()->redirect('/admin/area-de-acesso?status=deleted');
     }

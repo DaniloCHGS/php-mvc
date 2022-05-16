@@ -6,7 +6,6 @@ use App\Model\Entity\Historic as EntityHistoric;
 class Historic {
 
     public $user_id;
-    public $access_id;
     public $action;
 
     /**
@@ -26,14 +25,13 @@ class Historic {
         return $historic;
     }
     /**
-     * Insere no banco
+     * Insere no banco o histórico atual
      */
-    public static function createHistoric(){
+    public function createHistoric(){
         $historic = new EntityHistoric;
 
-        $historic->user_id = self::$user_id;
-        $historic->access_id = self::$access_id;
-        $historic->action = self::$action;
+        $historic->user_id = $this->user_id;
+        $historic->action = $this->action;
         $historic->register();
     }
 }
