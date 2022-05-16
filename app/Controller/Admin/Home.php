@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Utils\Historic;
 use App\Utils\View;
 use App\Utils\Utils;
 
@@ -26,9 +27,12 @@ class Home extends Page
      * Retorna a Home do Painel
      */
     public static function getHome($request){
+        
         //Conteudo da Home
         $content = View::render('admin/modules/home/index', [
-            'status' => self::getStatus($request)
+            'status' => self::getStatus($request),
+            'historic' => Historic::getHistoric(),
+            'user' => $_SESSION['admin']['user']['name']
         ]);
 
         //Retorna página completa

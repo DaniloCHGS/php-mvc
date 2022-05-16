@@ -23,7 +23,8 @@ class Login {
             'id' => $user->id,
             'email'=> $user->email,
             'admin' => $user->admin,
-            'access_area' => $user->access_area
+            'access_area' => $user->access_area,
+            'name' => $user->username,
         ];
         //success
         return true;
