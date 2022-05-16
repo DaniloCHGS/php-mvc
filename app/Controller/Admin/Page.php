@@ -6,6 +6,7 @@ use App\Utils\View;
 use App\Utils\UpFile;
 use App\Model\Entity\AccessArea as EntityAccessArea;
 use App\Utils\Utils;
+use App\Utils\Historic;
 
 class Page
 {
