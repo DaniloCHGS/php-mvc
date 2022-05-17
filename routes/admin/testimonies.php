@@ -7,6 +7,7 @@ use \App\Controller\Admin;
 $router->get('/admin/depoimentos', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {
@@ -18,6 +19,7 @@ $router->get('/admin/depoimentos', [
 $router->get('/admin/depoimentos/new', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {
@@ -29,6 +31,7 @@ $router->get('/admin/depoimentos/new', [
 $router->post('/admin/depoimentos/new', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {
@@ -40,6 +43,7 @@ $router->post('/admin/depoimentos/new', [
 $router->get('/admin/depoimentos/{id}/edit', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request, $id) {
@@ -51,6 +55,7 @@ $router->get('/admin/depoimentos/{id}/edit', [
 $router->post('/admin/depoimentos/{id}/edit', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request, $id) {
@@ -62,6 +67,7 @@ $router->post('/admin/depoimentos/{id}/edit', [
 $router->get('/admin/depoimentos/{id}/delete', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request, $id) {
@@ -73,6 +79,7 @@ $router->get('/admin/depoimentos/{id}/delete', [
 $router->post('/admin/depoimentos/{id}/delete', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request, $id) {

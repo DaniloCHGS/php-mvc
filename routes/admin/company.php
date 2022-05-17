@@ -8,6 +8,7 @@ use App\Utils\Utils;
 $router->get('/admin/dados-empresa', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {
@@ -19,6 +20,7 @@ $router->get('/admin/dados-empresa', [
 $router->post('/admin/dados-empresa/address', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {
@@ -30,6 +32,7 @@ $router->post('/admin/dados-empresa/address', [
 $router->post('/admin/dados-empresa/contact', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {
@@ -41,6 +44,7 @@ $router->post('/admin/dados-empresa/contact', [
 $router->post('/admin/dados-empresa/social', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {

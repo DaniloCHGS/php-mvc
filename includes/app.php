@@ -35,6 +35,7 @@ MiddlewareQueue::setMap([
     'required-admin-logout' =>  \App\Http\Middleware\RequireredAdminLogout::class,
     'required-admin-login' =>   \App\Http\Middleware\RequireredAdminLogin::class,
     'user-basic-auth' =>        \App\Http\Middleware\UserBasicAuth::class,
+    'time-login' =>             \App\Http\Middleware\TimeLogin::class,
     'module-auth' =>            \App\Http\Middleware\ModuleAuth::class
 ]);
 //Define o mapeamento de middlewares padrões em todas as rotas

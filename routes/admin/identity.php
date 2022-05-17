@@ -8,6 +8,7 @@ use App\Utils\Utils;
 $router->get('/admin/identidade-site', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {
@@ -19,6 +20,7 @@ $router->get('/admin/identidade-site', [
 $router->post('/admin/identidade-site', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {

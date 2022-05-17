@@ -8,6 +8,7 @@ use App\Utils\Utils;
 $router->get('/admin/area-de-acesso', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {
@@ -19,6 +20,7 @@ $router->get('/admin/area-de-acesso', [
 $router->get('/admin/area-de-acesso/new', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {
@@ -30,6 +32,7 @@ $router->get('/admin/area-de-acesso/new', [
 $router->post('/admin/area-de-acesso/new', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request) {
@@ -41,6 +44,7 @@ $router->post('/admin/area-de-acesso/new', [
 $router->get('/admin/area-de-acesso/{id}/edit', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request, $id) {
@@ -52,6 +56,7 @@ $router->get('/admin/area-de-acesso/{id}/edit', [
 $router->post('/admin/area-de-acesso/{id}/edit', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request, $id) {
@@ -63,6 +68,7 @@ $router->post('/admin/area-de-acesso/{id}/edit', [
 $router->get('/admin/area-de-acesso/{id}/delete', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request, $id) {
@@ -74,6 +80,7 @@ $router->get('/admin/area-de-acesso/{id}/delete', [
 $router->post('/admin/area-de-acesso/{id}/delete', [
     'middlewares' => [
         'required-admin-login',
+        'time-login',
         'module-auth'
     ],
     function ($request, $id) {

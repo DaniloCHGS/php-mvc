@@ -87,12 +87,12 @@ class Login extends Page
     /**
      * Desloga o usuário
      */
-    public static function setLogout($request)
+    public static function setLogout($request, $status = null)
     {
         //Destroy sessão de login
         SessionAdminLogin::logout();
 
         //Redireciona
-        $request->getRouter()->redirect('/admin/login');
+        $request->getRouter()->redirect('/admin/login'.$status);
     }
 }
