@@ -126,7 +126,9 @@ class Page
         //Renderiza a view do painel
         $contentPanel = View::render('admin/panel', [
             'menu' => self::getMenu($currentModule),
-            'content' => $content
+            'content' => $content,
+            'user' => $_SESSION['admin']['user']['name'],
+            'admin' => Utils::typeUser($_SESSION['admin']['user']['admin'])
         ]);
         //Retorna a página renderizada
         return self::getPage($title, $contentPanel, $script);
