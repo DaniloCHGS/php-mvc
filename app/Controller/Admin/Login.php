@@ -35,7 +35,7 @@ class Login extends Page
         $password   = filter_var($postVars['password'], FILTER_SANITIZE_STRING) ?? '';
 
         //Auth do recaptcha
-        $recaptcha = $postVars['g-recaptcha-response'];
+        $token = $postVars['g-recaptcha-response'];
 
         $curl = curl_init();
 
@@ -46,7 +46,7 @@ class Login extends Page
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => [
                 'secret' => '6LfEYvgfAAAAACG-h_ag7gSGcs6wT4m2ShAElF-o',
-                'response' => $recaptcha ?? ''
+                'response' => $token ?? ''
             ]
         ]);
 
