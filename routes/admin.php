@@ -18,5 +18,8 @@ include __DIR__ . '/admin/company.php';
 //Inlue as rotas area de acesso
 include __DIR__ . '/admin/access_area.php';
 
+//Inlue as rotas recuperar senha
+include __DIR__ . '/admin/forgot.php';
+
 //Inlue as rotas usuários
 include __DIR__ . '/admin/users.php';
