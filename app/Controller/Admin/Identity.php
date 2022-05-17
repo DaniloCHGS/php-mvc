@@ -47,9 +47,9 @@ class Identity extends Page
             'logo_secondary' => $identity->logo_secondary ?? '',
             'logo_footer' => $identity->logo_footer ?? ''
         ]);
-
+        $script = View::render('admin/modules/identity/script');
         //Retorna página completa
-        return parent::getPanel('Boss | Identidade do site', $content, 'identity');
+        return parent::getPanel('Boss | Identidade do site', $content, 'identity', $script);
     }
 
     /**

@@ -54,11 +54,12 @@ class Page
     /**
      * Retorna o conteudo (view) da estrutura principal do painel
      */
-    public static function getPage($title, $content)
+    public static function getPage($title, $content, $script = null)
     {
         return View::render("admin/page", [
             'title'     => $title,
-            'content'   => $content
+            'content'   => $content,
+            'script' => $script
         ]);
     }
     /**
@@ -120,7 +121,7 @@ class Page
     /**
      * Retorna a estrutura do painel com conteudo dinamico
      */
-    public static function getPanel($title, $content, $currentModule)
+    public static function getPanel($title, $content, $currentModule, $script = null)
     {
         //Renderiza a view do painel
         $contentPanel = View::render('admin/panel', [
@@ -128,7 +129,7 @@ class Page
             'content' => $content
         ]);
         //Retorna a página renderizada
-        return self::getPage($title, $contentPanel);
+        return self::getPage($title, $contentPanel, $script);
     }
     /**
      * Renderiza o layout de paginação
