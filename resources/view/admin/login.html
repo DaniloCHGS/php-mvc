@@ -105,10 +105,7 @@
 <script>
   const form = document.querySelector('form')
 
-  form.addEventListener('submit', event => {
-    validatesPost(event)
-
-  })
+  form.addEventListener('submit', event => { validatesPost(event) })
 
   function validatesPost(event) {
     if (grecaptcha.getResponse() != "") return true

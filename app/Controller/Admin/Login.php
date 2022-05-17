@@ -34,6 +34,37 @@ class Login extends Page
         $email      = filter_var($postVars['email'], FILTER_SANITIZE_STRING) ?? '';
         $password   = filter_var($postVars['password'], FILTER_SANITIZE_STRING) ?? '';
 
+        //Auth do recaptcha
+        $recaptcha = $postVars['g-recaptcha-response'];
+
+        $curl = curl_init();
+
+        //Definições da requisição com curl
+        curl_setopt_array($curl, [
+            CURLOPT_URL=> 'https://www.google.com/recaptcha/api/siteverify',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => [
+                'secret' => '6LfEYvgfAAAAACG-h_ag7gSGcs6wT4m2ShAElF-o',
+                'response' => $recaptcha ?? ''
+            ]
+        ]);
+
+        //Executa execução
+        $response = curl_exec($curl);
+
+        //Fecha conexão curl
+        curl_close($curl);
+
+        $responseArray = json_decode($response, true);
+
+        //Sucesso
+        $success = $responseArray['success'] ?? false;
+
+        if($success != 1){
+            return self::getLogin($request, 'Recaptcha não validado');
+        }
+
         //Validação de email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return self::getLogin($request, 'Email ou senha inválido');
