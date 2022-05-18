@@ -40,8 +40,7 @@ class Mail
 
         $this->setHeaders();
         $this->setEmailContent();
-        ini_set('smtp_port', 587);
-        if (mail(implode(',', $this->recipients), $this->subject, $this->email_content, $this->email_headers )){
+        if (mail(implode(',', $this->recipients), $this->subject, $this->email_content, $this->email_headers)) {
             return true;
         } else {
             return false;
