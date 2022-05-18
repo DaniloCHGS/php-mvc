@@ -3,7 +3,7 @@ namespace App\Services;
 
 use TelegramBot\Api\BotApi;
 
-// Para pegar o ID do chat https://api.telegram.org/bot TELEGRAM_BOT_TOKEN /getUpdates
+// Para pegar o ID do chat https://api.telegram.org/bot TELEGRAM_BOT_TOKEN /getUpdates 
 
 class AlertTelegram {
     /**
