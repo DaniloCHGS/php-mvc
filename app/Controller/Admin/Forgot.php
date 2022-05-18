@@ -6,7 +6,7 @@ use App\Utils\View;
 use App\Model\Entity\User;
 use App\Session\Admin\Login as SessionAdminLogin;
 use App\Utils\Utils;
-use App\Utils\Mail;
+use App\Services\Mail;
 
 class Forgot extends Page
 {

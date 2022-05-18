@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils;
+namespace App\Services;
 
 class Mail
 {
@@ -40,7 +40,8 @@ class Mail
 
         $this->setHeaders();
         $this->setEmailContent();
-        if (mail(implode(',', $this->recipients), $this->subject, $this->email_content, $this->email_headers)) {
+        
+        if (mail(implode(',', $this->recipients), $this->subject, $this->email_content, $this->email_headers, ini_set('smtp_port', 25))){
             return true;
         } else {
             return false;
