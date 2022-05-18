@@ -6,6 +6,7 @@ use App\Utils\View;
 use App\Model\Entity\User;
 use App\Session\Admin\Login as SessionAdminLogin;
 use App\Utils\Utils;
+use App\Utils\Mail;
 
 class Forgot extends Page
 {
@@ -76,6 +77,17 @@ class Forgot extends Page
         if (!$user instanceof User) {
             return self::getForgot($request, 'Email inválido');
         }
+
+        $mail = new Mail;
+        $mail->camps = [
+            'email' => $email
+        ];
+        $mail->subject = 'Recuperação de senha';
+        $mail->recipients = ['danilo@taticaweb.com.br'];
+        $mail->from_name = 'Danilo';
+        $mail->from_email = 'danilo@taticaweb.com.br';
+        $responseMail = $mail->send();
+        Utils::pre($responseMail);
     }
     /**
      * Desloga o usuário
