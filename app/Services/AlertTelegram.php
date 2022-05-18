@@ -9,11 +9,11 @@ class AlertTelegram {
     /**
      * Token de acesso do bot
      */
-    const TELEGRAM_BOT_TOKEN = '5336330366:AAGyZWEnOomfzK_5VH8knMWu0Rx_wHI2YDg';
+    const TELEGRAM_BOT_TOKEN = '';
     /**
      * ID do chat do bot
      */
-    const TELEGRAM_CHAT_ID = 5101354281;
+    const TELEGRAM_CHAT_ID = 0;
     /**
      * Envia a mensagem de alerta
      * @return boolean
