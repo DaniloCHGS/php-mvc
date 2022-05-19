@@ -1,11 +1,13 @@
 <?php
+
 namespace App\Services;
 
 use TelegramBot\Api\BotApi;
 
 // Para pegar o ID do chat https://api.telegram.org/bot TELEGRAM_BOT_TOKEN /getUpdates 
 
-class AlertTelegram {
+class AlertTelegram
+{
     /**
      * Token de acesso do bot
      */
@@ -18,7 +20,8 @@ class AlertTelegram {
      * Envia a mensagem de alerta
      * @return boolean
      */
-    public static function sendMessage($message){
+    public static function sendMessage($message)
+    {
         //Instancia Bot
         $obBotApi = new BotApi(self::TELEGRAM_BOT_TOKEN);
 

@@ -10,7 +10,7 @@ class UpTime {
      */
     public static function isConnected(){
         try {
-            $url = 'https://higiservicos.com.br/a';
+            $url = '';
             $curl = curl_init($url);
             curl_setopt_array($curl, [
                 CURLOPT_HEADER => true,
