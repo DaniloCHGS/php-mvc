@@ -21,5 +21,8 @@ include __DIR__ . '/admin/access_area.php';
 //Inlue as rotas recuperar senha
 include __DIR__ . '/admin/forgot.php';
 
+//Inlue as rotas perfil
+include __DIR__ . '/admin/profle.php';
+
 //Inlue as rotas usuários
 include __DIR__ . '/admin/users.php';
