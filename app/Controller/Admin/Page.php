@@ -18,7 +18,7 @@ class Page
         'testimonies' => [
             'label' => 'Depoimentos',
             'link' => URL . '/admin/depoimentos',
-            'icon' => 'bx-message-rounded-dots',
+            'icon' => 'bx-message-square-dots',
             'id' => 6,
             'admin' => 1
         ],
@@ -53,7 +53,7 @@ class Page
         'users' => [
             'label' => 'Usuários',
             'link' => URL . '/admin/usuarios',
-            'icon' => 'bx-user',
+            'icon' => 'bx-user-circle',
             'id' => 4,
             'admin' => 2
         ],
