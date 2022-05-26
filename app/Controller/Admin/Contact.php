@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Utils\View;
 use App\Utils\Utils;
 use App\Model\Entity\Contact as EntityContact;
+use App\Utils\Historic;
 
 class Contact extends Page
 {
@@ -68,6 +69,11 @@ class Contact extends Page
 
         $emails_contact->emails = $postVars['emails_contact'];
         $emails_contact->update();
+
+        $historic = new Historic;
+        $historic->user_id = $_SESSION['admin']['user']['id'];
+        $historic->action = "Atualizou emails de contato de: Contato";
+        $historic->createHistoric();
 
         $request->getRouter()->redirect('/admin/contato?status=updated');
     }
