@@ -36,6 +36,13 @@ class Page
             'id' => 2,
             'admin' => 1
         ],
+        'contact' => [
+            'label' => 'Contato',
+            'link' => URL . '/admin/contato',
+            'icon' => 'bx-envelope',
+            'id' => 20,
+            'admin' => 1
+        ],
         'access_area' => [
             'label' => 'Área de Acesso',
             'link' => URL . '/admin/area-de-acesso',

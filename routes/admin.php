@@ -24,5 +24,8 @@ include __DIR__ . '/admin/forgot.php';
 //Inlue as rotas perfil
 include __DIR__ . '/admin/profle.php';
 
+//Inlue as rotas contato
+include __DIR__ . '/admin/contact.php';
+
 //Inlue as rotas usuários
 include __DIR__ . '/admin/users.php';
