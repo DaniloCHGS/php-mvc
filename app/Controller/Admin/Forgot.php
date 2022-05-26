@@ -23,7 +23,7 @@ class Forgot extends Page
             'status' => $status
         ]);
 
-        return parent::getPage('Painel Administrativo | Recuperar senha', $content);
+        return parent::getPage('Boss | Recuperar senha', $content);
     }
     /**
      * Define o login do usuário

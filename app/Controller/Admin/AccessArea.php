@@ -46,7 +46,7 @@ class AccessArea extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Área de Acesso', $content, 'access_area');
+        return parent::getPanel('Boss | Área de Acesso', $content, 'access_area');
     }
 
     /**
@@ -64,7 +64,7 @@ class AccessArea extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Área de Acesso', $content, 'access_area');
+        return parent::getPanel('Boss | Área de Acesso', $content, 'access_area');
     }
 
     /**
@@ -110,7 +110,7 @@ class AccessArea extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Área de Acesso', $content, 'access_area');
+        return parent::getPanel('Boss | Área de Acesso', $content, 'access_area');
     }
 
     /**
@@ -158,7 +158,7 @@ class AccessArea extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Área de Acesso', $content, 'access_area');
+        return parent::getPanel('Boss | Área de Acesso', $content, 'access_area');
     }
 
     /**

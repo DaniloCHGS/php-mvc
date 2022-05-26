@@ -36,7 +36,7 @@ class Home extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Home', $content, 'home');
+        return parent::getPanel('Boss | Home', $content, 'home');
     }
     /**
      * Retorna 404
@@ -46,7 +46,7 @@ class Home extends Page
         $content = View::render('admin/modules/home/404');
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | 404', $content, '');
+        return parent::getPanel('Boss | 404', $content, '');
     }
     /**
      * Retorna 500
@@ -56,6 +56,6 @@ class Home extends Page
         $content = View::render('admin/modules/home/500');
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | 500', $content, '');
+        return parent::getPanel('Boss | 500', $content, '');
     }
 }

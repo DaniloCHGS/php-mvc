@@ -22,7 +22,7 @@ class Login extends Page
             'status' => $status
         ]);
 
-        return parent::getPage('Painel Administrativo | Login', $content);
+        return parent::getPage('Boss | Login', $content);
     }
     /**
      * Define o login do usuário

@@ -44,7 +44,7 @@ class Testimony extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Boss | Depoimentos', $content, 'testimonies');
     }
 
     /**
@@ -62,7 +62,7 @@ class Testimony extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Boss | Depoimentos', $content, 'testimonies');
     }
 
     /**
@@ -101,7 +101,7 @@ class Testimony extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Boss | Depoimentos', $content, 'testimonies');
     }
 
     /**
@@ -144,7 +144,7 @@ class Testimony extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Boss | Depoimentos', $content, 'testimonies');
     }
 
     /**
