@@ -43,120 +43,39 @@ class Profile extends Page
      */
     public static function index($request)
     {
+        $email = $_SESSION['admin']['user']['email'];
+        
+        $user = EntityUser::getUserByEmail($email);
+
+        if(!$user instanceof EntityUser){
+            $request->getRouter()->redirect('/admin');
+        }
+
         //Conteudo de Usuários
         $content = View::render('admin/modules/profile/index', [
-            'status' => self::getStatus($request)
+            'status' => self::getStatus($request),
+            'username' => $user->username,
+            'id' => $user->id
         ]);
         //Retorna página completa
         return parent::getPanel('Painel Administrativo | Perfil', $content, 'profile');
     }
 
     /**
-     * Retorna formulário de cadastro
-     */
-    public static function getNewUser($request)
-    {
-        //Conteudo do formulário
-        $content = View::render('admin/modules/users/form', [
-            'title' => 'Cadastro de Usuário',
-            'status' => self::getStatus($request),
-            'email' => '',
-            'username' => '',
-            'password' => 'mudarsenha',
-            'modules' => self::getModulesItens(),
-            'admin' => '',
-            'MODULE_URL' => 'usuarios'
-        ]);
-
-        //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Usuários', $content, 'users');
-    }
-
-    /**
-     * Cadastra depoimento
-     */
-    public static function setNewUser($request)
-    {
-        //Dados
-        $postVars   = $request->getPostVars();
-
-        $email      = $postVars['email'] ?? '';
-        $password   = $postVars['password'] ?? '';
-
-        $hasUser = EntityUser::getUserByEmail($email);
-
-        if ($hasUser instanceof EntityUser) {
-            $request->getRouter()->redirect('/admin/usuarios/new?status=duplicated');
-        }
-        Utils::pre($postVars['permission']);
-        $user = new EntityUser;
-        $user->email    = $email;
-        $user->password = password_hash($password, PASSWORD_DEFAULT);
-        $user->username = $postVars['username'];
-        $user->permission = $postVars['permission'];
-        $user->access_area = $postVars['access_area'] ?? 1;
-        $user->admin = $postVars['admin'];
-        $user->register();
-
-        $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=created');
-    }
-
-    /**
-     * Form para editar depoimento
-     */
-    public static function getEditUsers($request, $id)
-    {
-        $user = EntityUser::getUserById($id);
-
-        if (!$user instanceof EntityUser) {
-            $request->getRouter()->redirect('/admin/usuarios');
-        }
-
-        //Conteudo do formulário
-        $content = View::render('admin/modules/users/form', [
-            'title' => 'Editar Usuário',
-            'email' => $user->email,
-            'status' => self::getStatus($request),
-            'username' => $user->username ?? '',
-            'permission' => $user->permission ?? '',
-            'modules' => self::getModulesItens(),
-            'access_area' => $user->access_area,
-            'admin' => $user->admin ?? ''
-        ]);
-
-        //Retorna página completa
-        return parent::getPanel('Painel Administrativo | Usuários', $content, 'users');
-    }
-
-    /**
      * Editar depoimento
      */
-    public static function setEditUsers($request, $id)
+    public static function setEditUsers($request)
     {
-        $user = EntityUser::getUserById($id);
+        $postVars = $request->getPostVars();
+        $id = $postVars['id'];
 
+        $user = EntityUser::getUserById($id);
+        
         if (!$user instanceof EntityUser) {
             $request->getRouter()->redirect('/admin/usuarios');
         }
-
-        $postVars = $request->getPostVars();
-
-        $email = $postVars['email'] ?? '';
-        $password = $postVars['password'] ?? '';
-
-        $hasUser = EntityUser::getUserByEmail($email);
-
-        if ($hasUser instanceof EntityUser && ($user->id != $hasUser->id)) {
-            $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=duplicated');
-        }
-
-        $user->email = $email;
-        $user->password = $password ? password_hash($password, PASSWORD_DEFAULT) : $user->password;
-        $user->permission = $postVars['permission'] ?? $user->permission;
-        $user->access_area = $postVars['access_area'] ?? $user->access_area;
-        $user->admin = $postVars['admin'] ?? $user->admin;
-
-        $user->update();
+        
+        // $user->update();
 
         $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=updated');
     }
