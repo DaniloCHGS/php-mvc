@@ -78,11 +78,12 @@
                         <div class="form-floating">
                             <div class="input-group">
                                 <label class="input-group-text" for="emails_contact">Contato</label>
-                                <input type="text" class="form-control" id="emails_contact" name="emails_contact" />
+                                <input type="text" class="form-control" id="emails_contact" name="emails_contact" value="{{emails_contact}}" />
                             </div>
                         </div>
 
                         <div class="col-12 mt-2">
+                            <input type="hidden" name="emails_id" value="{{emails_contact_id}}">
                             <input type="submit" value="Confirmar" class="btn btn-success float-right">
                         </div>
 
