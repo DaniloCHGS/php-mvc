@@ -47,7 +47,7 @@ class Historic {
                 [
                     "user" => $user->username,
                     "action" => $historic->action,
-                    "date" => $historic->created,
+                    "date" => date('d/m/Y H:i:s', strtotime($historic->created)),
                 ]
             );
         }

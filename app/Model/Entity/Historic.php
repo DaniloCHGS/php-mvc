@@ -26,10 +26,11 @@ class Historic
      */
     public function register()
     {
+        date_default_timezone_set('America/Sao_Paulo');
         $this->id = (new Database('historic'))->insert([
             'user_id' => $this->user_id,
             'action' => $this->action,
-            'created' => date('Y-m-d H:i:s')
+            'created' => date('Y-m-d H:i:s', time())
         ]);
         return true;
     }
