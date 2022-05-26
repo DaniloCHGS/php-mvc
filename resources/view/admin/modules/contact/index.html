@@ -6,13 +6,89 @@
 
 <hr class="my-5">
 
-<div class="card">
-    <h5 class="card-header">Contato</h5>
-    <div class="card-body">
+<div class="row">
+    <div class="col-12">
+        {{status}}
+    </div>
+</div>
 
-        <div class="row">
-            <div class="col-12">
-                {{status}}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="nav-align-top mb-4">
+            <ul class="nav nav-tabs nav-fill" role="tablist">
+                <li class="nav-item">
+                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-justified-contact" aria-controls="navs-justified-contact"
+                        aria-selected="true">
+                        <i class="tf-icons bx bx-envelope"></i> Contato
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-justified-config" aria-controls="navs-justified-config"
+                        aria-selected="false">
+                        <i class="tf-icons bx bx-slider-alt"></i> Emails de recebimento
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="navs-justified-contact" role="tabpanel">
+
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Data recebimento</th>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Visualizar</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                                <tr>
+                                    <td>01/01/2022</td>
+                                    <td>Teste</td>
+                                    <td>exemplo@mail.com</td>
+                                    <td>
+                                        <a href="" class="btn rounded-pill btn-icon btn-success">
+                                            <i class="tf-icons bx bx-show"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="navs-justified-config" role="tabpanel">
+                    
+                    <div class="alert alert-info">
+                        <p>Aqui você pode configurar quais emails irão <strong>receber</strong> os contatos.</p>
+                        <p>Para colocar mais de <strong>1</strong> basta separar por <strong>","</strong> como no
+                            exemplo:
+                            <strong>
+                                exemplo1@mail.com,exemplo2@mail.com
+                            </strong>
+                        </p>
+                    </div>
+
+                    <form action="" method="post">
+
+                        <div class="form-floating">
+                            <div class="input-group">
+                                <label class="input-group-text" for="emails_contact">Emails</label>
+                                <input type="text" class="form-control" id="emails_contact" name="emails_contact" />
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <input type="submit" value="Confirmar" class="btn btn-success float-right">
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>
