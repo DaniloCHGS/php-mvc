@@ -7,6 +7,7 @@ use App\Utils\Utils;
 use App\Model\Entity\User as EntityUser;
 use App\Model\Entity\AccessArea as EntityAccessArea;
 use \WilliamCosta\DatabaseManager\Pagination;
+use App\Utils\Historic;
 
 class Profile extends Page
 {
@@ -70,6 +71,11 @@ class Profile extends Page
         $user->password = $postVars['password'] ? password_hash($postVars['password'], PASSWORD_DEFAULT) : $user->password;
         
         $user->update();
+
+        $historic = new Historic;
+        $historic->user_id = $_SESSION['admin']['user']['id'];
+        $historic->action = "Atualizou seu perfil.";
+        $historic->createHistoric();
 
         $request->getRouter()->redirect('/admin/perfil?status=updated');
     }
