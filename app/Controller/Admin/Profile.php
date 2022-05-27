@@ -20,17 +20,8 @@ class Profile extends Page
         if (!isset($queryParams['status'])) return '';
 
         switch ($queryParams['status']) {
-            case 'created':
-                return Alert::getSuccess('Usuário criado com sucesso');
-                break;
             case 'updated':
-                return Alert::getSuccess('Usuário atualizado com sucesso');
-                break;
-            case 'deleted':
-                return Alert::getSuccess('Usuário excluido com sucesso');
-                break;
-            case 'duplicated':
-                return Alert::getError('Email sendo utilizado');
+                return Alert::getSuccess('Perfil atualizado com sucesso');
                 break;
             case 'denied':
                 return Alert::getError('Ação impossível');
@@ -72,12 +63,15 @@ class Profile extends Page
         $user = EntityUser::getUserById($id);
         
         if (!$user instanceof EntityUser) {
-            $request->getRouter()->redirect('/admin/usuarios');
+            $request->getRouter()->redirect('/admin/usuarios?status=denied');
         }
-        
-        // $user->update();
 
-        $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=updated');
+        $user->username = $postVars['username'] ?? $user->username;
+        $user->password = $postVars['password'] ? password_hash($postVars['password'], PASSWORD_DEFAULT) : $user->password;
+        
+        $user->update();
+
+        $request->getRouter()->redirect('/admin/perfil?status=updated');
     }
 
     /**
