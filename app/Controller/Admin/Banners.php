@@ -55,10 +55,13 @@ class Banners extends Page
 
         //Conteudo do formulário
         $content = View::render('admin/modules/banners/form', [
-            'title' => 'Cadastro de Banner',
+            'title' => '',
             'autor' => '',
             'depoimento' => '',
-            'status' => ''
+            'status' => '',
+            'link' => '',
+            'banner_desktop' => '',
+            'banner_mobile' => '',
         ]);
 
         //Retorna página completa
