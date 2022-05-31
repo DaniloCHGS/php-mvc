@@ -73,8 +73,30 @@ class Login extends Page
         //Busca do usuário
         $user = User::getUserByEmail($email);
 
-        //Validação de busca
-        if (!$user instanceof User || !password_verify($password, $user->password)) {
+        if($user->blocked == 1){
+            return self::getLogin($request, 'Usuário boqueado');
+        }
+
+        //Validação de busca de email
+        if (!$user instanceof User) {
+            return self::getLogin($request, 'Email ou senha inválido');
+        }
+
+        //Validação de senha
+        if(!password_verify($password, $user->password)){
+
+            if($user->quantity_blocked == 3){
+                $user->blocked = 1;
+                $user->update();
+
+                return self::getLogin($request, 'Usuário boqueado');
+            }
+
+            if($user->quantity_blocked < 3){
+                $user->quantity_blocked = $user->quantity_blocked + 1;
+                $user->update();
+            }
+
             return self::getLogin($request, 'Email ou senha inválido');
         }
 

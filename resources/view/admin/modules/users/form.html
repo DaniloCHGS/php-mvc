@@ -20,28 +20,30 @@
                 <div class="col-lg-12">
                     {{status}}
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
                         <input type="text" name="username" class="form-control" placeholder="Digite aqui"
                             aria-describedby="floatingInputHelp" value="{{username}}" />
                         <label for="floatingInput">Nome de usuário</label>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
                         <input type="email" name="email" class="form-control" placeholder="Digite aqui"
                             aria-describedby="floatingInputHelp" value="{{email}}" />
                         <label for="floatingInput">Email</label>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
                         <input type="password" name="password" class="form-control" placeholder="Digite aqui"
                             aria-describedby="floatingInputHelp" autocomplete="new-password" />
                         <label for="floatingInput">Senha</label>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-12">
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="form-floating">
                         <select name="admin" id="admin" class="form-select" data-id-admin="{{admin}}">
                             <option value="1" id="opt-1">Moderador</option>
@@ -49,6 +51,15 @@
                             <option value="3" id="opt-3">Programador</option>
                         </select>
                         <label for="floatingInput">Nível de usuário</label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-floating">
+                        <select name="blocked" id="blocked" class="form-select" data-blocked="{{blocked}}">
+                            <option value="1" class="opt-1">Sim</option>
+                            <option value="0" class="opt-2">Não</option>
+                        </select>
+                        <label for="floatingInput">Usuário bloqueado</label>
                     </div>
                 </div>
             </div>
@@ -96,6 +107,17 @@
 </div>
 
 <script>
+
+    const blocked = document.querySelector('[data-blocked]')
+    const optBlockedTrue = document.querySelector('[data-blocked] .opt-1')
+    const optBlockedFalse = document.querySelector('[data-blocked] .opt-2')
+
+    if (blocked.getAttribute('data-blocked') == 1) {
+        optBlockedTrue.setAttribute('selected', 'true')
+    } else {
+        optBlockedFalse.setAttribute('selected', 'true')
+    }
+
     var adminEl = document.getElementById('admin')
     var idAmin = adminEl.getAttribute('data-id-admin')
 

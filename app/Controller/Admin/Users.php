@@ -98,6 +98,7 @@ class Users extends Page
         $user->permission = $postVars['permission'];
         $user->access_area = $postVars['access_area'] ?? 1;
         $user->admin = $postVars['admin'];
+        $user->quantity_blocked = $postVars['quantity_blocked'];
         $user->register();
 
         $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=created');
@@ -123,7 +124,9 @@ class Users extends Page
             'permission' => $user->permission ?? '',
             'modules' => self::getModulesItens(),
             'access_area' => $user->access_area,
-            'admin' => $user->admin ?? ''
+            'admin' => $user->admin ?? '',
+            'quantity_blocked' => $user->quantity_blocked,
+            'blocked' => $user->blocked
         ]);
 
         //Retorna página completa
@@ -157,6 +160,8 @@ class Users extends Page
         $user->permission = $postVars['permission'] ?? $user->permission;
         $user->access_area = $postVars['access_area'] ?? $user->access_area;
         $user->admin = $postVars['admin'] ?? $user->admin;
+        $user->blocked = $postVars['blocked'];
+        $user->quantity_blocked = $user->blocked == 0 ? 0 : $user->quantity_blocked;
 
         $user->update();
 
@@ -236,8 +241,8 @@ class Users extends Page
                     "access_area" => $user->access_area,
                     "admin" => Utils::typeUser($user->admin),
                     "username" => $user->username,
-                    "blocked" => $user->blocked == 0 ? "Não" : "Sim",
-                    "type-blocked" => $user->blocked == 0 ? "success" : "danger",
+                    "blocked" => $user->blocked == 1 ? "Sim":"Não",
+                    "type-blocked" => $user->blocked == 1 ? "success" : "danger",
                 ]
             );
         }

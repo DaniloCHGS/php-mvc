@@ -18,6 +18,14 @@ class User
      * Senha usuário
      */
     public $password;
+    /** 
+     * Se o usuário está bockeado ou não
+    */
+    public $blocked;
+    /**
+     * Quantidade de vezes para bloquear usuário.
+     */
+    public $quantity_blocked;
     /**
      * Retornar usuário base de email
      * @param string $email
@@ -60,7 +68,9 @@ class User
             'permission' => $this->permission,
             'access_area' => $this->access_area,
             'admin' => $this->admin,
-            'created' => date('Y-m-d H:i:s')
+            'created' => date('Y-m-d H:i:s'),
+            'blocked' => $this->blocked,
+            'quantity_blocked' => $this->quantity_blocked
         ]);
         return true;
     }
@@ -75,7 +85,9 @@ class User
             'username' => $this->username,
             'permission' => $this->permission,
             'access_area' => $this->access_area,
-            'admin' => $this->admin
+            'admin' => $this->admin,
+            'blocked' => $this->blocked,
+            'quantity_blocked' => $this->quantity_blocked
         ]);
         return true;
     }
