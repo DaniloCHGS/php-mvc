@@ -236,6 +236,8 @@ class Users extends Page
                     "access_area" => $user->access_area,
                     "admin" => Utils::typeUser($user->admin),
                     "username" => $user->username,
+                    "blocked" => $user->blocked == 0 ? "Não" : "Sim",
+                    "type-blocked" => $user->blocked == 0 ? "success" : "danger",
                 ]
             );
         }
