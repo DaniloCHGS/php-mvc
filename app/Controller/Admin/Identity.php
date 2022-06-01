@@ -49,7 +49,7 @@ class Identity extends Page
         ]);
         $script = View::render('admin/modules/identity/script');
         //Retorna página completa
-        return parent::getPanel('Boss | Identidade do site', $content, 'identity', $script);
+        return parent::getPanel('Boss - Identidade do site', $content, 'identity', $script);
     }
 
     /**

@@ -50,7 +50,7 @@ class Users extends Page
             'status' => self::getStatus($request)
         ]);
         //Retorna página completa
-        return parent::getPanel('Boss | Usuários', $content, 'users');
+        return parent::getPanel('Boss - Usuários', $content, 'users');
     }
 
     /**
@@ -72,7 +72,7 @@ class Users extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Usuários', $content, 'users');
+        return parent::getPanel('Boss - Usuários', $content, 'users');
     }
 
     /**
@@ -132,7 +132,7 @@ class Users extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Usuários', $content, 'users');
+        return parent::getPanel('Boss - Usuários', $content, 'users');
     }
 
     /**
@@ -188,7 +188,7 @@ class Users extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Usuários', $content, 'testimonies');
+        return parent::getPanel('Boss - Usuários', $content, 'testimonies');
     }
 
     /**

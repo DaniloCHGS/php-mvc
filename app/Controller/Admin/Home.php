@@ -42,11 +42,12 @@ class Home extends Page
             'temp' => (int) $currentWeather['main']['temp'],
             'climate' => $currentWeather['weather'][0]['description'],
             'date' => date('d/m/Y', time()),
-            'clock' => date('H:i:s', time())
+            'clock' => date('H:i:s', time()),
+            'day' => date('H', time()) <= 18 ? 'sun' : 'moon'
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Home', $content, 'home');
+        return parent::getPanel('Boss - Home', $content, 'home');
     }
     /**
      * Retorna 404
@@ -56,7 +57,7 @@ class Home extends Page
         $content = View::render('admin/modules/home/404');
 
         //Retorna página completa
-        return parent::getPanel('Boss | 404', $content, '');
+        return parent::getPanel('Boss - 404', $content, '');
     }
     /**
      * Retorna 500
@@ -66,6 +67,6 @@ class Home extends Page
         $content = View::render('admin/modules/home/500');
 
         //Retorna página completa
-        return parent::getPanel('Boss | 500', $content, '');
+        return parent::getPanel('Boss - 500', $content, '');
     }
 }

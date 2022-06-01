@@ -50,7 +50,7 @@ class Profile extends Page
             'id' => $user->id
         ]);
         //Retorna página completa
-        return parent::getPanel('Boss | Perfil', $content, 'profile');
+        return parent::getPanel('Boss - Perfil', $content, 'profile');
     }
 
     /**
@@ -98,7 +98,7 @@ class Profile extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Usuários', $content, 'testimonies');
+        return parent::getPanel('Boss - Usuários', $content, 'testimonies');
     }
 
     /**

@@ -45,7 +45,7 @@ class Contact extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Contato', $content, 'contact');
+        return parent::getPanel('Boss - Contato', $content, 'contact');
     }
 
     /**

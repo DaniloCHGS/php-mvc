@@ -44,7 +44,7 @@ class Banners extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Banners', $content, 'banners');
+        return parent::getPanel('Boss - Banners', $content, 'banners');
     }
 
     /**
@@ -65,7 +65,7 @@ class Banners extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Banners', $content, 'banners');
+        return parent::getPanel('Boss - Banners', $content, 'banners');
     }
 
     /**
@@ -117,7 +117,7 @@ class Banners extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Banners', $content, 'banners');
+        return parent::getPanel('Boss - Banners', $content, 'banners');
     }
 
     /**
@@ -171,7 +171,7 @@ class Banners extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Banners', $content, 'banners');
+        return parent::getPanel('Boss - Banners', $content, 'banners');
     }
 
     /**
