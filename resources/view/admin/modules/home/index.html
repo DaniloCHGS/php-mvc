@@ -21,34 +21,13 @@
             </div>
         </div>
     </div>
-    <style>
-        .climate {
-            position: relative;
-            display: flex;
-            align-items: flex-end;
-        }
-        .climate i {
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-        /* .climate::after {
-            content: "";
-            width: 100%;
-            height: 40px;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            background: rgb(0, 212, 255);
-            background: linear-gradient(0deg, rgba(0, 212, 255, 1) 0%, rgba(0, 212, 255, 1) 35%, rgba(0, 212, 255, 0) 100%);
-        } */
-    </style>
     <div class="col-lg-4">
         <div class="card h-100">
             <div class="card-body">
                 <div class="row h-100">
                     <div class="col-lg-12">
-                        <p class="d-flex justify-content-between"> {{city}} &nbsp; {{date}} <span id="clock">{{clock}}</span> </p>
+                        <p class="d-flex justify-content-between"> {{city}} &nbsp; {{date}} <span
+                                id="clock">{{clock}}</span> </p>
                     </div>
                     <div class="col-lg-12">
                         <div class="climate climate-temp">
@@ -62,11 +41,11 @@
                             <h4 class="card-title text-info text-capitalize mb-0">
                                 {{climate}}
                             </h4>
-                            <i class='bx bx-cloud' ></i>
+                            <i class='bx bx-cloud'></i>
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        
+
                     </div>
                 </div>
             </div>
@@ -77,12 +56,33 @@
     <div class="col-lg-8">
         {{historic}}
     </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Últimos emails</h4>
+                <div class="list-group list-group-flush">
+                    <a href="{{URL}}/admin/banner/new" class="list-group-item list-group-item-action d-flex justify-content-between">
+                        Usuário 2 <span>17/05/2022</span>
+                        <i class='bx bx-envelope'></i>
+                    </a>
+                    <a href="{{URL}}/admin/banner/new" class="list-group-item list-group-item-action d-flex justify-content-between">
+                        Usuário 1 <span>03/05/2022</span>
+                        <i class='bx bx-envelope'></i>
+                    </a>
+                </div>
+                <a href="{{URL}}/admin/contato" class="btn btn-outline-success btn-md w-100 mt-3">
+                    Ver todos
+                    <i class='bx bx-chevron-right' ></i>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     const clock = document.getElementById('clock')
 
-    setInterval( ()=>{
+    setInterval(() => {
         const hour = new Date().toLocaleTimeString()
         clock.innerHTML = hour
     }, 1000)
