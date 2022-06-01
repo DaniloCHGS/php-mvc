@@ -28,7 +28,8 @@ class Home extends Page
      * Retorna a Home do Painel
      */
     public static function getHome($request){
-        
+
+        date_default_timezone_set('America/Sao_Paulo');
         $openWeatherMap = new OpenWeatherMap(getenv('OPENWEATHERMAP_KEY'));
         $currentWeather = $openWeatherMap->consultCurrentWeather("Rio de Janeiro", "RJ");
 
@@ -38,8 +39,10 @@ class Home extends Page
             'historic' => Historic::getHistoric(),
             'user' => $_SESSION['admin']['user']['name'],
             'city' => 'Rio de Janeiro',
-            'temp' => $currentWeather['main']['temp'] ?? 'Desconhecido',
-            'climate' => $currentWeather['weather'][0]['description']
+            'temp' => (int) $currentWeather['main']['temp'],
+            'climate' => $currentWeather['weather'][0]['description'],
+            'date' => date('d/m/Y', time()),
+            'clock' => date('H:i:s', time())
         ]);
 
         //Retorna página completa
