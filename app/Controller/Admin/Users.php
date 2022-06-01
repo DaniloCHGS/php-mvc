@@ -67,7 +67,8 @@ class Users extends Page
             'password' => 'mudarsenha',
             'modules' => self::getModulesItens(),
             'admin' => '',
-            'MODULE_URL' => 'usuarios'
+            'MODULE_URL' => 'usuarios',
+            'blocked' => ''
         ]);
 
         //Retorna página completa
@@ -99,6 +100,7 @@ class Users extends Page
         $user->access_area = $postVars['access_area'] ?? 1;
         $user->admin = $postVars['admin'];
         $user->quantity_blocked = $postVars['quantity_blocked'];
+        $user->blocked = $postVars['blocked'];
         $user->register();
 
         $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=created');
