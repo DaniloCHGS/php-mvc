@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Utils\Historic;
 use App\Utils\View;
 use App\Utils\Utils;
+use App\Services\OpenWeatherMap;
 
 class Home extends Page
 {
@@ -28,11 +29,17 @@ class Home extends Page
      */
     public static function getHome($request){
         
+        $openWeatherMap = new OpenWeatherMap(getenv('OPENWEATHERMAP_KEY'));
+        $currentWeather = $openWeatherMap->consultCurrentWeather("Rio de Janeiro", "RJ");
+
         //Conteudo da Home
         $content = View::render('admin/modules/home/index', [
             'status' => self::getStatus($request),
             'historic' => Historic::getHistoric(),
-            'user' => $_SESSION['admin']['user']['name']
+            'user' => $_SESSION['admin']['user']['name'],
+            'city' => 'Rio de Janeiro',
+            'temp' => $currentWeather['main']['temp'] ?? 'Desconhecido',
+            'climate' => $currentWeather['weather'][0]['description']
         ]);
 
         //Retorna página completa
