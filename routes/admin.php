@@ -27,5 +27,8 @@ include __DIR__ . '/admin/profle.php';
 //Inlue as rotas contato
 include __DIR__ . '/admin/contact.php';
 
+//Inlue as rotas contato
+include __DIR__ . '/admin/banners.php';
+
 //Inlue as rotas usuários
 include __DIR__ . '/admin/users.php';

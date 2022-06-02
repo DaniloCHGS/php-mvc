@@ -31,13 +31,13 @@ class Historic {
     /**
      * Rendereiza os itens do histórico
      */
-    private function getItensHistoric(){
+    private function getItensHistoric($limit = 12){
         $itens = "";
 
         $userLevel = $_SESSION['admin']['user']['admin'];
         $userId = $_SESSION['admin']['user']['id'];
 
-        $results = $userLevel == 1 ? EntityHistoric::getHistoricById($userId) : EntityHistoric::getHistoric(null, 'id DESC');
+        $results = $userLevel == 1 ? EntityHistoric::getHistoricById($userId) : EntityHistoric::getHistoric(null, 'id DESC', $limit);
 
         //Renderiza o item
         while ($historic = $results->fetchObject(EntityHistoric::class)) {
@@ -47,7 +47,7 @@ class Historic {
                 [
                     "user" => $user->username,
                     "action" => $historic->action,
-                    "date" => $historic->created,
+                    "date" => date('d/m/Y H:i:s', strtotime($historic->created)),
                 ]
             );
         }

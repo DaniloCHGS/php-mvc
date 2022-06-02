@@ -1,0 +1,98 @@
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h1>Banners</h1>
+        <a class="btn btn-danger" href="{{URL}}/admin/banners">Cancelar <i class='bx bx-block'></i></a>
+    </div>
+</div>
+
+<hr class="my-5">
+
+<div class="card">
+    <h5 class="card-header">Cadastrar</h5>
+    <div class="card-body">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-lg-12">
+                    {{status}}
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="form-floating">
+                        <input type="text" name="title" class="form-control" placeholder="Digite aqui"
+                            aria-describedby="floatingInputHelp" value="{{title}}" />
+                        <label for="floatingInput">Título</label>
+                    </div>
+
+                    <div class="input-group mt-3">
+                        <label class="input-group-text" for="link_target">
+                            Link externo
+                            <input class="form-check-input" type="checkbox" style="margin-left: 10px;" id="link_target"
+                                name="link_target">
+                        </label>
+                        <input type="text" class="form-control" placeholder="https://" name="link" value="{{link}}">
+                    </div>
+
+                    <div class="form-check form-switch mt-3">
+                        <input class="form-check-input" type="checkbox" id="active" name="active">
+                        <label class="form-check-label" for="active">Banner ativo</label>
+                    </div>
+
+                    
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <label class="input-group-text" for="banner_desktop">Desktop: 1920px : 800px</label>
+                            <input type="file" class="form-control" id="banner_desktop" name="banner_desktop" />
+                        </div>
+                    </div>
+                    <picture class="thumbnail">
+                        <img class="w-100 mt-3" src="{{URL_CONTENT}}banner/{{banner_desktop}}" class="w-100 mt-2">
+                    </picture>
+
+                    <hr class="my-3">
+
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <label class="input-group-text" for="banner_mobile">Mobile: 500px : 500px</label>
+                            <input type="file" class="form-control" id="banner_mobile" name="banner_mobile" />
+                        </div>
+                    </div>
+                    <picture class="thumbnail">
+                        <img class="w-25" src="{{URL_CONTENT}}banner/mobile/{{banner_desktop}}" class="w-100 mt-2">
+                    </picture>
+                </div>
+                
+                <div class="col-lg-12">
+                    <div class="form-floating">
+                        <hr class="my-4">
+                        <input type="hidden" value="{{active}}" id="hasActive">
+                        <input type="hidden" value="{{link_target}}" id="target">
+                        <input type="submit" value="Confirmar" class="btn btn-success float-right">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    const active = document.getElementById('active')
+    const hasActiveEl = document.getElementById('hasActive')
+    const hasActive = hasActiveEl.value
+    
+    if(hasActive == 1){
+        active.setAttribute('checked', 'on')
+    }
+
+    const link_target = document.getElementById('link_target')
+    const target = document.getElementById('target')
+    const blank = target.value
+
+    if(blank == 1){
+        link_target.setAttribute('checked', 'on')
+    }
+    
+</script>

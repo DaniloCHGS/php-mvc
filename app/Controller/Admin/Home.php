@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Utils\Historic;
 use App\Utils\View;
 use App\Utils\Utils;
+use App\Services\OpenWeatherMap;
 
 class Home extends Page
 {
@@ -27,16 +28,26 @@ class Home extends Page
      * Retorna a Home do Painel
      */
     public static function getHome($request){
-        
+
+        date_default_timezone_set('America/Sao_Paulo');
+        $openWeatherMap = new OpenWeatherMap(getenv('OPENWEATHERMAP_KEY'));
+        $currentWeather = $openWeatherMap->consultCurrentWeather("Rio de Janeiro", "RJ");
+
         //Conteudo da Home
         $content = View::render('admin/modules/home/index', [
             'status' => self::getStatus($request),
             'historic' => Historic::getHistoric(),
-            'user' => $_SESSION['admin']['user']['name']
+            'user' => $_SESSION['admin']['user']['name'],
+            'city' => 'Rio de Janeiro',
+            'temp' => (int) $currentWeather['main']['temp'],
+            'climate' => $currentWeather['weather'][0]['description'],
+            'date' => date('d/m/Y', time()),
+            'clock' => date('H:i:s', time()),
+            'day' => date('H', time()) <= 18 ? 'sun' : 'moon'
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Home', $content, 'home');
+        return parent::getPanel('Boss - Home', $content, 'home');
     }
     /**
      * Retorna 404
@@ -46,7 +57,7 @@ class Home extends Page
         $content = View::render('admin/modules/home/404');
 
         //Retorna página completa
-        return parent::getPanel('Boss | 404', $content, '');
+        return parent::getPanel('Boss - 404', $content, '');
     }
     /**
      * Retorna 500
@@ -56,6 +67,6 @@ class Home extends Page
         $content = View::render('admin/modules/home/500');
 
         //Retorna página completa
-        return parent::getPanel('Boss | 500', $content, '');
+        return parent::getPanel('Boss - 500', $content, '');
     }
 }

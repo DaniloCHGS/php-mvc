@@ -56,7 +56,7 @@ class Company extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Dados da empresa', $content, 'company');
+        return parent::getPanel('Boss - Dados da empresa', $content, 'company');
     }
 
     /**

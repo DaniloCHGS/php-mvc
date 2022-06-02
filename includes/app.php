@@ -23,9 +23,16 @@ define("URL", getenv('URL'));
 define("URL_CONTENT", getenv('URL_CONTENT'));
 define("ADMIN_ASSETS", getenv('ADMIN_ASSETS'));
 define("RECAPTCHA_KEY", getenv('RECAPTCHA_KEY'));
+define("OPENWEATHERMAP_KEY", getenv('OPENWEATHERMAP_KEY'));
 
 //Define valores padrões das variaveis
-View::init(['URL' => URL, 'URL_CONTENT' => URL_CONTENT, 'ADMIN_ASSETS'=> ADMIN_ASSETS, 'RECAPTCHA_KEY'=> RECAPTCHA_KEY]);
+View::init([
+    'URL' => URL,
+    'URL_CONTENT' => URL_CONTENT,
+    'ADMIN_ASSETS'=> ADMIN_ASSETS,
+    'RECAPTCHA_KEY'=> RECAPTCHA_KEY,
+    'OPENWEATHERMAP_KEY' => OPENWEATHERMAP_KEY
+]);
 
 //Define o mapeamento de middlewares
 MiddlewareQueue::setMap([

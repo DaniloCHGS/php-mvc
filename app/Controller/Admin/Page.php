@@ -15,6 +15,13 @@ class Page
      */
     // Site de ícones https://boxicons.com/
     private static $modules = [
+        'banners' => [
+            'label' => 'Banners',
+            'link' => URL . '/admin/banners',
+            'icon' => 'bx-slideshow',
+            'id' => 25,
+            'admin' => 1
+        ],
         'testimonies' => [
             'label' => 'Depoimentos',
             'link' => URL . '/admin/depoimentos',

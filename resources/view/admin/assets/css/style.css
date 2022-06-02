@@ -1,0 +1,10 @@
+.climate {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+.climate i {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

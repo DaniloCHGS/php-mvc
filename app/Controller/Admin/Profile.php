@@ -7,6 +7,7 @@ use App\Utils\Utils;
 use App\Model\Entity\User as EntityUser;
 use App\Model\Entity\AccessArea as EntityAccessArea;
 use \WilliamCosta\DatabaseManager\Pagination;
+use App\Utils\Historic;
 
 class Profile extends Page
 {
@@ -20,17 +21,8 @@ class Profile extends Page
         if (!isset($queryParams['status'])) return '';
 
         switch ($queryParams['status']) {
-            case 'created':
-                return Alert::getSuccess('Usuário criado com sucesso');
-                break;
             case 'updated':
-                return Alert::getSuccess('Usuário atualizado com sucesso');
-                break;
-            case 'deleted':
-                return Alert::getSuccess('Usuário excluido com sucesso');
-                break;
-            case 'duplicated':
-                return Alert::getError('Email sendo utilizado');
+                return Alert::getSuccess('Perfil atualizado com sucesso');
                 break;
             case 'denied':
                 return Alert::getError('Ação impossível');
@@ -58,7 +50,7 @@ class Profile extends Page
             'id' => $user->id
         ]);
         //Retorna página completa
-        return parent::getPanel('Boss | Perfil', $content, 'profile');
+        return parent::getPanel('Boss - Perfil', $content, 'profile');
     }
 
     /**
@@ -72,12 +64,20 @@ class Profile extends Page
         $user = EntityUser::getUserById($id);
         
         if (!$user instanceof EntityUser) {
-            $request->getRouter()->redirect('/admin/usuarios');
+            $request->getRouter()->redirect('/admin/usuarios?status=denied');
         }
-        
-        // $user->update();
 
-        $request->getRouter()->redirect('/admin/usuarios/' . $user->id . '/edit?status=updated');
+        $user->username = $postVars['username'] ?? $user->username;
+        $user->password = $postVars['password'] ? password_hash($postVars['password'], PASSWORD_DEFAULT) : $user->password;
+        
+        $user->update();
+
+        $historic = new Historic;
+        $historic->user_id = $_SESSION['admin']['user']['id'];
+        $historic->action = "Atualizou seu perfil.";
+        $historic->createHistoric();
+
+        $request->getRouter()->redirect('/admin/perfil?status=updated');
     }
 
     /**
@@ -98,7 +98,7 @@ class Profile extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss | Usuários', $content, 'testimonies');
+        return parent::getPanel('Boss - Usuários', $content, 'testimonies');
     }
 
     /**
