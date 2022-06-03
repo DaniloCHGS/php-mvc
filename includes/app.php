@@ -21,6 +21,7 @@ Database::config(
 //Define constante de URL
 define("URL", getenv('URL'));
 define("URL_CONTENT", getenv('URL_CONTENT'));
+define("UPLOAD_PATH", getenv('UPLOAD_PATH'));
 define("ADMIN_ASSETS", getenv('ADMIN_ASSETS'));
 define("RECAPTCHA_KEY", getenv('RECAPTCHA_KEY'));
 define("OPENWEATHERMAP_KEY", getenv('OPENWEATHERMAP_KEY'));
@@ -29,6 +30,7 @@ define("OPENWEATHERMAP_KEY", getenv('OPENWEATHERMAP_KEY'));
 View::init([
     'URL' => URL,
     'URL_CONTENT' => URL_CONTENT,
+    'UPLOAD_PATH'=> UPLOAD_PATH,
     'ADMIN_ASSETS'=> ADMIN_ASSETS,
     'RECAPTCHA_KEY'=> RECAPTCHA_KEY,
     'OPENWEATHERMAP_KEY' => OPENWEATHERMAP_KEY

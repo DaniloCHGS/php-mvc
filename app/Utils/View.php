@@ -10,7 +10,7 @@ class View {
     /**
      * Define dados padrões iniciais da classe
      */
-    public function init($vars = []){
+    public static function init($vars = []){
         self::$vars = $vars;
     }
     /**

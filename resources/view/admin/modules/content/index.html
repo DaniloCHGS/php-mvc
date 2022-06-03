@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h1>{{title}}</h1>
+        <a class="btn btn-success" href="{{URL}}/admin/area-de-acesso/new">Novo <i class='bx bx-plus'></i></a>
+    </div>
+</div>
+
+<hr class="my-5">
+
+<div class="card">
+    <h5 class="card-header">Lista de Conteúdos</h5>
+    <div class="card-body">
+        {{status}}
+        <div class="table-responsive text-nowrap mb-3">
+            <table class="table table-striped" id="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Arquivo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    {{itens}}
+                </tbody>
+            </table>
+            {{pagination}}
+        </div>
+    </div>
+</div>

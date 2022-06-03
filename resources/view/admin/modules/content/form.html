@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h1>{{title}}</h1>
+        <a class="btn btn-danger" href="{{URL}}/admin/area-de-acesso">Cancelar <i class='bx bx-block'></i></a>
+    </div>
+</div>
+
+<hr class="my-5">
+
+<div class="card">
+    <h5 class="card-header">Cadastrar</h5>
+    <div class="card-body">
+        <form action="" method="post">
+            <div class="row">
+                <div class="col-lg-12">
+                    {{status}}
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-floating">
+                        <input type="text" name="access" class="form-control" placeholder="Digite aqui"
+                            aria-describedby="floatingInputHelp" value="{{access}}" required />
+                        <label for="floatingInput">Título da Área de Acesso</label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-floating">
+                        <input type="text" name="uri" class="form-control" placeholder="Digite aqui"
+                            aria-describedby="floatingInputHelp" value="{{uri}}" required />
+                        <label for="floatingInput">URI</label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-floating">
+                        <select name="admin" id="admin" class="form-select" data-id-admin="{{admin}}">
+                            <option value="1" id="opt-1">Moderador</option>
+                            <option value="2" id="opt-2">Administrador</option>
+                            <option value="3" id="opt-3">Programador</option>
+                        </select>
+                        <label for="floatingInput">Nível de usuário</label>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <hr class="my-4">
+                    <div class="form-floating">
+                        <input type="submit" value="Confirmar" class="btn btn-success float-right">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    var adminEl = document.getElementById('admin')
+    var idAmin = adminEl.getAttribute('data-id-admin')
+
+    var optionAdmin = document.getElementById(`opt-${idAmin}`)
+    optionAdmin.selected = true
+</script>

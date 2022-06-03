@@ -21,4 +21,19 @@ class Utils {
             return "Programador";
         }
     }
+    
+    /**
+     * Verifica se uma pasta existe, caso não exista ela é criada.
+     * @var string $path -- Diretório desejado 
+     * @return bool -- True se a pasta existir ou for criada com sucesso, False caso não existe e não seja criada.
+     */
+    public static function path_exist($path){
+        if(!file_exists($path)){
+            if(!mkdir($path)){
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Utils\View;
-use App\Utils\UpFile;
+use App\Utils\FilesManager\FileManager;
 use App\Model\Entity\AccessArea as EntityAccessArea;
 use App\Utils\Utils;
 use App\Utils\Historic;
@@ -63,6 +63,13 @@ class Page
             'icon' => 'bx-user-circle',
             'id' => 4,
             'admin' => 2
+        ],
+        'content' => [
+            'label' => 'Conteúdo',
+            'link' => URL . '/admin/conteudo',
+            'icon' => 'bx bx-folder',
+            'id' => 26,
+            'admin' => 1
         ],
     ];
     /**
@@ -189,12 +196,19 @@ class Page
             "links" => $links
         ]);
     }
-    public static function uploadFile($file, $path, $config = [])
+
+    public static function uploadFile($file, $isImage = true)
     {
-        if ($file['error'] != 4 and !empty($path)) {
-            $fileUploaded = new UpFile($file, $path, $config);
-            return $fileUploaded;
+        if(isset($file)){
+            $manager = new FileManager();
+    
+            $status_code = $isImage ? $manager->setImage($file) : $manager->setFile($file);
+            
+            if($status_code == 0){
+                return $manager->createFile();
+            }
         }
+
         return false;
     }
 }
