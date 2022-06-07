@@ -29,6 +29,20 @@ class Page
             'id' => 6,
             'admin' => 1
         ],
+        'blog' => [
+            'label' => 'Blog',
+            'link' => URL . '/admin/blog',
+            'icon' => 'bx-news',
+            'id' => 6,
+            'admin' => 1
+        ],
+        'contact' => [
+            'label' => 'Contato',
+            'link' => URL . '/admin/contato',
+            'icon' => 'bx-envelope',
+            'id' => 20,
+            'admin' => 1
+        ],
         'company' => [
             'label' => 'Dados da Empresa',
             'link' => URL . '/admin/dados-empresa',
@@ -41,13 +55,6 @@ class Page
             'link' => URL . '/admin/identidade-site',
             'icon' => 'bx-palette',
             'id' => 2,
-            'admin' => 1
-        ],
-        'contact' => [
-            'label' => 'Contato',
-            'link' => URL . '/admin/contato',
-            'icon' => 'bx-envelope',
-            'id' => 20,
             'admin' => 1
         ],
         'access_area' => [
