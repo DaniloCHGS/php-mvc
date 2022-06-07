@@ -29,6 +29,9 @@ class Blog extends Page
             case 'deleted':
                 return Alert::getSuccess('Artigo excluido com sucesso');
                 break;
+            case 'category_deleted':
+                return Alert::getSuccess('Categoria excluida com sucesso');
+                break;
         }
     }
 

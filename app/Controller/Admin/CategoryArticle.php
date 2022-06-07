@@ -82,7 +82,7 @@ class CategoryArticle extends Page
 
         $category->register();
 
-        $request->getRouter()->redirect('/admin/blog/' . $category->id . '/edit?status=created');
+        $request->getRouter()->redirect('/admin/categoria/' . $category->id . '/edit?status=created');
     }
 
     /**
@@ -126,7 +126,7 @@ class CategoryArticle extends Page
 
         $category->update();
 
-        $request->getRouter()->redirect('/admin/blog/' . $category->id . '/edit?status=updated');
+        $request->getRouter()->redirect('/admin/categoria/' . $category->id . '/edit?status=updated');
     }
 
     /**
@@ -164,7 +164,7 @@ class CategoryArticle extends Page
 
         $category->delete();
 
-        $request->getRouter()->redirect('/admin/blog?status=deleted');
+        $request->getRouter()->redirect('/admin/blog?status=category_deleted');
     }
 
     /**
