@@ -38,7 +38,7 @@ class Blog extends Page
     {
         //Conteudo de Depoimentos
         $content = View::render('admin/modules/blog/index', [
-            'itens' => self::getTestimoniesItens($request, $pagination),
+            'itens' => self::getArticleItens($request, $pagination),
             'pagination' => parent::getPagination($request, $pagination),
             'status' => self::getStatus($request)
         ]);
@@ -56,9 +56,16 @@ class Blog extends Page
         //Conteudo do formulário
         $content = View::render('admin/modules/blog/form', [
             'title' => 'Cadastro de Artigo',
-            'autor' => '',
-            'depoimento' => '',
-            'status' => ''
+            'status' => '',
+            'title_article' => '',
+            'author' => '',
+            'date' => '',
+            'category_id' => '',
+            'title_article' => '',
+            'subtitle' => '',
+            'slug' => '',
+            'text' => '',
+            'thumbnail' => ''
         ]);
 
         //Retorna página completa
@@ -72,13 +79,22 @@ class Blog extends Page
     {
         //Dados
         $postVars   = $request->getPostVars();
+        $fileVars = $request->getFileVars();
+        $thumbnail = parent::uploadFile($fileVars['thumbnail'], 'blog/');
+        // Utils::pre($postVars);
+        $article = new EntityArticle;
 
-        $depoimento = new EntityArticle;
-        $depoimento->autor = $postVars['autor'];
-        $depoimento->depoimento = $postVars['depoimento'];
-        $depoimento->register();
+        $article->author = $postVars['author'];
+        $article->date = $postVars['date'];
+        $article->category_id = $postVars['category_id'];
+        $article->title_article = $postVars['title_article'];
+        $article->subtitle = $postVars['subtitle'];
+        $article->slug = $postVars['slug'];
+        $article->text = $postVars['text'];
+        $article->thumbnail = $thumbnail->new_name;
+        $article->register();
 
-        $request->getRouter()->redirect('/admin/blog/' . $depoimento->id . '/edit?status=created');
+        $request->getRouter()->redirect('/admin/blog/' . $article->id . '/edit?status=created');
     }
 
     /**
@@ -166,12 +182,12 @@ class Blog extends Page
     /**
      * Renderiza os itens de depoimento na página
      */
-    private function getTestimoniesItens($request, &$pagination)
+    private function getArticleItens($request, &$pagination)
     {
         $itens = "";
 
         //Quantidade total de registros
-        $total = EntityArticle::getTestimonies(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
+        $total = EntityArticle::getArticles(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
 
         //Pagina atual
         $queryParams = $request->getQueryParams();
@@ -181,17 +197,18 @@ class Blog extends Page
         $pagination = new Pagination($total, $paginaAtual, 3);
 
         //Resultados da página
-        $results = EntityArticle::getTestimonies(null, 'id DESC', $pagination->getLimit());
+        $results = EntityArticle::getArticles(null, 'id DESC', $pagination->getLimit());
 
         //Renderiza o item
-        while ($obDepoimentos = $results->fetchObject(EntityArticle::class)) {
+        while ($article = $results->fetchObject(EntityArticle::class)) {
             $itens .= View::render(
-                "admin/modules/testimonies/itens",
+                "admin/modules/blog/itens",
                 [
-                    "autor" => $obDepoimentos->autor,
-                    "depoimento" => $obDepoimentos->depoimento,
-                    "data" => date("d/m/Y H:i:s", strtotime($obDepoimentos->data)),
-                    "id" => $obDepoimentos->id,
+                    'id' => $article->id,
+                    'data' => date('d/m/Y', strtotime($article->date)),
+                    'title_article' => $article->title_article,
+                    'slug' => $article->slug,
+                    'thumbnail' => $article->thumbnail
                 ]
             );
         }

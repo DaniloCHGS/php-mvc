@@ -46,7 +46,7 @@ class Article
      * Retorna articles
      * @return PDOStatement
      */
-    public static function getTestimonies($where = null, $order = null, $limit = null, $filds = "*")
+    public static function getArticles($where = null, $order = null, $limit = null, $filds = "*")
     {
         return (new Database('articles'))->select($where, $order, $limit, $filds);
     }
@@ -59,9 +59,14 @@ class Article
         $this->data = date("Y-m-d H:i:s");
 
         $this->id = (new Database('articles'))->insert([
-            'autor' => $this->autor,
-            'depoimento' => $this->depoimento,
-            'data' => $this->data
+            'author' => $this->author,
+            'date' => $this->date,
+            'category_id' => $this->category_id,
+            'title_article' => $this->title_article,
+            'subtitle' => $this->subtitle,
+            'slug' => $this->slug,
+            'text' => $this->text,
+            'thumbnail' => $this->thumbnail
         ]);
         return true;
     }
@@ -73,8 +78,14 @@ class Article
     {
 
         return (new Database('articles'))->update('id = ' . $this->id, [
-            'autor' => $this->autor,
-            'depoimento' => $this->depoimento,
+            'author' => $this->author,
+            'date' => $this->date,
+            'category_id' => $this->category_id,
+            'title_article' => $this->title_article,
+            'subtitle' => $this->subtitle,
+            'slug' => $this->slug,
+            'text' => $this->text,
+            'thumbnail' => $this->thumbnail
         ]);
         return true;
     }
@@ -92,8 +103,8 @@ class Article
     /**
      * Busca por ID
      */
-    public static function getTestimonyById($id)
+    public static function getArticleById($id)
     {
-        return self::getTestimonies('id = ' . $id)->fetchObject(self::class);
+        return self::getArticles('id = ' . $id)->fetchObject(self::class);
     }
 }

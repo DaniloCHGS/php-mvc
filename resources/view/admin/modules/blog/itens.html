@@ -1,9 +1,14 @@
 <tr>
-    <td>{{autor}}</td>
+    <td style="width: 25%;">
+        <picture class="thumbnail">
+            <img class="w-100" src="{{URL_CONTENT}}blog/{{thumbnail}}" alt="">
+        </picture>
+    </td>
     <td>{{data}}</td>
-    <td>{{depoimento}}</td>
+    <td>{{title_article}}</td>
+    <td>{{slug}}</td>
     <td>
-        <a href="{{URL}}/admin/depoimentos/{{id}}/edit" class="btn btn-warning">Editar <i class='bx bx-pencil'></i></a>
-        <a href="{{URL}}/admin/depoimentos/{{id}}/delete" class="btn btn-danger">Excluir <i class='bx bx-trash' ></i></a>
+        <a href="{{URL}}/admin/blog/{{id}}/edit" class="btn btn-warning">Editar <i class='bx bx-pencil'></i></a>
+        <a href="{{URL}}/admin/blog/{{id}}/delete" class="btn btn-danger">Excluir <i class='bx bx-trash' ></i></a>
     </td>
 </tr>
