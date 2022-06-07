@@ -8,7 +8,7 @@ use App\Model\Entity\Article as EntityArticle;
 use App\Model\Entity\CategoryArticle as EntityCategory;
 use \WilliamCosta\DatabaseManager\Pagination;
 
-class Blog extends Page
+class CategoryArticle extends Page
 {
     /**
      * Mensagem de status
@@ -21,13 +21,13 @@ class Blog extends Page
 
         switch ($queryParams['status']) {
             case 'created':
-                return Alert::getSuccess('Artigo criado com sucesso');
+                return Alert::getSuccess('Categoria criada com sucesso');
                 break;
             case 'updated':
-                return Alert::getSuccess('Artigo atualizado com sucesso');
+                return Alert::getSuccess('Categoria atualizada com sucesso');
                 break;
             case 'deleted':
-                return Alert::getSuccess('Artigo excluido com sucesso');
+                return Alert::getSuccess('Categoria excluida com sucesso');
                 break;
         }
     }
@@ -100,7 +100,7 @@ class Blog extends Page
         $postVars   = $request->getPostVars();
         $fileVars = $request->getFileVars();
         $thumbnail = parent::uploadFile($fileVars['thumbnail'], 'blog/');
-
+        
         $article = new EntityArticle;
 
         $article->author = $postVars['author'];
@@ -123,7 +123,7 @@ class Blog extends Page
     {
         //Dados
         $postVars   = $request->getPostVars();
-
+        
         $category = new EntityCategory;
 
         $category->title = $postVars['title'];
@@ -164,29 +164,6 @@ class Blog extends Page
     }
 
     /**
-     * Form para editar depoimento
-     */
-    public static function getEditCategory($request, $id)
-    {
-        $category = EntityCategory::getCategoryById($id);
-
-        if (!$category instanceof EntityCategory) {
-            $request->getRouter()->redirect('/admin/blog');
-        }
-
-        //Conteudo do formulário
-        $content = View::render('admin/modules/blog/category/form', [
-            'title_module' => 'Editar Categoria',
-            'status' => self::getStatus($request),
-            'title' => $category->title,
-            'slug' => $category->slug,
-        ]);
-
-        //Retorna página completa
-        return parent::getPanel('Boss - Categoria', $content, 'blog');
-    }
-
-    /**
      * Editar depoimento
      */
     public static function setEditArticle($request, $id)
@@ -220,27 +197,6 @@ class Blog extends Page
     }
 
     /**
-     * Editar depoimento
-     */
-    public static function setEditCategory($request, $id)
-    {
-        $category = EntityCategory::getCategoryById($id);
-
-        if (!$category instanceof EntityCategory) {
-            $request->getRouter()->redirect('/admin/blog');
-        }
-
-        $postVars   = $request->getPostVars();
-
-        $category->title = $postVars['title'] ?? $category->title;
-        $category->slug = $postVars['slug'] ?? $category->slug;
-
-        $category->update();
-
-        $request->getRouter()->redirect('/admin/blog/' . $category->id . '/edit?status=updated');
-    }
-
-    /**
      * Tela de deletar um depoimento 
      */
     public static function getDeleteArticle($request, $id)
@@ -266,28 +222,6 @@ class Blog extends Page
     }
 
     /**
-     * Tela de deletar um depoimento 
-     */
-    public static function getDeleteCategory($request, $id)
-    {
-        $category = EntityCategory::getCategoryById($id);
-
-        if (!$category instanceof EntityCategory) {
-            $request->getRouter()->redirect('/admin/blog');
-        }
-
-        //Conteudo do formulário
-        $content = View::render('admin/modules/blog/category/delete', [
-            'title_module' => 'Excluir artigo',
-            'title' => $category->title,
-            'slug' => $category->slug,
-        ]);
-
-        //Retorna página completa
-        return parent::getPanel('Boss - Categoria', $content, 'blog');
-    }
-
-    /**
      * Deletar depoimento
      */
     public static function setDeleteBlog($request, $id)
@@ -299,22 +233,6 @@ class Blog extends Page
         }
 
         $article->delete();
-
-        $request->getRouter()->redirect('/admin/blog?status=deleted');
-    }
-
-    /**
-     * Deletar depoimento
-     */
-    public static function setDeleteCategory($request, $id)
-    {
-        $category = EntityCategory::getCategoryById($id);
-
-        if (!$category instanceof EntityCategory) {
-            $request->getRouter()->redirect('/admin/blog');
-        }
-
-        $category->delete();
 
         $request->getRouter()->redirect('/admin/blog?status=deleted');
     }
