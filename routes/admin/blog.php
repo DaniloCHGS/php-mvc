@@ -52,37 +52,37 @@ $router->get('/admin/blog/{id}/edit', [
 ]);
 
 //Editar
-$router->post('/admin/depoimentos/{id}/edit', [
+$router->post('/admin/blog/{id}/edit', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request, $id) {
-        return new Response(200, Admin\Testimony::setEditTestimonies($request, $id));
+        return new Response(200, Admin\Blog::setEditArticle($request, $id));
     }
 ]);
 
 //Tela de excluir
-$router->get('/admin/depoimentos/{id}/delete', [
+$router->get('/admin/blog/{id}/delete', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request, $id) {
-        return new Response(200, Admin\Testimony::getDeleteTestimonies($request, $id));
+        return new Response(200, Admin\Blog::getDeleteArticle($request, $id));
     }
 ]);
 
 //Excluir
-$router->post('/admin/depoimentos/{id}/delete', [
+$router->post('/admin/blog/{id}/delete', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request, $id) {
-        return new Response(200, Admin\Testimony::setDeleteTestimonies($request, $id));
+        return new Response(200, Admin\Blog::setDeleteBlog($request, $id));
     }
 ]);

@@ -122,66 +122,81 @@ class Blog extends Page
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss - Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Boss - Blog', $content, 'blog');
     }
 
     /**
      * Editar depoimento
      */
-    public static function setEditTestimonies($request, $id)
+    public static function setEditArticle($request, $id)
     {
-        $depoimento = EntityArticle::getTestimonyById($id);
+        $article = EntityArticle::getArticleById($id);
 
-        if (!$depoimento instanceof EntityArticle) {
-            $request->getRouter()->redirect('/admin/depoimentos');
+        if (!$article instanceof EntityArticle) {
+            $request->getRouter()->redirect('/admin/blog');
         }
 
         $postVars   = $request->getPostVars();
+        $fileVars = $request->getFileVars();
+        $thumbnail = '';
 
-        $depoimento->autor = $postVars['autor'] ?? $depoimento->autor;
-        $depoimento->depoimento = $postVars['depoimento'] ?? $depoimento->depoimento;
+        if ($fileVars['thumbnail']['error'] != 4) {
+            $thumbnail  = parent::uploadFile($fileVars['thumbnail'],  'blog/');
+        }
 
-        $depoimento->update();
+        $article->author = $postVars['author'] ?? $article->author;
+        $article->date = $postVars['date'] ?? $article->date;
+        $article->category_id = $postVars['category_id'] ?? $article->category_id;
+        $article->title_article = $postVars['title_article'] ?? $article->title_article;
+        $article->subtitle = $postVars['subtitle'] ?? $article->subtitle;
+        $article->slug = $postVars['slug'] ?? $article->slug;
+        $article->text = $postVars['text'] ?? $article->text;
+        $article->thumbnail = !empty($thumbnail) ? $thumbnail->new_name : $article->thumbnail;
 
-        $request->getRouter()->redirect('/admin/depoimentos/' . $depoimento->id . '/edit?status=updated');
+        $article->update();
+
+        $request->getRouter()->redirect('/admin/blog/' . $article->id . '/edit?status=updated');
     }
 
     /**
      * Tela de deletar um depoimento 
      */
-    public static function getDeleteTestimonies($request, $id)
+    public static function getDeleteArticle($request, $id)
     {
-        $depoimento = EntityArticle::getTestimonyById($id);
+        $article = EntityArticle::getArticleById($id);
 
-        if (!$depoimento instanceof EntityArticle) {
-            $request->getRouter()->redirect('/admin/depoimentos');
+        if (!$article instanceof EntityArticle) {
+            $request->getRouter()->redirect('/admin/blog');
         }
 
         //Conteudo do formulário
-        $content = View::render('admin/modules/testimonies/delete', [
-            'title' => 'Excluir Depoimento',
-            'autor' => $depoimento->autor,
-            'depoimento' => $depoimento->depoimento,
+        $content = View::render('admin/modules/blog/delete', [
+            'title' => 'Excluir artigo',
+            'author' => $article->author,
+            'title_article' => $article->title_article,
+            'slug' => $article->slug,
+            'thumbnail' => $article->thumbnail,
+            'date' => date('d/m/Y', strtotime($article->date))
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss - Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Boss - Blog', $content, 'blog');
     }
 
     /**
      * Deletar depoimento
      */
-    public static function setDeleteTestimonies($request, $id)
+    public static function setDeleteBlog($request, $id)
     {
-        $depoimento = EntityArticle::getTestimonyById($id);
+        $article = EntityArticle::getArticleById($id);
 
-        if (!$depoimento instanceof EntityArticle) {
-            $request->getRouter()->redirect('/admin/depoimentos');
+        if (!$article instanceof EntityArticle) {
+            $request->getRouter()->redirect('/admin/blog');
         }
 
-        $depoimento->delete();
+        $article->delete();
 
-        $request->getRouter()->redirect('/admin/depoimentos?status=deleted');
+        $request->getRouter()->redirect('/admin/blog?status=deleted');
     }
 
     /**
