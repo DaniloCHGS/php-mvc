@@ -40,14 +40,14 @@ $router->post('/admin/blog/new', [
 ]);
 
 //Tela de editar
-$router->get('/admin/depoimentos/{id}/edit', [
+$router->get('/admin/blog/{id}/edit', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request, $id) {
-        return new Response(200, Admin\Testimony::getEditTestimonies($request, $id));
+        return new Response(200, Admin\Blog::getEditArticle($request, $id));
     }
 ]);
 

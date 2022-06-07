@@ -61,7 +61,6 @@ class Blog extends Page
             'author' => '',
             'date' => '',
             'category_id' => '',
-            'title_article' => '',
             'subtitle' => '',
             'slug' => '',
             'text' => '',
@@ -100,20 +99,26 @@ class Blog extends Page
     /**
      * Form para editar depoimento
      */
-    public static function getEditTestimonies($request, $id)
+    public static function getEditArticle($request, $id)
     {
-        $depoimento = EntityArticle::getTestimonyById($id);
+        $article = EntityArticle::getArticleById($id);
 
-        if (!$depoimento instanceof EntityArticle) {
-            $request->getRouter()->redirect('/admin/depoimentos');
+        if (!$article instanceof EntityArticle) {
+            $request->getRouter()->redirect('/admin/blog');
         }
 
         //Conteudo do formulário
-        $content = View::render('admin/modules/testimonies/form', [
+        $content = View::render('admin/modules/blog/form', [
             'title' => 'Editar Depoimento',
-            'autor' => $depoimento->autor,
-            'depoimento' => $depoimento->depoimento,
-            'status' => self::getStatus($request)
+            'status' => self::getStatus($request),
+            'title_article' => $article->title_article,
+            'author' => $article->author,
+            'date' => $article->date,
+            'category_id' => $article->category_id,
+            'subtitle' => $article->subtitle,
+            'slug' => $article->slug,
+            'text' => $article->text,
+            'thumbnail' => $article->thumbnail
         ]);
 
         //Retorna página completa
