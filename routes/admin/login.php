@@ -32,7 +32,7 @@ $router->get('/admin/logout', [
 //Logout
 $router->get('/admin/time-out', [
     'middlewares'=> [
-        
+        'required-admin-logout'
     ],
     function ($request) {
         return new Response(200, Admin\Login::setTimeout($request));
