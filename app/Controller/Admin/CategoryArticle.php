@@ -52,30 +52,6 @@ class CategoryArticle extends Page
     /**
      * Retorna formulário de cadastro
      */
-    public static function getNewArticle($request)
-    {
-
-        //Conteudo do formulário
-        $content = View::render('admin/modules/blog/form', [
-            'title' => 'Cadastro de Artigo',
-            'status' => '',
-            'title_article' => '',
-            'author' => '',
-            'date' => '',
-            'category_id' => '',
-            'subtitle' => '',
-            'slug' => '',
-            'text' => '',
-            'thumbnail' => ''
-        ]);
-
-        //Retorna página completa
-        return parent::getPanel('Boss - Blog', $content, 'blog');
-    }
-
-    /**
-     * Retorna formulário de cadastro
-     */
     public static function getNewCategory($request)
     {
 
@@ -94,36 +70,11 @@ class CategoryArticle extends Page
     /**
      * Cadastra depoimento
      */
-    public static function setNewArticle($request)
-    {
-        //Dados
-        $postVars   = $request->getPostVars();
-        $fileVars = $request->getFileVars();
-        $thumbnail = parent::uploadFile($fileVars['thumbnail'], 'blog/');
-        
-        $article = new EntityArticle;
-
-        $article->author = $postVars['author'];
-        $article->date = $postVars['date'];
-        $article->category_id = $postVars['category_id'];
-        $article->title_article = $postVars['title_article'];
-        $article->subtitle = $postVars['subtitle'];
-        $article->slug = $postVars['slug'];
-        $article->text = $postVars['text'];
-        $article->thumbnail = $thumbnail->new_name;
-        $article->register();
-
-        $request->getRouter()->redirect('/admin/blog/' . $article->id . '/edit?status=created');
-    }
-
-    /**
-     * Cadastra depoimento
-     */
     public static function setNewCategory($request)
     {
         //Dados
         $postVars   = $request->getPostVars();
-        
+
         $category = new EntityCategory;
 
         $category->title = $postVars['title'];
@@ -137,102 +88,81 @@ class CategoryArticle extends Page
     /**
      * Form para editar depoimento
      */
-    public static function getEditArticle($request, $id)
+    public static function getEditCategory($request, $id)
     {
-        $article = EntityArticle::getArticleById($id);
+        $category = EntityCategory::getCategoryById($id);
 
-        if (!$article instanceof EntityArticle) {
+        if (!$category instanceof EntityCategory) {
             $request->getRouter()->redirect('/admin/blog');
         }
 
         //Conteudo do formulário
-        $content = View::render('admin/modules/blog/form', [
-            'title' => 'Editar Depoimento',
+        $content = View::render('admin/modules/blog/category/form', [
+            'title_module' => 'Editar Categoria',
             'status' => self::getStatus($request),
-            'title_article' => $article->title_article,
-            'author' => $article->author,
-            'date' => $article->date,
-            'category_id' => $article->category_id,
-            'subtitle' => $article->subtitle,
-            'slug' => $article->slug,
-            'text' => $article->text,
-            'thumbnail' => $article->thumbnail
+            'title' => $category->title,
+            'slug' => $category->slug,
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss - Blog', $content, 'blog');
+        return parent::getPanel('Boss - Categoria', $content, 'blog');
     }
 
     /**
      * Editar depoimento
      */
-    public static function setEditArticle($request, $id)
+    public static function setEditCategory($request, $id)
     {
-        $article = EntityArticle::getArticleById($id);
+        $category = EntityCategory::getCategoryById($id);
 
-        if (!$article instanceof EntityArticle) {
+        if (!$category instanceof EntityCategory) {
             $request->getRouter()->redirect('/admin/blog');
         }
 
         $postVars   = $request->getPostVars();
-        $fileVars = $request->getFileVars();
-        $thumbnail = '';
 
-        if ($fileVars['thumbnail']['error'] != 4) {
-            $thumbnail  = parent::uploadFile($fileVars['thumbnail'],  'blog/');
-        }
+        $category->title = $postVars['title'] ?? $category->title;
+        $category->slug = $postVars['slug'] ?? $category->slug;
 
-        $article->author = $postVars['author'] ?? $article->author;
-        $article->date = $postVars['date'] ?? $article->date;
-        $article->category_id = $postVars['category_id'] ?? $article->category_id;
-        $article->title_article = $postVars['title_article'] ?? $article->title_article;
-        $article->subtitle = $postVars['subtitle'] ?? $article->subtitle;
-        $article->slug = $postVars['slug'] ?? $article->slug;
-        $article->text = $postVars['text'] ?? $article->text;
-        $article->thumbnail = !empty($thumbnail) ? $thumbnail->new_name : $article->thumbnail;
+        $category->update();
 
-        $article->update();
-
-        $request->getRouter()->redirect('/admin/blog/' . $article->id . '/edit?status=updated');
+        $request->getRouter()->redirect('/admin/blog/' . $category->id . '/edit?status=updated');
     }
 
     /**
      * Tela de deletar um depoimento 
      */
-    public static function getDeleteArticle($request, $id)
+    public static function getDeleteCategory($request, $id)
     {
-        $article = EntityArticle::getArticleById($id);
+        $category = EntityCategory::getCategoryById($id);
 
-        if (!$article instanceof EntityArticle) {
+        if (!$category instanceof EntityCategory) {
             $request->getRouter()->redirect('/admin/blog');
         }
 
         //Conteudo do formulário
-        $content = View::render('admin/modules/blog/delete', [
-            'title' => 'Excluir artigo',
-            'author' => $article->author,
-            'title_article' => $article->title_article,
-            'slug' => $article->slug,
-            'thumbnail' => $article->thumbnail,
-            'date' => date('d/m/Y', strtotime($article->date))
+        $content = View::render('admin/modules/blog/category/delete', [
+            'title_module' => 'Excluir artigo',
+            'title' => $category->title,
+            'slug' => $category->slug,
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss - Blog', $content, 'blog');
+        return parent::getPanel('Boss - Categoria', $content, 'blog');
     }
 
     /**
      * Deletar depoimento
      */
-    public static function setDeleteBlog($request, $id)
+    public static function setDeleteCategory($request, $id)
     {
-        $article = EntityArticle::getArticleById($id);
+        $category = EntityCategory::getCategoryById($id);
 
-        if (!$article instanceof EntityArticle) {
+        if (!$category instanceof EntityCategory) {
             $request->getRouter()->redirect('/admin/blog');
         }
 
-        $article->delete();
+        $category->delete();
 
         $request->getRouter()->redirect('/admin/blog?status=deleted');
     }
@@ -260,7 +190,7 @@ class CategoryArticle extends Page
         //Renderiza o item
         while ($article = $results->fetchObject(EntityArticle::class)) {
             $itens .= View::render(
-                "admin/modules/blog/itens",
+                "admin/modules/blog/category/itens",
                 [
                     'id' => $article->id,
                     'data' => date('d/m/Y', strtotime($article->date)),
@@ -275,7 +205,7 @@ class CategoryArticle extends Page
     /**
      * Renderiza os itens de depoimento na página
      */
-    private function getCategoryItens($request, &$pagination)
+    public static function getCategoryItens($request, &$pagination)
     {
         $itens = "";
 

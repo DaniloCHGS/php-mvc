@@ -33,5 +33,8 @@ include __DIR__ . '/admin/banners.php';
 //Inlue as rotas contato
 include __DIR__ . '/admin/blog.php';
 
+//Inlue as rotas contato
+include __DIR__ . '/admin/category_article.php';
+
 //Inlue as rotas usuários
 include __DIR__ . '/admin/users.php';

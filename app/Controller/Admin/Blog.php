@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Utils\View;
 use App\Utils\Utils;
 use App\Model\Entity\Article as EntityArticle;
-use App\Model\Entity\CategoryArticle as EntityCategory;
+use App\Controller\Admin\CategoryArticle;
 use \WilliamCosta\DatabaseManager\Pagination;
 
 class Blog extends Page
@@ -40,7 +40,7 @@ class Blog extends Page
         //Conteudo de Depoimentos
         $content = View::render('admin/modules/blog/index', [
             'itens' => self::getArticleItens($request, $pagination),
-            'categories' => self::getCategoryItens($request, $pagination),
+            'categories' => CategoryArticle::getCategoryItens($request, $pagination),
             'pagination' => parent::getPagination($request, $pagination),
             'status' => self::getStatus($request)
         ]);
@@ -74,24 +74,6 @@ class Blog extends Page
     }
 
     /**
-     * Retorna formulário de cadastro
-     */
-    public static function getNewCategory($request)
-    {
-
-        //Conteudo do formulário
-        $content = View::render('admin/modules/blog/category/form', [
-            'title_module' => 'Cadastro de Categoria',
-            'status' => '',
-            'title' => '',
-            'slug' => '',
-        ]);
-
-        //Retorna página completa
-        return parent::getPanel('Boss - Categoria', $content, 'blog');
-    }
-
-    /**
      * Cadastra depoimento
      */
     public static function setNewArticle($request)
@@ -114,24 +96,6 @@ class Blog extends Page
         $article->register();
 
         $request->getRouter()->redirect('/admin/blog/' . $article->id . '/edit?status=created');
-    }
-
-    /**
-     * Cadastra depoimento
-     */
-    public static function setNewCategory($request)
-    {
-        //Dados
-        $postVars   = $request->getPostVars();
-
-        $category = new EntityCategory;
-
-        $category->title = $postVars['title'];
-        $category->slug = $postVars['slug'];
-
-        $category->register();
-
-        $request->getRouter()->redirect('/admin/blog/' . $category->id . '/edit?status=created');
     }
 
     /**
@@ -161,29 +125,6 @@ class Blog extends Page
 
         //Retorna página completa
         return parent::getPanel('Boss - Blog', $content, 'blog');
-    }
-
-    /**
-     * Form para editar depoimento
-     */
-    public static function getEditCategory($request, $id)
-    {
-        $category = EntityCategory::getCategoryById($id);
-
-        if (!$category instanceof EntityCategory) {
-            $request->getRouter()->redirect('/admin/blog');
-        }
-
-        //Conteudo do formulário
-        $content = View::render('admin/modules/blog/category/form', [
-            'title_module' => 'Editar Categoria',
-            'status' => self::getStatus($request),
-            'title' => $category->title,
-            'slug' => $category->slug,
-        ]);
-
-        //Retorna página completa
-        return parent::getPanel('Boss - Categoria', $content, 'blog');
     }
 
     /**
@@ -220,27 +161,6 @@ class Blog extends Page
     }
 
     /**
-     * Editar depoimento
-     */
-    public static function setEditCategory($request, $id)
-    {
-        $category = EntityCategory::getCategoryById($id);
-
-        if (!$category instanceof EntityCategory) {
-            $request->getRouter()->redirect('/admin/blog');
-        }
-
-        $postVars   = $request->getPostVars();
-
-        $category->title = $postVars['title'] ?? $category->title;
-        $category->slug = $postVars['slug'] ?? $category->slug;
-
-        $category->update();
-
-        $request->getRouter()->redirect('/admin/blog/' . $category->id . '/edit?status=updated');
-    }
-
-    /**
      * Tela de deletar um depoimento 
      */
     public static function getDeleteArticle($request, $id)
@@ -266,28 +186,6 @@ class Blog extends Page
     }
 
     /**
-     * Tela de deletar um depoimento 
-     */
-    public static function getDeleteCategory($request, $id)
-    {
-        $category = EntityCategory::getCategoryById($id);
-
-        if (!$category instanceof EntityCategory) {
-            $request->getRouter()->redirect('/admin/blog');
-        }
-
-        //Conteudo do formulário
-        $content = View::render('admin/modules/blog/category/delete', [
-            'title_module' => 'Excluir artigo',
-            'title' => $category->title,
-            'slug' => $category->slug,
-        ]);
-
-        //Retorna página completa
-        return parent::getPanel('Boss - Categoria', $content, 'blog');
-    }
-
-    /**
      * Deletar depoimento
      */
     public static function setDeleteBlog($request, $id)
@@ -299,22 +197,6 @@ class Blog extends Page
         }
 
         $article->delete();
-
-        $request->getRouter()->redirect('/admin/blog?status=deleted');
-    }
-
-    /**
-     * Deletar depoimento
-     */
-    public static function setDeleteCategory($request, $id)
-    {
-        $category = EntityCategory::getCategoryById($id);
-
-        if (!$category instanceof EntityCategory) {
-            $request->getRouter()->redirect('/admin/blog');
-        }
-
-        $category->delete();
 
         $request->getRouter()->redirect('/admin/blog?status=deleted');
     }
@@ -349,39 +231,6 @@ class Blog extends Page
                     'title_article' => $article->title_article,
                     'slug' => $article->slug,
                     'thumbnail' => $article->thumbnail
-                ]
-            );
-        }
-        return $itens;
-    }
-    /**
-     * Renderiza os itens de depoimento na página
-     */
-    private function getCategoryItens($request, &$pagination)
-    {
-        $itens = "";
-
-        //Quantidade total de registros
-        $total = EntityCategory::getCategories(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
-
-        //Pagina atual
-        $queryParams = $request->getQueryParams();
-        $paginaAtual = $queryParams['page'] ?? 1;
-
-        //Instancia
-        $pagination = new Pagination($total, $paginaAtual, 3);
-
-        //Resultados da página
-        $results = EntityCategory::getCategories(null, 'id DESC', $pagination->getLimit());
-
-        //Renderiza o item
-        while ($article = $results->fetchObject(EntityCategory::class)) {
-            $itens .= View::render(
-                "admin/modules/blog/category/itens",
-                [
-                    'id' => $article->id,
-                    'title' => $article->title,
-                    'slug' => $article->slug,
                 ]
             );
         }

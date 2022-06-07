@@ -2,88 +2,76 @@
 
 use App\Http\Response;
 use \App\Controller\Admin;
-use App\Utils\Utils;
 
-//Lista os depoimentos
-$router->get('/admin/blog', [
-    'middlewares' => [
-        'required-admin-login',
-        'time-login',
-        'module-auth'
-    ],
-    function ($request) {
-        return new Response(200, Admin\Blog::index($request));
-    }
-]);
 
 //Tela de cadastro
-$router->get('/admin/blog/new', [
+$router->get('/admin/categoria/new', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request) {
-        return new Response(200, Admin\Blog::getNewArticle($request));
+        return new Response(200, Admin\CategoryArticle::getNewCategory($request));
     }
 ]);
 
 //Cadastro
-$router->post('/admin/blog/new', [
+$router->post('/admin/categoria/new', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request) {
-        return new Response(200, Admin\Blog::setNewArticle($request));
+        return new Response(200, Admin\CategoryArticle::setNewCategory($request));
     }
 ]);
 
 //Tela de editar
-$router->get('/admin/blog/{id}/edit', [
+$router->get('/admin/categoria/{id}/edit', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request, $id) {
-        return new Response(200, Admin\Blog::getEditArticle($request, $id));
+        return new Response(200, Admin\CategoryArticle::getEditCategory($request, $id));
     }
 ]);
 
 //Editar
-$router->post('/admin/blog/{id}/edit', [
+$router->post('/admin/categoria/{id}/edit', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request, $id) {
-        return new Response(200, Admin\Blog::setEditArticle($request, $id));
+        return new Response(200, Admin\CategoryArticle::setEditCategory($request, $id));
     }
 ]);
 
 //Tela de excluir
-$router->get('/admin/blog/{id}/delete', [
+$router->get('/admin/categoria/{id}/delete', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request, $id) {
-        return new Response(200, Admin\Blog::getDeleteArticle($request, $id));
+        return new Response(200, Admin\CategoryArticle::getDeleteCategory($request, $id));
     }
 ]);
 
-//Excluir
-$router->post('/admin/blog/{id}/delete', [
+//Tela de excluir
+$router->post('/admin/categoria/{id}/delete', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request, $id) {
-        return new Response(200, Admin\Blog::setDeleteBlog($request, $id));
+        return new Response(200, Admin\CategoryArticle::setDeleteCategory($request, $id));
     }
 ]);
