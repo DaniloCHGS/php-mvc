@@ -29,3 +29,12 @@ $router->get('/admin/logout', [
         return new Response(200, Admin\Login::setLogout($request));
     }
 ]);
+//Logout
+$router->get('/admin/time-out', [
+    'middlewares'=> [
+        
+    ],
+    function ($request) {
+        return new Response(200, Admin\Login::setTimeout($request));
+    }
+]);

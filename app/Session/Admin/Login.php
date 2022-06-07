@@ -23,8 +23,10 @@ class Login
         //Inicia sessão
         self::init();
         $time_init = time();
+        $seconds = 60;
+        $minutes = 60;
         //1H
-        $time_end = $time_init + ((60) * 60);
+        $time_end = $time_init + (($seconds) * $minutes);
 
         $_SESSION['admin']['user'] = [
             'id' => $user->id,

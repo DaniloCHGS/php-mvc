@@ -12,6 +12,21 @@ class Login extends Page
     /**
      * Retorna tela de login
      */
+    public static function setTimeout($request, $erroMessage = null)
+    {
+        //Status
+        $status = !is_null($erroMessage) ? Alert::getError($erroMessage) : '';
+
+        //Conteudo da página de login
+        $content = View::render('admin/time-out', [
+            'status' => $status
+        ]);
+
+        return parent::getPage('Boss - Time out', $content);
+    }
+    /**
+     * Retorna tela de login
+     */
     public static function getLogin($request, $erroMessage = null)
     {
         //Status

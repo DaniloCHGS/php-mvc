@@ -43,18 +43,18 @@ class Page
             'id' => 20,
             'admin' => 1
         ],
-        'company' => [
-            'label' => 'Dados da Empresa',
-            'link' => URL . '/admin/dados-empresa',
-            'icon' => 'bx-buildings',
-            'id' => 1,
-            'admin' => 1
-        ],
         'identity' => [
             'label' => 'Identidade do Site',
             'link' => URL . '/admin/identidade-site',
             'icon' => 'bx-palette',
             'id' => 2,
+            'admin' => 1
+        ],
+        'company' => [
+            'label' => 'Dados da Empresa',
+            'link' => URL . '/admin/dados-empresa',
+            'icon' => 'bx-buildings',
+            'id' => 1,
             'admin' => 1
         ],
         'access_area' => [
@@ -64,11 +64,18 @@ class Page
             'id' => 3,
             'admin' => 3
         ],
+        'historic' => [
+            'label' => 'Histórico',
+            'link' => URL . '/admin/historico',
+            'icon' => 'bx-time',
+            'id' => 4,
+            'admin' => 2
+        ],
         'users' => [
             'label' => 'Usuários',
             'link' => URL . '/admin/usuarios',
             'icon' => 'bx-user-circle',
-            'id' => 4,
+            'id' => 28,
             'admin' => 2
         ],
     ];
