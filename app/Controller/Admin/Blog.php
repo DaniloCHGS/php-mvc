@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Utils\View;
 use App\Utils\Utils;
-use App\Model\Entity\Depoimentos as DepoimentosModel;
+use App\Model\Entity\Article as EntityArticle;
 use \WilliamCosta\DatabaseManager\Pagination;
 
 class Blog extends Page
@@ -20,13 +20,13 @@ class Blog extends Page
 
         switch ($queryParams['status']) {
             case 'created':
-                return Alert::getSuccess('Depoimento criado com sucesso');
+                return Alert::getSuccess('Artigo criado com sucesso');
                 break;
             case 'updated':
-                return Alert::getSuccess('Depoimento atualizado com sucesso');
+                return Alert::getSuccess('Artigo atualizado com sucesso');
                 break;
             case 'deleted':
-                return Alert::getSuccess('Depoimento excluido com sucesso');
+                return Alert::getSuccess('Artigo excluido com sucesso');
                 break;
         }
     }
@@ -68,17 +68,17 @@ class Blog extends Page
     /**
      * Cadastra depoimento
      */
-    public static function setNewTestimonies($request)
+    public static function setNewArticle($request)
     {
         //Dados
         $postVars   = $request->getPostVars();
 
-        $depoimento = new DepoimentosModel;
+        $depoimento = new EntityArticle;
         $depoimento->autor = $postVars['autor'];
         $depoimento->depoimento = $postVars['depoimento'];
         $depoimento->register();
 
-        $request->getRouter()->redirect('/admin/depoimentos/' . $depoimento->id . '/edit?status=created');
+        $request->getRouter()->redirect('/admin/blog/' . $depoimento->id . '/edit?status=created');
     }
 
     /**
@@ -86,9 +86,9 @@ class Blog extends Page
      */
     public static function getEditTestimonies($request, $id)
     {
-        $depoimento = DepoimentosModel::getTestimonyById($id);
+        $depoimento = EntityArticle::getTestimonyById($id);
 
-        if (!$depoimento instanceof DepoimentosModel) {
+        if (!$depoimento instanceof EntityArticle) {
             $request->getRouter()->redirect('/admin/depoimentos');
         }
 
@@ -109,9 +109,9 @@ class Blog extends Page
      */
     public static function setEditTestimonies($request, $id)
     {
-        $depoimento = DepoimentosModel::getTestimonyById($id);
+        $depoimento = EntityArticle::getTestimonyById($id);
 
-        if (!$depoimento instanceof DepoimentosModel) {
+        if (!$depoimento instanceof EntityArticle) {
             $request->getRouter()->redirect('/admin/depoimentos');
         }
 
@@ -130,9 +130,9 @@ class Blog extends Page
      */
     public static function getDeleteTestimonies($request, $id)
     {
-        $depoimento = DepoimentosModel::getTestimonyById($id);
+        $depoimento = EntityArticle::getTestimonyById($id);
 
-        if (!$depoimento instanceof DepoimentosModel) {
+        if (!$depoimento instanceof EntityArticle) {
             $request->getRouter()->redirect('/admin/depoimentos');
         }
 
@@ -152,9 +152,9 @@ class Blog extends Page
      */
     public static function setDeleteTestimonies($request, $id)
     {
-        $depoimento = DepoimentosModel::getTestimonyById($id);
+        $depoimento = EntityArticle::getTestimonyById($id);
 
-        if (!$depoimento instanceof DepoimentosModel) {
+        if (!$depoimento instanceof EntityArticle) {
             $request->getRouter()->redirect('/admin/depoimentos');
         }
 
@@ -171,7 +171,7 @@ class Blog extends Page
         $itens = "";
 
         //Quantidade total de registros
-        $total = DepoimentosModel::getTestimonies(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
+        $total = EntityArticle::getTestimonies(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
 
         //Pagina atual
         $queryParams = $request->getQueryParams();
@@ -181,10 +181,10 @@ class Blog extends Page
         $pagination = new Pagination($total, $paginaAtual, 3);
 
         //Resultados da página
-        $results = DepoimentosModel::getTestimonies(null, 'id DESC', $pagination->getLimit());
+        $results = EntityArticle::getTestimonies(null, 'id DESC', $pagination->getLimit());
 
         //Renderiza o item
-        while ($obDepoimentos = $results->fetchObject(DepoimentosModel::class)) {
+        while ($obDepoimentos = $results->fetchObject(EntityArticle::class)) {
             $itens .= View::render(
                 "admin/modules/testimonies/itens",
                 [

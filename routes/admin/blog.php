@@ -28,14 +28,14 @@ $router->get('/admin/blog/new', [
 ]);
 
 //Cadastro
-$router->post('/admin/depoimentos/new', [
+$router->post('/admin/blog/new', [
     'middlewares' => [
         'required-admin-login',
         'time-login',
         'module-auth'
     ],
     function ($request) {
-        return new Response(200, Admin\Testimony::setNewTestimonies($request));
+        return new Response(200, Admin\Blog::setNewArticle($request));
     }
 ]);
 
