@@ -39,6 +39,7 @@ class Blog extends Page
         //Conteudo de Depoimentos
         $content = View::render('admin/modules/blog/index', [
             'itens' => self::getArticleItens($request, $pagination),
+            'categories' => self::getCategoryItens($request, $pagination),
             'pagination' => parent::getPagination($request, $pagination),
             'status' => self::getStatus($request)
         ]);
@@ -203,6 +204,41 @@ class Blog extends Page
      * Renderiza os itens de depoimento na página
      */
     private function getArticleItens($request, &$pagination)
+    {
+        $itens = "";
+
+        //Quantidade total de registros
+        $total = EntityArticle::getArticles(null, null, null, "COUNT(*) as qtd")->fetchObject()->qtd;
+
+        //Pagina atual
+        $queryParams = $request->getQueryParams();
+        $paginaAtual = $queryParams['page'] ?? 1;
+
+        //Instancia
+        $pagination = new Pagination($total, $paginaAtual, 3);
+
+        //Resultados da página
+        $results = EntityArticle::getArticles(null, 'id DESC', $pagination->getLimit());
+
+        //Renderiza o item
+        while ($article = $results->fetchObject(EntityArticle::class)) {
+            $itens .= View::render(
+                "admin/modules/blog/itens",
+                [
+                    'id' => $article->id,
+                    'data' => date('d/m/Y', strtotime($article->date)),
+                    'title_article' => $article->title_article,
+                    'slug' => $article->slug,
+                    'thumbnail' => $article->thumbnail
+                ]
+            );
+        }
+        return $itens;
+    }
+    /**
+     * Renderiza os itens de depoimento na página
+     */
+    private function getCategoryItens($request, &$pagination)
     {
         $itens = "";
 

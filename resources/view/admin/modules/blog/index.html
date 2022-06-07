@@ -1,7 +1,6 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h1>Blog</h1>
-        <a class="btn btn-success" href="{{URL}}/admin/blog/new">Novo <i class='bx bx-plus'></i></a>
     </div>
 </div>
 
@@ -19,8 +18,8 @@
             </button>
         </li>
         <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-profile"
-                aria-controls="navs-top-profile" aria-selected="false">
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-category"
+                aria-controls="navs-category" aria-selected="false">
                 <i class='bx bx-category'></i>
                 Categorias
             </button>
@@ -28,7 +27,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="navs-article" role="tabpanel">
-
+            <a class="btn btn-success mb-3" href="{{URL}}/admin/blog/new" style="">Novo <i class='bx bx-plus'></i></a>
             <div class="table-responsive text-nowrap">
                 <table class="table table-hover">
                     <thead>
@@ -46,16 +45,22 @@
             </div>
 
         </div>
-        <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
-            <p>
-                Donut dragée jelly pie halvah. Danish gingerbread bonbon cookie wafer candy oat cake ice
-                cream. Gummies halvah tootsie roll muffin biscuit icing dessert gingerbread. Pastry ice cream
-                cheesecake fruitcake.
-            </p>
-            <p class="mb-0">
-                Jelly-o jelly beans icing pastry cake cake lemon drops. Muffin muffin pie tiramisu halvah
-                cotton candy liquorice caramels.
-            </p>
+        <div class="tab-pane fade" id="navs-category" role="tabpanel">
+            <a class="btn btn-success mb-3" href="{{URL}}/admin/blog/categoria/new">Novo <i class='bx bx-plus'></i></a>
+            <div class="table-responsive text-nowrap">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Slug</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        {{category}}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 </div>
