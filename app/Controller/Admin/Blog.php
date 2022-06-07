@@ -50,19 +50,19 @@ class Blog extends Page
     /**
      * Retorna formulário de cadastro
      */
-    public static function getNewTestimonies($request)
+    public static function getNewArticle($request)
     {
 
         //Conteudo do formulário
-        $content = View::render('admin/modules/testimonies/form', [
-            'title' => 'Cadastro de Depoimento',
+        $content = View::render('admin/modules/blog/form', [
+            'title' => 'Cadastro de Artigo',
             'autor' => '',
             'depoimento' => '',
             'status' => ''
         ]);
 
         //Retorna página completa
-        return parent::getPanel('Boss - Depoimentos', $content, 'testimonies');
+        return parent::getPanel('Boss - Blog', $content, 'blog');
     }
 
     /**
