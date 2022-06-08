@@ -12,9 +12,9 @@ class Historic {
     /**
      * Responsável em trazer o histórico do sistema
      */
-    public static function getHistoric(){
+    public static function getHistoric($limit = 12){
         $content = View::render('admin/modules/home/box', [
-            'itens' => self::getItensHistoric()
+            'itens' => self::getItensHistoric($limit)
         ]);
         return $content;
     }

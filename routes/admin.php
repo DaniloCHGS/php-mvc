@@ -27,14 +27,17 @@ include __DIR__ . '/admin/profle.php';
 //Inlue as rotas contato
 include __DIR__ . '/admin/contact.php';
 
-//Inlue as rotas contato
+//Inlue as rotas banner
 include __DIR__ . '/admin/banners.php';
 
-//Inlue as rotas contato
+//Inlue as rotas bog
 include __DIR__ . '/admin/blog.php';
 
-//Inlue as rotas contato
+//Inlue as rotas categoria de artigo
 include __DIR__ . '/admin/category_article.php';
+
+//Inlue as rotas historico
+include __DIR__ . '/admin/historic.php';
 
 //Inlue as rotas usuários
 include __DIR__ . '/admin/users.php';

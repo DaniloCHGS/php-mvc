@@ -1,0 +1,15 @@
+<tr>
+    <td style="width: 25%;">
+        <picture class="thumbnail">
+            <img class="w-100" src="{{URL_CONTENT}}blog/{{thumbnail}}" alt="">
+        </picture>
+    </td>
+    <td>{{data}}</td>
+    <td>{{title_article}}</td>
+    <td>{{category}}</td>
+    <td>
+        <a href="{{URL}}/admin/blog/{{id}}/edit" class="btn btn-warning">Editar <i class='bx bx-pencil'></i></a>
+        <a href="{{URL}}/blog/artigo/{{slug}}/" target="_blank" class="btn btn-info">Visualizar <i class='bx bx-show'></i></a>
+        <a href="{{URL}}/admin/blog/{{id}}/delete" class="btn btn-danger">Excluir <i class='bx bx-trash' ></i></a>
+    </td>
+</tr>
