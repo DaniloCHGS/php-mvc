@@ -74,8 +74,10 @@ class Blog extends Page
             'category_options' => self::getCategoryOptions($request),
         ]);
 
+        $scripts = View::render('admin/modules/blog/scripts');
+
         //Retorna página completa
-        return parent::getPanel('Boss - Blog', $content, 'blog');
+        return parent::getPanel('Boss - Blog', $content, 'blog', $scripts);
     }
 
     /**
@@ -129,8 +131,10 @@ class Blog extends Page
             'category_options' => self::getCategoryOptions($request),
         ]);
 
+        $scripts = View::render('admin/modules/blog/scripts');
+
         //Retorna página completa
-        return parent::getPanel('Boss - Blog', $content, 'blog');
+        return parent::getPanel('Boss - Blog', $content, 'blog', $scripts);
     }
 
     /**
