@@ -6,6 +6,7 @@ use App\Utils\View;
 use App\Utils\Utils;
 use App\Model\Entity\Article as EntityArticle;
 use App\Controller\Admin\CategoryArticle;
+use App\Model\Entity\CategoryArticle as EntityCategory;
 use \WilliamCosta\DatabaseManager\Pagination;
 
 class Blog extends Page
@@ -69,7 +70,8 @@ class Blog extends Page
             'subtitle' => '',
             'slug' => '',
             'text' => '',
-            'thumbnail' => ''
+            'thumbnail' => '',
+            'category_options' => self::getCategoryOptions($request),
         ]);
 
         //Retorna página completa
@@ -123,7 +125,8 @@ class Blog extends Page
             'subtitle' => $article->subtitle,
             'slug' => $article->slug,
             'text' => $article->text,
-            'thumbnail' => $article->thumbnail
+            'thumbnail' => $article->thumbnail,
+            'category_options' => self::getCategoryOptions($request),
         ]);
 
         //Retorna página completa
@@ -226,14 +229,40 @@ class Blog extends Page
 
         //Renderiza o item
         while ($article = $results->fetchObject(EntityArticle::class)) {
+            $category = EntityCategory::getCategoryById($article->category_id);
             $itens .= View::render(
                 "admin/modules/blog/itens",
                 [
                     'id' => $article->id,
                     'data' => date('d/m/Y', strtotime($article->date)),
                     'title_article' => $article->title_article,
+                    'thumbnail' => $article->thumbnail,
+                    'category' => $category->title ?? '',
                     'slug' => $article->slug,
-                    'thumbnail' => $article->thumbnail
+                ]
+            );
+        }
+        return $itens;
+    }
+
+    /**
+     * Renderiza os itens de depoimento na página
+     */
+    private function getCategoryOptions($request)
+    {
+        $itens = "";
+
+        //Resultados da página
+        $results = EntityCategory::getCategories(null, 'id DESC');
+        
+        //Renderiza o item
+        while ($category = $results->fetchObject(EntityCategory::class)) {
+            
+            $itens .= View::render(
+                "admin/modules/blog/category_itens",
+                [
+                    'id' => $category->id,
+                    'title' => $category->title
                 ]
             );
         }
