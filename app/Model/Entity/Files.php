@@ -3,6 +3,7 @@
 namespace App\Model\Entity;
 
 use App\Utils\Utils;
+use App\Utils\FilesManager;
 use WilliamCosta\DatabaseManager\Database;
 
 class Files
@@ -29,6 +30,12 @@ class Files
 
     public static function getFileByName($name){
         return self::getFiles("file LIKE '%$name%'")->fetchObject(self::class);
+    }
+
+    public static function getFileName($id){
+        $file = self::getFileById($id);
+        
+        return empty($file->web_file) ? $file->file : $file->web_file;
     }
 
     /**
@@ -63,5 +70,44 @@ class Files
     {
         return (new Database(self::TABLE))->delete('id = ' . $this->id);
         return true;
+    }
+
+    /**
+     * Função responsável por realizar o upload do arquivo para que
+     * possa ser realizado o registro no banco. 
+     */    
+    public function setFile($file, $extensions = [], $file_name = "same_name"){
+        $file = new FilesManager\UpFile($file, "", $file_name, $extensions);
+        $file->upload();
+
+        if($file->uploaded){
+            $this->file = $file->new_name;
+            $this->web_file = "";
+        }
+
+        return $file->error_code;
+    }
+
+    /**
+     * Função responsável por realizar o upload da imagem para que
+     * possa ser realizado o registro no banco. 
+     */
+    public function setImage($file, $extensions = "img", $file_name = "same_name", $resolution = [0, 0]){
+        $image = new FilesManager\UpImage($file, "", $file_name, $resolution, $extensions);
+
+        if($image->uploaded){
+            $toWebp = new FilesManager\ToWebp();
+            $web_file = $toWebp->convert($image->path . $image->new_name);
+            
+            if($web_file != ""){
+                $this->file = $image->new_name;
+                $this->web_file = $web_file;
+            }else{
+                $this->file = $file->new_name;
+                $this->web_file = "";
+            }
+        }
+
+        return $image->error_code;
     }
 }

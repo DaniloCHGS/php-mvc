@@ -3,8 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Utils\View;
-use App\Utils\FilesManager\FileManager;
 use App\Model\Entity\AccessArea as EntityAccessArea;
+use App\Model\Entity\Files as EntityFiles;
 use App\Utils\Utils;
 use App\Utils\Historic;
 
@@ -197,15 +197,32 @@ class Page
         ]);
     }
 
-    public static function uploadFile($file, $isImage = true)
-    {
+    public static function uploadFile($file, $extensions = [], $file_name = "same_name"){
         if(isset($file)){
-            $manager = new FileManager();
+            $manager = new EntityFiles;
     
-            $status_code = $isImage ? $manager->setImage($file) : $manager->setFile($file);
+            $status_code = $manager->setFile($file, $extensions, $file_name);
             
             if($status_code == 0){
-                return $manager->createFile();
+                $manager->register();
+
+                return $manager->id;
+            }
+        }
+
+        return false;
+    }
+
+    public static function uploadImage($file, $resolution = [0, 0], $extensions = "img", $file_name = "same_name"){
+        if(isset($file)){
+            $manager = new EntityFiles;
+    
+            $status_code = $manager->setImage($file, $extensions, $file_name, $resolution);
+            
+            if($status_code == 0){
+                $manager->register();
+
+                return $manager->id;
             }
         }
 

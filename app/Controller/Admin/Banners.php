@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Utils\View;
 use App\Utils\Utils;
 use App\Model\Entity\Banner as EntityBanner;
+use App\Model\Entity\Files as EntityFiles;
 use \WilliamCosta\DatabaseManager\Pagination;
 
 class Banners extends Page
@@ -83,11 +84,11 @@ class Banners extends Page
         $banner->link_target = !isset($postVars['link_target']) ? 0 : 1;
         $banner->active = !isset($postVars['active']) ? 0 : 1;
 
-        $banner_desktop = parent::uploadFile($fileVars['banner_desktop'], 'banner/');
-        $banner_mobile  = parent::uploadFile($fileVars['banner_mobile'],  'banner/mobile/');
+        $banner_desktop = parent::uploadImage($fileVars['banner_desktop']);
+        $banner_mobile  = parent::uploadImage($fileVars['banner_mobile']);
         
-        $banner->banner_desktop = $banner_desktop->new_name;
-        $banner->banner_mobile = $banner_mobile->new_name;
+        $banner->banner_desktop = $banner_desktop;
+        $banner->banner_mobile = $banner_mobile;
         $banner->register();
 
         $request->getRouter()->redirect('/admin/banners/' . $banner->id . '/edit?status=created');
@@ -110,8 +111,8 @@ class Banners extends Page
             'status' => self::getStatus($request),
             'title' => $banner->title,
             'link' => $banner->link,
-            'banner_desktop' => $banner->banner_desktop,
-            'banner_mobile' => $banner->banner_mobile,
+            'banner_desktop' => EntityFiles::getFileName($banner->banner_desktop),
+            'banner_mobile' => EntityFiles::getFileName($banner->banner_mobile),
             'active' => $banner->active,
             'link_target' => $banner->link_target
         ]);
@@ -134,20 +135,16 @@ class Banners extends Page
         $postVars = $request->getPostVars();
         $fileVars = $request->getFileVars();
 
+        $banner_desktop = parent::uploadImage($fileVars['banner_desktop']);
+        $banner_mobile  = parent::uploadImage($fileVars['banner_mobile']);
+
         $banner->title = $postVars['title'] ?? $banner->title;
         $banner->link = $postVars['link'] ?? $banner->link;
         $banner->link_target = !isset($postVars['link_target']) ? 0 : 1;
         $banner->active = !isset($postVars['active']) ? 0 : 1;
+        $banner->banner_desktop = $banner_desktop ? $banner_desktop : $banner->banner_desktop;
+        $banner->banner_mobile = $banner_mobile ? $banner_mobile : $banner->banner_mobile;
 
-        if($fileVars['banner_desktop']['error'] != 4){
-            $banner_desktop = parent::uploadFile($fileVars['banner_desktop'], 'banner/');
-            $banner->banner_desktop = $banner_desktop->new_name;
-        }
-
-        if($fileVars['banner_mobile']['error'] != 4){
-            $banner_mobile  = parent::uploadFile($fileVars['banner_mobile'],  'banner/mobile/');
-            $banner->banner_mobile = $banner_mobile->new_name;
-        }
         $banner->update();
 
         $request->getRouter()->redirect('/admin/banners/' . $banner->id . '/edit?status=updated');
@@ -167,7 +164,7 @@ class Banners extends Page
         //Conteudo do formulário
         $content = View::render('admin/modules/banners/delete', [
             'title' => $banner->title,
-            'banner_desktop' => $banner->banner_desktop
+            'banner_desktop' => EntityFiles::getFileName($banner->banner_desktop)
         ]);
 
         //Retorna página completa
@@ -215,7 +212,7 @@ class Banners extends Page
             $itens .= View::render(
                 "admin/modules/banners/itens",
                 [
-                    'banner_desktop' => $obBanner->banner_desktop,
+                    'banner_desktop' => EntityFiles::getFileName($obBanner->banner_desktop),
                     'title' => $obBanner->title,
                     'active' => $obBanner->active == 1 ? 'Ativo' : 'Desativado',
                     'id' => $obBanner->id

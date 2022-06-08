@@ -43,12 +43,9 @@ class Identity extends Page
             'status' => self::getStatus($request),
             'title_site' => $identity->title_site ?? '',
             'description' => $identity->description ?? '',
-            'logo_primary' => EntityFiles::getFileById($identity->logo_primary)->web_file ?? '',
-            'logo_secondary' => EntityFiles::getFileById($identity->logo_secondary)->web_file ?? '',
-            'logo_footer' => EntityFiles::getFileById($identity->logo_footer)->web_file  ?? ''
-            // 'logo_primary' => $identity->logo_primary ?? '',
-            // 'logo_secondary' => $identity->logo_secondary ?? '',
-            // 'logo_footer' => $identity->logo_footer ?? ''
+            'logo_primary' => EntityFiles::getFileName($identity->logo_primary),
+            'logo_secondary' => EntityFiles::getFileName($identity->logo_secondary),
+            'logo_footer' => EntityFiles::getFileName($identity->logo_footer)
         ]);
         $script = View::render('admin/modules/identity/script');
         //Retorna página completa
@@ -63,9 +60,9 @@ class Identity extends Page
         $postVars = $request->getPostVars();
         $fileVars = $request->getFileVars();
 
-        $logoPrimary = parent::uploadFile($fileVars['logo_primary']);
-        $logoSecondary = parent::uploadFile($fileVars['logo_secondary']);
-        $logoFooter = parent::uploadFile($fileVars['logo_footer']);
+        $logoPrimary = parent::uploadImage($fileVars['logo_primary']);
+        $logoSecondary = parent::uploadImage($fileVars['logo_secondary']);
+        $logoFooter = parent::uploadImage($fileVars['logo_footer']);
 
         $identity = EntityIdentity::getIdentityById(1);
 
