@@ -41,3 +41,6 @@ include __DIR__ . '/admin/historic.php';
 
 //Inlue as rotas usuários
 include __DIR__ . '/admin/users.php';
+
+//Inlue as rotas conteudos
+include __DIR__ . '/admin/content.php';

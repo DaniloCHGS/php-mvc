@@ -10,6 +10,7 @@
         "william-costa/database-manager": "^0.1.0",
         "firebase/php-jwt": "^6.1",
         "robmorgan/phinx": "^0.12.10",
-        "telegram-bot/api": "^2.3"
+        "telegram-bot/api": "^2.3",
+        "cocur/slugify": "^4.1"
     }
 }

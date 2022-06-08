@@ -3,8 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Utils\View;
-use App\Utils\UpFile;
 use App\Model\Entity\AccessArea as EntityAccessArea;
+use App\Model\Entity\Files as EntityFiles;
 use App\Utils\Utils;
 use App\Utils\Historic;
 
@@ -77,6 +77,13 @@ class Page
             'icon' => 'bx-user-circle',
             'id' => 28,
             'admin' => 2
+        ],
+        'content' => [
+            'label' => 'Conteúdo',
+            'link' => URL . '/admin/conteudo',
+            'icon' => 'bx bx-folder',
+            'id' => 26,
+            'admin' => 1
         ],
     ];
     /**
@@ -203,12 +210,36 @@ class Page
             "links" => $links
         ]);
     }
-    public static function uploadFile($file, $path, $config = [])
-    {
-        if ($file['error'] != 4 and !empty($path)) {
-            $fileUploaded = new UpFile($file, $path, $config);
-            return $fileUploaded;
+
+    public static function uploadFile($file, $extensions = [], $file_name = "same_name"){
+        if(isset($file)){
+            $manager = new EntityFiles;
+    
+            $status_code = $manager->setFile($file, $extensions, $file_name);
+            
+            if($status_code == 0){
+                $manager->register();
+
+                return $manager->id;
+            }
         }
+
+        return false;
+    }
+
+    public static function uploadImage($file, $resolution = [0, 0], $extensions = "img", $file_name = "same_name"){
+        if(isset($file)){
+            $manager = new EntityFiles;
+    
+            $status_code = $manager->setImage($file, $extensions, $file_name, $resolution);
+            
+            if($status_code == 0){
+                $manager->register();
+
+                return $manager->id;
+            }
+        }
+
         return false;
     }
 }

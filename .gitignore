@@ -1,6 +1,4 @@
 /vendor
-resources/content/logo
-resources/content/banner
-resources/content/blog
-htdocs.code-workspace
 php-mvc.zip
+resources/content
+htdocs.code-workspace
