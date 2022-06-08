@@ -11,6 +11,7 @@
         "firebase/php-jwt": "^6.1",
         "robmorgan/phinx": "^0.12.10",
         "telegram-bot/api": "^2.3",
-        "cocur/slugify": "^4.1"
+        "cocur/slugify": "^4.1",
+        "gregwar/image": "^2.1"
     }
 }

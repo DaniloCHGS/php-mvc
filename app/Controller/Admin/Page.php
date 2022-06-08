@@ -82,7 +82,7 @@ class Page
             'label' => 'Conteúdo',
             'link' => URL . '/admin/conteudo',
             'icon' => 'bx bx-folder',
-            'id' => 26,
+            'id' => 29,
             'admin' => 1
         ],
     ];
