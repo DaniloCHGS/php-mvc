@@ -29,7 +29,7 @@ class Files
     }
 
     public static function getFileByName($name){
-        return self::getFiles("file LIKE '%$name%'")->fetchObject(self::class);
+        return self::getFiles("file LIKE '$name'")->fetchObject(self::class);
     }
 
     public static function getFileName($id){

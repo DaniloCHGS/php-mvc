@@ -2,6 +2,7 @@
 
 namespace App\Utils\FilesManager;
 
+use App\Model\Entity\Files;
 use App\Utils\Utils;
 use Cocur\Slugify\Slugify;
 
@@ -86,20 +87,30 @@ class UpFile extends BrowserFile
     
             $this->new_name = implode("", $data)
                 . implode("", $hora)
-                . "_"
-                . self::$amount
-                . "."
-                . $this->ext;
+                . "-"
+                . self::$amount;
     
             self::$amount++;
         }else if($file_name == "same_name"){
             $last_dot = strripos($this->name, ".");
             $name = substr($this->name, 0, $last_dot); 
 
-            $this->new_name = (new Slugify())->slugify($name) . "." . $this->ext;
+            $this->new_name = (new Slugify())->slugify($name);
         }else{
             $this->new_name = (new Slugify())->slugify($file_name) . "." . $this->ext;
         }
+
+        $db_file = Files::getFileByName($this->new_name . "%");
+        
+        if(!empty($db_file)){
+            $db_name = explode(".", $db_file->file)[0];
+
+            if($this->new_name == $db_name){
+                $this->new_name = uniqid($this->new_name . "-", true);
+            }
+        }
+
+        $this->new_name = (new Slugify())->slugify($this->new_name) . "." . $this->ext;
     }
 
     /**
