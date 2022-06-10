@@ -29,9 +29,7 @@ class Home extends Page
      */
     public static function getHome($request){
 
-        date_default_timezone_set('America/Sao_Paulo');
-        $openWeatherMap = new OpenWeatherMap(getenv('OPENWEATHERMAP_KEY'));
-        $currentWeather = $openWeatherMap->consultCurrentWeather("Rio de Janeiro", "RJ");
+        $currentWeather = self::getWeather();
 
         //Conteudo da Home
         $content = View::render('admin/modules/home/index', [
@@ -68,5 +66,10 @@ class Home extends Page
 
         //Retorna página completa
         return parent::getPanel('Boss - 500', $content, '');
+    }
+
+    private function getWeather(){
+        $openWeatherMap = new OpenWeatherMap(getenv('OPENWEATHERMAP_KEY'));
+        return $openWeatherMap->consultCurrentWeather("Rio de Janeiro", "RJ");
     }
 }

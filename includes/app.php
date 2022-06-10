@@ -6,6 +6,9 @@ use WilliamCosta\DotEnv\Environment;
 use WilliamCosta\DatabaseManager\Database;
 use App\Http\Middleware\Queue as MiddlewareQueue;
 
+//Setando timezone
+date_default_timezone_set('America/Sao_Paulo');
+
 //Carrega variaveis de ambiente
 Environment::load(__DIR__ . "/../");
 
