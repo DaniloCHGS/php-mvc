@@ -12,6 +12,9 @@ class AccessArea
     public $access;
     public $uri;
     public $admin;
+    public $link;
+    public $label;
+    public $icon;
 
     /**
      * Retorna Depoimentos
@@ -30,7 +33,10 @@ class AccessArea
         $this->id = (new Database('access_area'))->insert([
             'access' => $this->access,
             'uri' => $this->uri,
-            'admin' => $this->admin
+            'admin' => $this->admin,
+            'link' => $this->link,
+            'label' => $this->label,
+            'icon' => $this->icon,
         ]);
         return true;
     }
@@ -44,7 +50,10 @@ class AccessArea
         return (new Database('access_area'))->update('id = ' . $this->id, [
             'access' => $this->access,
             'uri' => $this->uri,
-            'admin' => $this->admin
+            'admin' => $this->admin,
+            'link' => $this->link,
+            'label' => $this->label,
+            'icon' => $this->icon,
         ]);
         return true;
     }

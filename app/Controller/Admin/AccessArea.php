@@ -60,7 +60,10 @@ class AccessArea extends Page
             'access' => '',
             'status' => '',
             'uri' => '',
-            'admin' => ''
+            'admin' => '',
+            'link' => '',
+            'label' => '',
+            'icon' => ''
         ]);
 
         //Retorna página completa
@@ -79,6 +82,9 @@ class AccessArea extends Page
         $access->access = $postVars['access'];
         $access->uri = $postVars['uri'];
         $access->admin = $postVars['admin'];
+        $access->label = $postVars['label'];
+        $access->link = $postVars['link'];
+        $access->icon = $postVars['icon'];
         $access->register();
 
         $historic = new Historic;
@@ -106,7 +112,10 @@ class AccessArea extends Page
             'status' => self::getStatus($request),
             'access' => $access->access,
             'uri' => $access->uri,
-            'admin' => $access->admin
+            'admin' => $access->admin,
+            'link' => $access->link,
+            'label' => $access->label,
+            'icon' => $access->icon
         ]);
 
         //Retorna página completa
@@ -129,6 +138,9 @@ class AccessArea extends Page
         $access->access = $postVars['access'] ?? $access->access;
         $access->uri = $postVars['uri'] ?? $access->uri;
         $access->admin = $postVars['admin'] ?? $access->admin;
+        $access->label = $postVars['label'] ?? $access->label;
+        $access->link = $postVars['link'] ?? $access->link;
+        $access->icon = $postVars['icon'] ?? $access->icon;
 
         $access->update();
 
